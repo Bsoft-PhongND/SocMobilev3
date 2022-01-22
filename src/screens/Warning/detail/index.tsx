@@ -84,11 +84,11 @@ const RenderItem = React.memo(({item, index}: any) => {
     otherF: false,
   });
   return (
-    <Pressable onLongPress={()=> setState({...state,otherF:!state.otherF})}>
+    <Pressable onLongPress={() => setState({...state, otherF: !state.otherF})}>
       <Flex flexDirection={'row'} flex={1} key={item.id}>
         <View
           style={{
-            width: 5,
+            width: 6,
             height: '60%',
             backgroundColor: color || 'red',
             borderRadius: 5,
@@ -143,10 +143,17 @@ const RenderItem = React.memo(({item, index}: any) => {
             </Text>
           </Flex>
           {state.otherF ? (
-            <HStack space={"1"} flexDirection="row" style={{justifyContent: 'space-between',paddingVertical:3}}>
-              <Button>{wordApp.wait}</Button><Button variant={"outline"}>{wordApp.doing}</Button><Button variant={'subtle'}>{wordApp.verified}</Button>
+            <HStack
+              space={'1'}
+              flexDirection="row"
+              style={{justifyContent: 'space-between', paddingVertical: 3}}>
+              <Button>{wordApp.wait}</Button>
+              <Button variant={'outline'} size="sm">{wordApp.doing}</Button>
+              <Button variant={'subtle'}>{wordApp.verified}</Button>
             </HStack>
-          ): <View style={{paddingBottom:5}}/>}
+          ) : (
+            <View style={{paddingBottom: 5}} />
+          )}
         </Box>
       </Flex>
     </Pressable>
