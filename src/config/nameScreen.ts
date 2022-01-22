@@ -14,6 +14,8 @@ const NameScreen = {
         ContactScreen:"Liên hệ"
     },
     DashBoardScreen:"DashboardScreen",
+    StatisticScreen:"StatisticScreen",
+    DetailWarningScreen:"DetailWarningScreen",
     WarningScreen:"WarningScreen",
     ResponseScreen:"ResponseScreen",
     NewsScreen:"NewsScreen",
