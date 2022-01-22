@@ -1,8 +1,8 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import {NameScreen} from '../config';
 import HomeScreen from '../screens/HomeScreen';
 import CartScreen from '../screens/CartScreen';
 import FavoriteScreen from '../screens/FavoriteScreen';
@@ -18,12 +18,12 @@ const HomeStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name={NameScreen.HomeScreen}
         component={HomeScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="GameDetails"
+        name={NameScreen.GameDetailsScreen}
         component={GameDetailsScreen}
         options={({route}) => ({
           title: route.params?.title,
@@ -44,7 +44,7 @@ const TabNavigator = () => {
         tabBarActiveTintColor: 'yellow',
       }}>
       <Tab.Screen
-        name="Home2"
+        name={NameScreen.StacksScreen.HomeStack}
         component={HomeStack}
         options={({route}) => ({
           tabBarStyle: {
@@ -57,7 +57,7 @@ const TabNavigator = () => {
         })}
       />
       <Tab.Screen
-        name="Cart"
+        name={NameScreen.CartScreen}
         component={CartScreen}
         options={{
           tabBarBadge: 3,
@@ -68,7 +68,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Favorite"
+        name={NameScreen.FavoriteScreen}
         component={FavoriteScreen}
         options={{
           tabBarIcon: ({color, size}) => (
@@ -85,7 +85,7 @@ const getTabBarVisibility = route => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
   // console.log(routeName);
 
-  if( routeName == 'GameDetails' ) {
+  if (routeName == 'GameDetails') {
     return 'none';
   }
   return 'flex';

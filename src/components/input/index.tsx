@@ -26,7 +26,6 @@ const TextInputComponent = (props: PropsTypes) => {
           base: height,
         }}
         color={theme.colors.text}
-        tintColor={theme.colors.text}
         fontSize={"sm"}
         type={type}
         InputRightElement={props.RightElement ? props.RightElement : undefined}

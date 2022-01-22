@@ -4,6 +4,7 @@ import { SvgXml } from 'react-native-svg';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {svgs} from '../assets';
+import { NameScreen } from '../config';
 
 const OnboardingScreen = ({navigation}) => {
   return (
@@ -43,7 +44,7 @@ const OnboardingScreen = ({navigation}) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}
-        onPress={() => navigation.navigate('Login')}>
+        onPress={() => navigation.navigate(NameScreen.LoginScreen)}>
         <Text
           style={{
             color: 'white',

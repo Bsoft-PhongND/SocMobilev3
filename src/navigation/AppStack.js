@@ -4,13 +4,16 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import CustomDrawer from '../components/CustomDrawer';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-import ProfileScreen from '../screens/ProfileScreen';
-import MessagesScreen from '../screens/MessagesScreen';
-import MomentsScreen from '../screens/MomentsScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import WarningScreen from '../screens/Warning';
+import ResponseScreen from '../screens/Response';
+import NewsScreen from '../screens/News';
+import ContactScreen from '../screens/Contact';
 
 import TabNavigator from './TabNavigator';
+import {NameScreen} from '../config';
 
 const Drawer = createDrawerNavigator();
 
@@ -30,48 +33,53 @@ const AuthStack = () => {
         },
       }}>
       <Drawer.Screen
-        name="Home"
+        name={NameScreen.StacksScreen.TabBarBottom}
         component={TabNavigator}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="home-outline" size={22} color={color} />
+            <AntDesign name="dashboard" size={22} color={color} />
           ),
+          title: NameScreen.DrawerScreen.TabBarBottom,
         }}
       />
       <Drawer.Screen
-        name="Profile"
-        component={ProfileScreen}
+        name={NameScreen.WarningScreen}
+        component={WarningScreen}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="person-outline" size={22} color={color} />
+            <Feather name="alert-triangle" size={22} color={color} />
           ),
+          title: NameScreen.DrawerScreen.WarningScreen,
         }}
       />
       <Drawer.Screen
-        name="Messages"
-        component={MessagesScreen}
+        name={NameScreen.ResponseScreen}
+        component={ResponseScreen}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="chatbox-ellipses-outline" size={22} color={color} />
+            <FontAwesome name="gears" size={22} color={color} />
           ),
+          title: NameScreen.DrawerScreen.ResponseScreen,
         }}
       />
       <Drawer.Screen
-        name="Moments"
-        component={MomentsScreen}
+        name={NameScreen.NewsScreen}
+        component={NewsScreen}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="timer-outline" size={22} color={color} />
+            <Ionicons name="newspaper-outline" size={22} color={color} />
           ),
+          title: NameScreen.DrawerScreen.NewsScreen,
         }}
       />
       <Drawer.Screen
-        name="Settings"
-        component={SettingsScreen}
+        name={NameScreen.ContactScreen}
+        component={ContactScreen}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="settings-outline" size={22} color={color} />
+            <AntDesign name="contacts" size={22} color={color} />
           ),
+          title: NameScreen.DrawerScreen.ContactScreen,
         }}
       />
     </Drawer.Navigator>

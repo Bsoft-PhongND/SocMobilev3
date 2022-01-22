@@ -17,6 +17,7 @@ import {windowWidth} from '../utils/Dimensions';
 import {freeGames, paidGames, sliderData} from '../model/data';
 import CustomSwitch from '../components/CustomSwitch';
 import ListItem from '../components/ListItem';
+import { NameScreen } from '../config';
 
 export default function HomeScreen({navigation}) {
   const [gamesTab, setGamesTab] = useState(1);
@@ -111,7 +112,7 @@ export default function HomeScreen({navigation}) {
               subTitle={item.subtitle}
               isFree={item.isFree}
               onPress={() =>
-                navigation.navigate('GameDetails', {
+                navigation.navigate(NameScreen.GameDetailsScreen, {
                   title: item.title,
                   id: item.id,
                 })
@@ -128,7 +129,7 @@ export default function HomeScreen({navigation}) {
               isFree={item.isFree}
               price={item.price}
               onPress={() =>
-                navigation.navigate('GameDetails', {
+                navigation.navigate(NameScreen.GameDetailsScreen, {
                   title: item.title,
                   id: item.id,
                 })
