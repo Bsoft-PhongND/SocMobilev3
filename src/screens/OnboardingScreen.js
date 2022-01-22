@@ -1,8 +1,9 @@
 import React from 'react'
 import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
+import { SvgXml } from 'react-native-svg';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Gaming from '../assets/gaming.svg';
+import {svgs} from '../assets';
 
 const OnboardingScreen = ({navigation}) => {
   return (
@@ -25,7 +26,8 @@ const OnboardingScreen = ({navigation}) => {
         </Text>
       </View>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Gaming
+        <SvgXml
+          xml={svgs.SvgGaming}
           width={300}
           height={300}
           style={{transform: [{rotate: '-15deg'}]}}
