@@ -32,7 +32,10 @@ export const theme = {
     primary: '#560CCE',
     secondary: '#414757',
     error: '#f13a59',
-    background: '#19173e'
+    background: '#19173e',
+    blue1: '#99cfef',
+    blue2: '#3395c6',
+    red1:'#d55858'
   },
   fontSize: {
     h1: {fontFamily: 'Roboto-Bold', fontSize: SIZES.h1, lineHeight: 36},

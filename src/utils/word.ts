@@ -14,5 +14,8 @@ const wordApp = {
     wait:"Chờ xác minh",
     doing:'Đang xác minh',
     verified:"Đã xác minh",
+    hight:"Cao",
+    medium:"Trung Bình",
+    low:"Thấp"
 }
 export default wordApp;
