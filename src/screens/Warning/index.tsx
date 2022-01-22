@@ -12,7 +12,7 @@ const Container = () => {
   return <WarningScreen />;
 };
 const WarningScreen = () => {
-  const [index,setIndex] = React.useState(1);
+  const [index,setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: NameScreen.StatisticScreen, title: 'Thống kê'},
     {key: NameScreen.DetailWarningScreen, title: 'Chi tiết'}
@@ -37,7 +37,7 @@ const WarningScreen = () => {
         // backgroundColor: 'transparent',
         borderBottomWidth: 3,
         borderColor: 'white',
-        marginHorizontal: 12,
+        marginHorizontal: 10,
         width: windowWidth / 2 - 24,
       }}
       style={{backgroundColor: 'transparent'}}

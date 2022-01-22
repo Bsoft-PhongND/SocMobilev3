@@ -1,6 +1,6 @@
-import {Text, View} from 'native-base';
+import { View } from 'native-base';
 import React from 'react';
-import HeaderBack from '../../../components/headerback';
+import { ToolBar } from '../../../components/tools/ToolBar';
 import ViewBackGround from '../../../components/viewbackground';
 
 
@@ -8,8 +8,9 @@ export default function DetailScreen() {
   return (
     <ViewBackGround>
       <View style={{flex: 1}}>
-        <HeaderBack/>
-        <Text style={{color: 'white'}}>Detail Screen</Text>
+        <View style={{flex: 1,paddingHorizontal:10}}>
+        <ToolBar/>
+      </View>
       </View>
     </ViewBackGround>
   );
