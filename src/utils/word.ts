@@ -8,6 +8,11 @@ const wordApp = {
     warningLevel:'Số lượng mức độ cảnh báo',
     correctationLevel: 'Tương quan mức độ cảnh báo',
     warningStatus: 'Trạng thái cảnh báo',
-    refresh:'Làm mới'
+    refresh:'Làm mới',
+    number:"Số lượng",
+    status:"Trạng thái",
+    wait:"Chờ xác minh",
+    doing:'Đang xác minh',
+    verified:"Đã xác minh",
 }
 export default wordApp;

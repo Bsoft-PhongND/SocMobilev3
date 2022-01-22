@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {theme} from '../../theme/theme';
 import wordApp from '../../utils/word';
-export function ToolBar() {
+export function ToolBar({loading,onRefresh}:{loading:boolean,onRefresh:any}) {
   return (
     <Stack flexDirection="row" space="md" style={{marginTop:2}}>
       <Flex flexDirection="row" style={{justifyContent:'space-between',alignItems:'center',flex:1}}>
@@ -24,7 +24,9 @@ export function ToolBar() {
         <View>
           <Button
             variant="subtle"
+            isLoading={loading}
             style={{padding:5}}
+            onPress={onRefresh}
             leftIcon={<Icon as={Ionicons} name="refresh" size="xs" />}>
             {wordApp.refresh}
           </Button>

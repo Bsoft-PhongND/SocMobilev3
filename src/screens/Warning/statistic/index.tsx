@@ -20,7 +20,7 @@ export default function StatisticScreen() {
           <Heading size="xs" style={{color: theme.colors.text}}>
             {wordApp.correctationLevel}
           </Heading>
-        </View>
+        </View>                    
         <View>
           <Heading size="xs" style={{color: theme.colors.text}}>
             {wordApp.warningStatus}
