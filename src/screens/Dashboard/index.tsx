@@ -1,18 +1,17 @@
-import { Text, View } from 'native-base';
+import {Text, View} from 'native-base';
 import React from 'react';
-import {
-  SafeAreaView
-} from 'react-native';
+import HeaderMenu from '../../components/headermenu';
 import ViewBackGround from '../../components/viewbackground';
 
-
-
-export default function HomeScreen({navigation}) {
-
+export default function Container() {
+  return <HomeScreen />;
+}
+function HomeScreen() {
   return (
     <ViewBackGround>
-       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-      <Text style={{color:'white'}}>Cart Screen</Text>
+      <View style={{flex: 1}}>
+        <HeaderMenu title="Home" />
+        <Text style={{color: 'white'}}>Cart Screen</Text>
       </View>
     </ViewBackGround>
   );

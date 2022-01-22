@@ -32,7 +32,7 @@ const CustomDrawer = props => {
               fontFamily: 'Roboto-Medium',
               marginBottom: 5,
             }}>
-            John Doe
+            Nguyễn Anh Phan
           </Text>
           <View style={{flexDirection: 'row'}}>
             <Text
@@ -41,7 +41,7 @@ const CustomDrawer = props => {
                 fontFamily: 'Roboto-Regular',
                 marginRight: 5,
               }}>
-              280 Coins
+              Trưởng phòng - Giải pháp giám sát 1
             </Text>
             <FontAwesome5 name="coins" size={14} color="#fff" />
           </View>

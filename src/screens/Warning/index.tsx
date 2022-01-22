@@ -1,15 +1,20 @@
 import React from 'react';
 import {View, Text} from 'react-native';
+import HeaderMenu from '../../components/headermenu';
 import ViewBackGround from '../../components/viewbackground';
-
+import { NameScreen } from '../../config';
+const Container = () => {
+  return <WarningScreen />;
+};
 const WarningScreen = () => {
   return (
     <ViewBackGround>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{color: 'white'}}>WarningScreen Screen</Text>
+      <View style={{flex: 1}}>
+        <HeaderMenu title={NameScreen.DrawerScreen.WarningScreen} />
+        <Text style={{color: 'white'}}>Cart Screen</Text>
       </View>
     </ViewBackGround>
   );
 };
 
-export default WarningScreen;
+export default Container;
