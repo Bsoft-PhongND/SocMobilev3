@@ -1,25 +1,25 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
-import {NameScreen} from '../config';
-import HomeScreen from '../screens/HomeScreen';
+import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { NameScreen } from '../config';
 import CartScreen from '../screens/CartScreen';
 import FavoriteScreen from '../screens/FavoriteScreen';
 import GameDetailsScreen from '../screens/GameDetailsScreen';
+import NewsScreen from '../screens/News';
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const HomeStack = () => {
+const NewsStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={NameScreen.HomeScreen}
-        component={HomeScreen}
+        name={NameScreen.NewsScreen}
+        component={NewsScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -44,8 +44,8 @@ const TabNavigator = () => {
         tabBarActiveTintColor: 'yellow',
       }}>
       <Tab.Screen
-        name={NameScreen.StacksScreen.HomeStack}
-        component={HomeStack}
+        name={NameScreen.StacksScreen.NewsStack}
+        component={NewsStack}
         options={({route}) => ({
           tabBarStyle: {
             display: getTabBarVisibility(route),

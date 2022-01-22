@@ -1,12 +1,15 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from 'react';
+import {View, Text} from 'react-native';
+import ViewBackGround from '../../components/viewbackground';
 
 const WarningScreen = () => {
   return (
-    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-      <Text>Profile Screen</Text>
-    </View>
-  )
-}
+    <ViewBackGround>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={{color: 'white'}}>WarningScreen Screen</Text>
+      </View>
+    </ViewBackGround>
+  );
+};
 
 export default WarningScreen;

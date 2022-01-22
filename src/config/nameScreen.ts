@@ -4,15 +4,16 @@ const NameScreen = {
     SecurityNetWorkScreen:"SecurityNetWorkScreen",
     StacksScreen:{
         TabBarBottom:"TabBarBottom",
-        HomeStack:"HomeStack",
+        NewsStack:"NewsStack",
     },
     DrawerScreen:{
-        TabBarBottom:"Thống kê",
+        DashboardScreen:"Thống kê",
         ResponseScreen:"Phản ứng",
         WarningScreen:"Cảnh báo",
         NewsScreen:"Tin tức",
         ContactScreen:"Liên hệ"
     },
+    DashBoardScreen:"DashboardScreen",
     WarningScreen:"WarningScreen",
     ResponseScreen:"ResponseScreen",
     NewsScreen:"NewsScreen",

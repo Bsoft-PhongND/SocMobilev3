@@ -3,8 +3,8 @@ import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {svgs} from '../assets';
-import { NameScreen } from '../config';
+import {svgs} from '../../assets';
+import { NameScreen } from '../../config';
 
 const OnboardingScreen = ({navigation}) => {
   return (

@@ -14,6 +14,7 @@ import ContactScreen from '../screens/Contact';
 
 import TabNavigator from './TabNavigator';
 import {NameScreen} from '../config';
+import DashBoardScreen from '../screens/Dashboard';
 
 const Drawer = createDrawerNavigator();
 
@@ -33,13 +34,13 @@ const AuthStack = () => {
         },
       }}>
       <Drawer.Screen
-        name={NameScreen.StacksScreen.TabBarBottom}
-        component={TabNavigator}
+        name={NameScreen.DashBoardScreen}
+        component={DashBoardScreen}
         options={{
           drawerIcon: ({color}) => (
             <AntDesign name="dashboard" size={22} color={color} />
           ),
-          title: NameScreen.DrawerScreen.TabBarBottom,
+          title: NameScreen.DrawerScreen.DashboardScreen,
         }}
       />
       <Drawer.Screen
@@ -63,8 +64,8 @@ const AuthStack = () => {
         }}
       />
       <Drawer.Screen
-        name={NameScreen.NewsScreen}
-        component={NewsScreen}
+        name={NameScreen.StacksScreen.TabBarBottom}
+        component={TabNavigator}
         options={{
           drawerIcon: ({color}) => (
             <Ionicons name="newspaper-outline" size={22} color={color} />
