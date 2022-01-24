@@ -5,6 +5,7 @@ import {
   VictoryLabel,
   VictoryTheme,
   VictoryLegend,
+  VictoryAxis,
 } from 'victory-native';
 import React from 'react';
 import {theme} from '../../theme/theme';
@@ -14,46 +15,78 @@ function GroupBarChart() {
     //     <VictoryBar data={data} x="quarter" y="earnings" />
     //   </VictoryChart>
     <VictoryChart theme={VictoryTheme.material} domain={{y: [0.5, 5.5]}}>
+      <VictoryAxis
+        theme={VictoryTheme.material}
+        standalone={false}
+        style={{tickLabels: {fill: theme.colors.text}}}
+      />
+      <VictoryAxis
+        dependentAxis
+        crossAxis
+        theme={VictoryTheme.material}
+        standalone={false}
+        style={{tickLabels: {fill: theme.colors.text}}}
+      />
       <VictoryGroup
         offset={24}
         style={{data: {width: 20}}}
+        animate={{
+          duration: 2000,
+          onLoad: {duration: 500},
+        }}
         colorScale={[theme.colors.blue1, theme.colors.blue2, theme.colors.red1]}
-        labelComponent={<VictoryLabel textAnchor="start" />}>
+        labelComponent={
+          <VictoryLabel textAnchor="middle" style={{fill: theme.colors.text}} />
+        }>
         <VictoryBar
           data={[
-            {x: 1, y: 1, label: 'Alpha'},
-            {x: 2, y: 2, label: 'Alpha'},
-            {x: 3, y: 3, label: 'Alpha'},
+            {x: 'Hight', y: 1},
+            {x: 'Medium', y: 2},
+            {x: 'Low', y: 3},
           ]}
         />
         <VictoryBar
           data={[
-            {x: 1, y: 2, label: 'Alpha'},
-            {x: 2, y: 3, label: 'Alpha'},
-            {x: 3, y: 4, label: 'Alpha'},
+            {x: 'Hight', y: 2, label: 'Alpha'},
+            {x: 'Medium', y: 3, label: 'Alpha'},
+            {x: 'Low', y: 4, label: 'Alpha'},
           ]}
         />
         <VictoryBar
           data={[
-            {x: 1, y: 1, label: 'Alpha'},
-            {x: 2, y: 2, label: 'Alpha'},
-            {x: 3, y: 3, label: 'Alpha'},
+            {x: 'Hight', y: 1, label: 'Alpha'},
+            {x: 'Medium', y: 2, label: 'Alpha'},
+            {x: 'Low', y: 3, label: 'Alpha'},
           ]}
         />
       </VictoryGroup>
       <VictoryLegend
-          x={0}
-          y={10}
-          centerTitle
-          orientation="horizontal"
-          gutter={20}
-          style={{ title: {fontSize: 20}}}
-          data={[
-            {name: 'One', symbol: {fill: 'tomato', type: 'star'}},
-            {name: 'Two', symbol: {fill: 'orange'}},
-            {name: 'Three', symbol: {fill: 'gold'}},
-          ]}
-        />
+        x={0}
+        y={10}
+        centerTitle
+        orientation="horizontal"
+        gutter={20}
+        style={{
+          title: {fontSize: 20},
+        }}
+        data={[
+          {
+            name: 'One',
+            symbol: {fill: 'tomato', type: 'star'},
+            labels: {fill: theme.colors.text},
+          },
+          {
+            name: 'Two',
+            symbol: {fill: 'orange'},
+            labels: {fill: theme.colors.text},
+          },
+          {
+            name: 'Three',
+            symbol: {fill: 'gold'},
+            labels: {fill: theme.colors.text},
+          },
+        ]}
+      />
     </VictoryChart>
   );
 }
