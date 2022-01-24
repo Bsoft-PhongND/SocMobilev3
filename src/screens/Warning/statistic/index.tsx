@@ -5,12 +5,17 @@ import {
   Icon,
   ScrollView,
   Text,
+  useDisclose,
   View,
 } from 'native-base';
-import { ILinearGradientProps } from 'native-base/lib/typescript/components/primitives/Box/types';
-import { ColorType, ResponsiveValue } from 'native-base/lib/typescript/components/types';
+import {ILinearGradientProps} from 'native-base/lib/typescript/components/primitives/Box/types';
+import {
+  ColorType,
+  ResponsiveValue,
+} from 'native-base/lib/typescript/components/types';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import ModalSheetComponent from '../../../components/actionsheet';
 import BarChart from '../../../components/charts/barChart';
 import GroupBarChart from '../../../components/charts/groupChart';
 import {ToolBar} from '../../../components/tools/ToolBar';
@@ -19,10 +24,11 @@ import {theme} from '../../../theme/theme';
 import wordApp from '../../../utils/word';
 
 export default function StatisticScreen() {
+  const {isOpen, onOpen, onClose} = useDisclose();
   return (
     <ViewBackGround>
       <View style={{flex: 1, paddingHorizontal: 10}}>
-        <ToolBar />
+        <ToolBar filterClick={() => onOpen()} />
         <ScrollView>
           <View>
             <Heading size="xs" style={{color: theme.colors.text}}>
@@ -34,9 +40,13 @@ export default function StatisticScreen() {
                 paddingHorizontal: 20,
                 paddingVertical: 10,
               }}>
-              <CircleChart color="red.800" number={100} title={wordApp.hight}/>
-              <CircleChart color="green.400" number={100} title={wordApp.medium}/>
-              <CircleChart color="blue.300" number={100} title={wordApp.low}/>
+              <CircleChart color="red.800" number={100} title={wordApp.hight} />
+              <CircleChart
+                color="green.400"
+                number={100}
+                title={wordApp.medium}
+              />
+              <CircleChart color="blue.300" number={100} title={wordApp.low} />
             </HStack>
           </View>
           <View>
@@ -53,16 +63,31 @@ export default function StatisticScreen() {
           </View>
         </ScrollView>
       </View>
+      <ModalSheetComponent isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </ViewBackGround>
   );
 }
-const CircleChart = (props: {color?: ResponsiveValue<ColorType | (string & {}) | ILinearGradientProps>,number?: number,title?:string}) => {
+const CircleChart = (props: {
+  color?: ResponsiveValue<ColorType | (string & {}) | ILinearGradientProps>;
+  number?: number;
+  title?: string;
+}) => {
   return (
     <Circle size={98} bg={props.color}>
-      <Text style={{...theme.fontSize.h3,color: theme.colors.text, fontWeight: 'bold'}}>
+      <Text
+        style={{
+          ...theme.fontSize.h3,
+          color: theme.colors.text,
+          fontWeight: 'bold',
+        }}>
         {props.title}
       </Text>
-      <Text style={{...theme.fontSize.h3,color: theme.colors.text, fontWeight: 'bold'}}>
+      <Text
+        style={{
+          ...theme.fontSize.h3,
+          color: theme.colors.text,
+          fontWeight: 'bold',
+        }}>
         {props.number}
       </Text>
     </Circle>

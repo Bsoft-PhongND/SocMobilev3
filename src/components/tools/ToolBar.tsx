@@ -5,12 +5,26 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {theme} from '../../theme/theme';
 import wordApp from '../../utils/word';
-export function ToolBar({loading,onRefresh}:{loading?:boolean,onRefresh?:any}) {
+export function ToolBar({
+  loading,
+  onRefresh,
+  filterClick
+}: {
+  loading?: boolean;
+  onRefresh?: () => void;
+  filterClick?: () => void;
+}) {
   return (
-    <Stack flexDirection="row" space="md" style={{marginTop:2}}>
-      <Flex flexDirection="row" style={{justifyContent:'space-between',alignItems:'center',flex:1}}>
+    <Stack flexDirection="row" space="md" style={{marginTop: 2}}>
+      <Flex
+        flexDirection="row"
+        style={{
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flex: 1,
+        }}>
         <View>
-          <AntDesign name="filter" size={22} color="white" />
+          <AntDesign name="filter" size={22} color="white"  onPress={filterClick}/>
         </View>
         <Flex flexDirection="row">
           <AntDesign name="calendar" size={22} color="white" />
@@ -18,14 +32,14 @@ export function ToolBar({loading,onRefresh}:{loading?:boolean,onRefresh?:any}) {
             style={{
               ...theme.fontSize.h4,
               color: theme.colors.text,
-              marginLeft:10,
+              marginLeft: 10,
             }}>{`${new Date().toLocaleDateString()} - ${new Date().toLocaleDateString()}`}</Text>
         </Flex>
         <View>
           <Button
             variant="subtle"
             isLoading={loading}
-            style={{padding:5}}
+            style={{padding: 5}}
             onPress={onRefresh}
             leftIcon={<Icon as={Ionicons} name="refresh" size="xs" />}>
             {wordApp.refresh}
