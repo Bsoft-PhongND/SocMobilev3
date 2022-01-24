@@ -17,7 +17,8 @@ import {windowWidth} from '../../utils/Dimensions';
 import {freeGames, paidGames, sliderData} from '../../model/data';
 import CustomSwitch from '../../components/CustomSwitch';
 import ListItem from '../../components/ListItem';
-import { NameScreen } from '../../config';
+import {NameScreen} from '../../config';
+import ViewBackGround from '../../components/viewbackground';
 
 export default function NewsScreen({navigation}) {
   const [gamesTab, setGamesTab] = useState(1);
@@ -31,7 +32,7 @@ export default function NewsScreen({navigation}) {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+    <ViewBackGround>
       <ScrollView style={{padding: 20}}>
         <View
           style={{
@@ -137,6 +138,6 @@ export default function NewsScreen({navigation}) {
             />
           ))}
       </ScrollView>
-    </SafeAreaView>
+    </ViewBackGround>
   );
 }

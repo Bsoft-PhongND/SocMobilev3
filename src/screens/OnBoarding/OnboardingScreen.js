@@ -5,6 +5,7 @@ import { SvgXml } from 'react-native-svg';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {svgs} from '../../assets';
 import { NameScreen } from '../../config';
+import { theme } from '../../theme/theme';
 
 const OnboardingScreen = ({navigation}) => {
   return (
@@ -23,7 +24,7 @@ const OnboardingScreen = ({navigation}) => {
             fontSize: 30,
             color: '#20315f',
           }}>
-          GAMEON
+          SOC MOBILE
         </Text>
       </View>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -36,7 +37,7 @@ const OnboardingScreen = ({navigation}) => {
       </View>
       <TouchableOpacity
         style={{
-          backgroundColor: '#AD40AF',
+          backgroundColor: theme.colors.primary,
           padding: 20,
           width: '90%',
           borderRadius: 10,

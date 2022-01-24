@@ -6,6 +6,7 @@ import {
   HStack,
   Icon,
   NativeBaseProvider,
+  PresenceTransition,
   Pressable,
   Stack,
   Text,
@@ -18,6 +19,7 @@ import ViewBackGround from '../../../components/viewbackground';
 import Helpers from '../../../helpers/helpers';
 import {listWarnings} from '../../../model/data';
 import {theme} from '../../../theme/theme';
+import { windowWidth } from '../../../utils/Dimensions';
 import wordApp from '../../../utils/word';
 const config = {
   dependencies: {
@@ -142,18 +144,53 @@ const RenderItem = React.memo(({item, index}: any) => {
               {new Date(item.time).toLocaleDateString()}
             </Text>
           </Flex>
-          {state.otherF ? (
+          {state.otherF ? (  <PresenceTransition
+            visible={state.otherF}
+            initial={{
+              opacity: 0,
+              translateX:100,
+              scale:0
+            }}
+            animate={{
+              opacity: 1,
+              transition: {
+                duration: 250,
+              },
+            }}>
             <HStack
               space={'1'}
               flexDirection="row"
               style={{justifyContent: 'space-between', paddingVertical: 3}}>
               <Button>{wordApp.wait}</Button>
-              <Button variant={'outline'} size="sm">{wordApp.doing}</Button>
+              <Button variant={'outline'} size="sm">
+                {wordApp.doing}
+              </Button>
               <Button variant={'subtle'}>{wordApp.verified}</Button>
             </HStack>
-          ) : (
-            <View style={{paddingBottom: 5}} />
-          )}
+          </PresenceTransition>):<View style={{paddingBottom:5}}/>}
+          {/* <PresenceTransition
+            visible={state.otherF}
+            initial={{
+              opacity: 0,
+              translateX:100,
+            }}
+            animate={{
+              opacity: 1,
+              transition: {
+                duration: 250,
+              },
+            }}>
+            <HStack
+              space={'1'}
+              flexDirection="row"
+              style={{justifyContent: 'space-between', paddingVertical: 3}}>
+              <Button>{wordApp.wait}</Button>
+              <Button variant={'outline'} size="sm">
+                {wordApp.doing}
+              </Button>
+              <Button variant={'subtle'}>{wordApp.verified}</Button>
+            </HStack>
+          </PresenceTransition> */}
         </Box>
       </Flex>
     </Pressable>
