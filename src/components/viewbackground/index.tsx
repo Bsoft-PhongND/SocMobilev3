@@ -1,15 +1,22 @@
-import React from "react";
-import { View, Text, StatusBar } from "native-base";
-import styles from "../../screens/Login/style";
-import { theme } from "../../theme/theme";
-import { SafeAreaView } from "react-native";
+import { Box, StatusBar } from 'native-base';
+import React from 'react';
+import { SafeAreaView } from 'react-native';
+import { theme } from '../../theme/theme';
 
-function ViewBackGround({children}:{children:React.ReactNode}){
-   return(
-    <View style={{flex: 1,backgroundColor:theme.colors.background}}>
-       <StatusBar barStyle={"light-content"}/>
-       <SafeAreaView style={{flex:1}}>{children}</SafeAreaView>
-       </View>
-   )
+function ViewBackGround({children}: {children: React.ReactNode}) {
+  return (
+    <Box
+      flex={1}
+      bg={{
+        linearGradient: {
+          colors: [theme.colors.background, theme.colors.secondary,theme.colors.background],
+          start: [0, 0.5, 1],
+          end: [1, 0.5, 0],
+        },
+      }}>
+      <StatusBar barStyle={'light-content'} />
+      <SafeAreaView style={{flex: 1}}>{children}</SafeAreaView>
+    </Box>
+  );
 }
 export default ViewBackGround;
