@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
   Button,
@@ -6,6 +6,7 @@ import {
   Flex,
   FormControl,
   Icon,
+  Pressable,
   Stack,
   Text,
   View,
@@ -20,10 +21,10 @@ import {theme} from '../../theme/theme';
 import wordApp from '../../utils/word';
 import styles from './style';
 import {NameScreen} from '../../config';
-import { AuthContext } from '../../context/AuthContext';
+import {AuthContext} from '../../context/AuthContext';
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const {handleSaveToken,token} = useContext(AuthContext);
+  const {handleSaveToken, token} = useContext(AuthContext);
   const [state, setSate] = React.useState({
     showPassword: false,
   });
@@ -33,14 +34,13 @@ const LoginScreen = () => {
       showPassword: value,
     });
   };
-  const handleGoSetting = () =>{
-    navigation.navigate(NameScreen.SecurityNetWorkScreen)
-  }
-  const handleLogin = () =>{
-    handleSaveToken("avb");
+  const handleGoSetting = () => {
+    navigation.navigate(NameScreen.SecurityNetWorkScreen);
+  };
+  const handleLogin = () => {
+    handleSaveToken('avb');
     console.log(token);
-    
-  }
+  };
   return (
     <ViewBackGround>
       <View style={styles.container}>
@@ -88,21 +88,25 @@ const LoginScreen = () => {
                 label={wordApp.remember}
                 defaultIsChecked={true}
               />
-              <Button height={'1/5'} onPress={handleLogin}>{wordApp.login}</Button>
+              <Button height={'1/5'} onPress={handleLogin}>
+                {wordApp.login}
+              </Button>
             </Stack>
           </FormControl>
         </Center>
+
         <Flex flexDirection="row" style={{position: 'absolute', bottom: '5%'}}>
-          <Icon
-            as={<Ionicons name="md-settings" />}
-            size={5}
-            ml="2"
-            color="muted.100"
-            onPress={handleGoSetting}
-          />
-          <Text style={{marginLeft: 20, color: theme.colors.text}}>
-            {wordApp.securityNetWork}
-          </Text>
+          <Pressable onPress={handleGoSetting} style={{flexDirection: 'row'}}>
+            <Icon
+              as={<Ionicons name="md-settings" />}
+              size={5}
+              ml="2"
+              color="muted.100"
+            />
+            <Text style={{marginLeft: 20, color: theme.colors.text}}>
+              {wordApp.securityNetWork}
+            </Text>
+          </Pressable>
         </Flex>
       </View>
     </ViewBackGround>

@@ -34,7 +34,7 @@ function GroupBarChart() {
           duration: 2000,
           onLoad: {duration: 500},
         }}
-        colorScale={[theme.colors.blue1, theme.colors.blue2, theme.colors.red1]}
+        colorScale={[theme.colors.low, theme.colors.medium, theme.colors.hight]}
         labelComponent={
           <VictoryLabel textAnchor="middle" style={{fill: theme.colors.text}} />
         }>

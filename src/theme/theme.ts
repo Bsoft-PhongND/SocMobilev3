@@ -34,8 +34,9 @@ export const theme = {
     error: '#f13a59',
     background: '#19173e',
     blue1: '#99cfef',
-    blue2: '#3395c6',
-    red1:'#d55858'
+    hight:'#d55858',
+    medium: '#3395c6',
+    low:"#99ef9a"
   },
   fontSize: {
     h1: {fontFamily: 'Roboto-Bold', fontSize: SIZES.h1, lineHeight: 36},

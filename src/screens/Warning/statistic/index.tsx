@@ -18,6 +18,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ModalSheetComponent from '../../../components/actionsheet';
 import BarChart from '../../../components/charts/barChart';
 import GroupBarChart from '../../../components/charts/groupChart';
+import CircularProgressBarComponent from '../../../components/circleprogress';
 import {ToolBar} from '../../../components/tools/ToolBar';
 import ViewBackGround from '../../../components/viewbackground';
 import {theme} from '../../../theme/theme';
@@ -37,16 +38,15 @@ export default function StatisticScreen() {
             <HStack
               style={{
                 justifyContent: 'space-between',
-                paddingHorizontal: 20,
                 paddingVertical: 10,
               }}>
-              <CircleChart color="red.800" number={100} title={wordApp.hight} />
-              <CircleChart
-                color="green.400"
-                number={100}
+              <CircularProgressBarComponent title={wordApp.hight} value={50} color={theme.colors.hight}/>
+              <CircularProgressBarComponent
                 title={wordApp.medium}
+                value={120}
+                color={theme.colors.medium}
               />
-              <CircleChart color="blue.300" number={100} title={wordApp.low} />
+              <CircularProgressBarComponent title={wordApp.low} value={60} color={theme.colors.low} />
             </HStack>
           </View>
           <View>
@@ -67,29 +67,3 @@ export default function StatisticScreen() {
     </ViewBackGround>
   );
 }
-const CircleChart = (props: {
-  color?: ResponsiveValue<ColorType | (string & {}) | ILinearGradientProps>;
-  number?: number;
-  title?: string;
-}) => {
-  return (
-    <Circle size={98} bg={props.color}>
-      <Text
-        style={{
-          ...theme.fontSize.h3,
-          color: theme.colors.text,
-          fontWeight: 'bold',
-        }}>
-        {props.title}
-      </Text>
-      <Text
-        style={{
-          ...theme.fontSize.h3,
-          color: theme.colors.text,
-          fontWeight: 'bold',
-        }}>
-        {props.number}
-      </Text>
-    </Circle>
-  );
-};
