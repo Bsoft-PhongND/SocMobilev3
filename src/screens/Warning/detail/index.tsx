@@ -26,7 +26,7 @@ const config = {
     'linear-gradient': require('react-native-linear-gradient').default,
   },
 };
-export default function Container() {
+function Container() {
   return (
     <NativeBaseProvider config={config}>
       <DetailScreen />
@@ -50,7 +50,7 @@ function DetailScreen() {
   };
 
   return (
-    <ViewBackGround>
+    <ViewBackGround safeArea={false}>
       <View style={{flex: 1}}>
         <View style={{flex: 1, paddingHorizontal: 10}}>
           <ToolBar loading={state.refreshing} onRefresh={waited} />
@@ -196,3 +196,4 @@ const RenderItem = React.memo(({item, index}: any) => {
     </Pressable>
   );
 });
+export default React.memo(Container);

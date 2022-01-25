@@ -42,11 +42,16 @@ const LoginScreen = () => {
   };
   const handleLogin = async () => {
     setLoading(true);
+    helpers.waited(2000).then(d => {
+      handleSaveToken('avb');
+      navigation.reset({
+        index: 0,
+        routes: [{name: NameScreen.StacksScreen.AppStack}],
+      });
+    });
     helpers.waited(3000).then(d => {
       setLoading(false);
-      console.log(loading);
     });
-    //handleSaveToken('avb');
   };
   return (
     <ViewBackGround>

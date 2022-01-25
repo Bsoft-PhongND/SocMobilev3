@@ -24,7 +24,9 @@ function App() {
       <LoadingContextProvider>
         <AuthContextProvider>
           <NavigationContainer>
-            <Authenticate />
+          {/* <AppStack /> */}
+            <AuthStack />
+            {/* <Authenticate /> */}
           </NavigationContainer>
         </AuthContextProvider>
       </LoadingContextProvider>

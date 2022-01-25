@@ -5,6 +5,7 @@ const NameScreen = {
     StacksScreen:{
         TabBarBottom:"TabBarBottom",
         NewsStack:"NewsStack",
+        AppStack:"AppStack"
     },
     DrawerScreen:{
         DashboardScreen:"Thống kê",

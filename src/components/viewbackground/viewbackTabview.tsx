@@ -1,6 +1,5 @@
 import {Box, Spinner, StatusBar, View} from 'native-base';
 import React from 'react';
-import {SafeAreaView} from 'react-native';
 import {LoadingContext} from '../../context/LoadingContext';
 import {theme} from '../../theme/theme';
 import {
@@ -32,7 +31,6 @@ function ViewBackGround({children, safeArea = true}: PropsTypes) {
           end: [1, 0.5, 0],
         },
       }}
-      safeAreaTop={safeArea}
       >
       <StatusBar
         barStyle={'light-content'}

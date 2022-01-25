@@ -20,11 +20,11 @@ import BarChart from '../../../components/charts/barChart';
 import GroupBarChart from '../../../components/charts/groupChart';
 import CircularProgressBarComponent from '../../../components/circleprogress';
 import {ToolBar} from '../../../components/tools/ToolBar';
-import ViewBackGround from '../../../components/viewbackground';
+import ViewBackTabview from '../../../components/viewbackground/viewbackTabview';
 import {theme} from '../../../theme/theme';
 import wordApp from '../../../utils/word';
 
-export default function StatisticScreen() {
+function StatisticScreen() {
   const {isOpen, onOpen, onClose} = useDisclose();
   const [state, setState] = React.useState({
     refreshing: false,
@@ -41,7 +41,7 @@ export default function StatisticScreen() {
     });
   };
   return (
-    <ViewBackGround>
+    <ViewBackTabview safeArea={false}>
       <View style={{flex: 1, paddingHorizontal: 10}}>
         <ToolBar filterClick={() => onOpen()} onRefresh={waited} loading={state.refreshing}/>
         <ScrollView>
@@ -78,6 +78,7 @@ export default function StatisticScreen() {
         </ScrollView>
       </View>
       <ModalSheetComponent isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
-    </ViewBackGround>
+    </ViewBackTabview>
   );
 }
+export default React.memo(StatisticScreen);
