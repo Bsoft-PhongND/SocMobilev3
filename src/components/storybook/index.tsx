@@ -32,6 +32,7 @@ export function StoryBook({
 			position="relative"
 			overflow="hidden"
 			w="100%"
+			maxW={170}
 		>
 			<Pressable
 				flex={1}

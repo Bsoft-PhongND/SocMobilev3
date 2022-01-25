@@ -26,10 +26,24 @@ import wordApp from '../../../utils/word';
 
 export default function StatisticScreen() {
   const {isOpen, onOpen, onClose} = useDisclose();
+  const [state, setState] = React.useState({
+    refreshing: false,
+  });
+  const waited = async () => {
+    setState({...state, refreshing: true});
+    const myPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 3000);
+    }).then(d => {
+      console.log(d);
+      setState({...state, refreshing: false});
+    });
+  };
   return (
     <ViewBackGround>
       <View style={{flex: 1, paddingHorizontal: 10}}>
-        <ToolBar filterClick={() => onOpen()} />
+        <ToolBar filterClick={() => onOpen()} onRefresh={waited} loading={state.refreshing}/>
         <ScrollView>
           <View>
             <Heading size="xs" style={{color: theme.colors.text}}>

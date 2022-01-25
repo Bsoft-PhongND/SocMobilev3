@@ -22,9 +22,12 @@ import wordApp from '../../utils/word';
 import styles from './style';
 import {NameScreen} from '../../config';
 import {AuthContext} from '../../context/AuthContext';
+import {LoadingContext} from '../../context/LoadingContext';
+import helpers from '../../helpers/helpers';
 const LoginScreen = () => {
   const navigation = useNavigation();
   const {handleSaveToken, token} = useContext(AuthContext);
+  const {loading, setLoading} = useContext(LoadingContext);
   const [state, setSate] = React.useState({
     showPassword: false,
   });
@@ -37,9 +40,13 @@ const LoginScreen = () => {
   const handleGoSetting = () => {
     navigation.navigate(NameScreen.SecurityNetWorkScreen);
   };
-  const handleLogin = () => {
-    handleSaveToken('avb');
-    console.log(token);
+  const handleLogin = async () => {
+    setLoading(true);
+    helpers.waited(3000).then(d => {
+      setLoading(false);
+      console.log(loading);
+    });
+    //handleSaveToken('avb');
   };
   return (
     <ViewBackGround>

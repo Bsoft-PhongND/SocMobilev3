@@ -15,7 +15,9 @@ function ListFunction() {
       _hStack={{
         space: 4,
         mb: 4,
-        pt: '10px',
+        p: '10px',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
       _vStack={{space: 4}}>
       <StoryBook
@@ -58,7 +60,6 @@ function ListFunction() {
       <StoryBook
         navigation={navigation}
         name="Avatar"
-        // colors={['green.700', 'lime.200']}
         minH={48}
         _box={{
           lightGrad: ['violet.800', 'lightBlue.300'],
@@ -79,7 +80,6 @@ function ListFunction() {
         _heading={{
           color: 'lime.100',
         }}
-        // colors={['red.400', 'amber.400']}
       />
       <StoryBook
         navigation={navigation}
@@ -92,14 +92,11 @@ function ListFunction() {
         _heading={{
           color: 'pink.100',
         }}
-        // colors={['blue.400', 'pink.400']}
       />
 
       <StoryBook
         navigation={navigation}
         name="Button"
-        // colors={['blue.400', 'pink.400']}
-
         minH={40}
         _box={{
           lightGrad: ['lightBlue.400', 'cyan.200'],
@@ -120,7 +117,6 @@ function ListFunction() {
         _heading={{
           color: 'yellow.100',
         }}
-        // colors={['fuchsia.400', 'pink.600']}
       />
     </MasonaryLayout>
   );

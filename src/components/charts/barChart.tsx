@@ -1,3 +1,4 @@
+import { theme as T, useTheme } from 'native-base';
 import React from 'react';
 import {
   VictoryAxis,
@@ -11,9 +12,6 @@ import {theme} from '../../theme/theme';
 
 function BarChart() {
   return (
-    //     <VictoryChart width={350} theme={VictoryTheme.material}>
-    //     <VictoryBar data={data} x="quarter" y="earnings" />
-    //   </VictoryChart>
     <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
       <VictoryAxis
         theme={VictoryTheme.material}
@@ -30,10 +28,11 @@ function BarChart() {
       <VictoryBar
         style={{data: {fill: d => d.datum.colorScale}}}
         data={[
-          {x: 'Pending', y: 3, colorScale: '#9167f1'},
-          {x: 'Verified', y: 4, colorScale: '#f26893'},
-          {x: 'Waiting', y: 6, colorScale: '#99cfef'},
-          {x: 'Notified', y: 3, colorScale: '#99ef9a'},
+          {x: 'Pending', y: 3, colorScale: theme.colors.hight},
+          {x: 'Verified', y: 4, colorScale: theme.colors.medium},
+          {x: 'Waiting', y: 6, colorScale: theme.colors.low},
+          {x: 'Notified', y: 3, colorScale: theme.colors.primary
+        },
         ]}
         labelComponent={<VictoryLabel textAnchor="start" />}
       />

@@ -116,7 +116,7 @@ const RenderItem = React.memo(({item, index}: any) => {
             <Text
               style={{
                 ...theme.fontSize.h3,
-                color: theme.colors.text,
+                color: color,
                 fontWeight: 'bold',
               }}>
               {item.alert}
