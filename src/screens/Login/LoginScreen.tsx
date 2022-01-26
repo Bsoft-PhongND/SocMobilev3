@@ -6,6 +6,7 @@ import {
   Flex,
   FormControl,
   Icon,
+  KeyboardAvoidingView,
   Pressable,
   Stack,
   Text,
@@ -24,6 +25,7 @@ import {NameScreen} from '../../config';
 import {AuthContext} from '../../context/AuthContext';
 import {LoadingContext} from '../../context/LoadingContext';
 import helpers from '../../helpers/helpers';
+import { Platform } from 'react-native';
 const LoginScreen = () => {
   const navigation = useNavigation();
   const {handleSaveToken, token} = useContext(AuthContext);
@@ -55,7 +57,14 @@ const LoginScreen = () => {
   };
   return (
     <ViewBackGround>
-      <View style={styles.container}>
+         <KeyboardAvoidingView
+      flex={1}
+        h={{
+          base: '400px',
+       
+        }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <Center style={styles.container}>
         <SvgXml xml={svgs.SvgEyeLogo} height={120} width={120} />
         <View style={{alignItems: 'center'}}>
           <Text style={styles.nameApp}>{wordApp.nameApp}</Text>
@@ -120,7 +129,8 @@ const LoginScreen = () => {
             </Text>
           </Pressable>
         </Flex>
-      </View>
+      </Center>
+      </KeyboardAvoidingView>
     </ViewBackGround>
   );
 };

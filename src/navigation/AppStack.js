@@ -8,7 +8,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import WarningScreen from '../screens/Warning';
-import ResponseScreen from '../screens/Response';
+import ResponseScreen from '../screens/Response/detail';
 import NewsScreen from '../screens/News';
 import ContactScreen from '../screens/Contact';
 
