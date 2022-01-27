@@ -108,7 +108,15 @@ export const freeGames = [
     id: '6',
   },
 ];
-export const listWarnings = [
+export interface TypesWarning{
+  id:number;
+  alert:string;
+  status:string;
+  time:number;
+  number:number;
+  priority:boolean
+}
+export const listWarnings:Array<TypesWarning> = [
   {
     id:0,
     alert:'Ket nối máy chủ mã độc',

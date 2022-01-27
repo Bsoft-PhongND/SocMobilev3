@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import {
   Box,
   Button,
@@ -15,8 +16,9 @@ import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {ToolBar} from '../../../components/tools/ToolBar';
 import ViewBackGround from '../../../components/viewbackground';
+import { NameScreen } from '../../../config';
 import Helpers from '../../../helpers/helpers';
-import {listWarnings} from '../../../model/data';
+import {listWarnings, TypesWarning} from '../../../model/data';
 import {theme} from '../../../theme/theme';
 import wordApp from '../../../utils/word';
 const config = {
@@ -76,15 +78,18 @@ const FlatView = React.memo(({listWarnings}: any) => {
     </View>
   );
 });
-const RenderItem = React.memo(({item, index}: any) => {
-  console.log(`index`, index);
+const RenderItem = React.memo(({item, index}: {item:TypesWarning,index:number}) => {
   const color = Helpers.divideLevelWarning(item.number);
+  const navigation = useNavigation();
   const [state, setState] = React.useState({
     priority: item.priority,
     otherF: false,
   });
+  const handleGoDetail = ()=>{
+    navigation.navigate(NameScreen.InfoWarningScreen,{item: item});
+  }
   return (
-    <Pressable onLongPress={() => setState({...state, otherF: !state.otherF})}>
+    <Pressable onLongPress={() => setState({...state, otherF: !state.otherF})} onPress={handleGoDetail}>
       <Flex flexDirection={'row'} flex={1} key={item.id}>
         <View
           style={{

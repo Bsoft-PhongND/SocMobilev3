@@ -5,7 +5,8 @@ const NameScreen = {
     StacksScreen:{
         TabBarBottom:"TabBarBottom",
         NewsStack:"NewsStack",
-        AppStack:"AppStack"
+        AppStack:"AppStack",
+        WarningStack:"WarningStack",
     },
     DrawerScreen:{
         DashboardScreen:"Thống kê",
@@ -25,6 +26,12 @@ const NameScreen = {
     GameDetailsScreen:"GameDetailsScreen",
     CartScreen:"CartScreen",
     FavoriteScreen:"FavoriteScreen",
+    InfoWarningScreen:"InfoWarningScreen",
+    WarningTabs:{
+        InForDetailTab:"InForDetailTab",
+        InForPolicyTab:"InForPolicyTab",
+        InfoProcessTab:"InfoProcessTab",
+    }
 
 }
 export default NameScreen;

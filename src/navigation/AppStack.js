@@ -1,6 +1,6 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CustomDrawer from '../components/CustomDrawer';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -11,13 +11,33 @@ import WarningScreen from '../screens/Warning';
 import ResponseScreen from '../screens/Response/detail';
 import NewsScreen from '../screens/News';
 import ContactScreen from '../screens/Contact';
-
+import InfoWarningScreen from '../screens/Warning/info';
 import TabNavigator from './TabNavigator';
 import {NameScreen} from '../config';
 import DashBoardScreen from '../screens/Dashboard';
 
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
+const WarningStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name={NameScreen.WarningScreen}
+        component={WarningScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name={NameScreen.InfoWarningScreen}
+        component={InfoWarningScreen}
+        options={({route}) => ({
+          title: route.params?.title,
+          headerShown: false
+        })}
+      />
+    </Stack.Navigator>
+  );
+};
 const AppStack = () => {
   return (
     <Drawer.Navigator
@@ -44,8 +64,8 @@ const AppStack = () => {
         }}
       />
       <Drawer.Screen
-        name={NameScreen.WarningScreen}
-        component={WarningScreen}
+        name={NameScreen.StacksScreen.WarningStack}
+        component={WarningStack}
         options={{
           drawerIcon: ({color}) => (
             <Feather name="alert-triangle" size={22} color={color} />
