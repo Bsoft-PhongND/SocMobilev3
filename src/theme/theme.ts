@@ -36,7 +36,8 @@ export const theme = {
     blue1: '#99cfef',
     hight:'#9f1239',
     medium: '#c026d3',
-    low:"#fb923c"
+    low:"#fb923c",
+    black:'#000'
   },
   fontSize: {
     h1: {fontFamily: 'Roboto-Bold', fontSize: SIZES.h1, lineHeight: 36},

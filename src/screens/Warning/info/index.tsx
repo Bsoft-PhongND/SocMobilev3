@@ -34,7 +34,7 @@ function InfoWarningScreen({route}: any) {
         return <TabDetailWarning />;
       case NameScreen.WarningTabs.InForPolicyTab:
         return <TabPolicyWarning />;
-      case NameScreen.WarningTabs.InForPolicyTab:
+      case NameScreen.WarningTabs.InfoProcessTab:
         return <TabProcessWarning />;
       default:
         return <TabDetailWarning />;
@@ -54,22 +54,15 @@ function InfoWarningScreen({route}: any) {
                 inputIndex === i ? 1 : 0.5,
               ),
             });
-            const indicator = props.position.interpolate({
-              inputRange,
-              outputRange: inputRange.map((inputIndex: number) =>
-                inputIndex === i ? 0 : 50,
-              ),
-            });
             return (
               <TouchableOpacity
                 style={styles.tabItem}
                 onPress={() => setIndex(i)}>
                 <Animated.View style={{opacity}}>
-                  <Text style={{...theme.fontSize.h3}} color="amber.300">
+                  <Text style={{...theme.fontSize.h3}} color="muted.100">
                     {route.title}
                   </Text>
                 </Animated.View>
-                <Animated.View />
               </TouchableOpacity>
             );
           })}
@@ -84,25 +77,37 @@ function InfoWarningScreen({route}: any) {
     <ViewBackGround safeArea={false}>
       <View style={{flex: 1}}>
         <HeaderBack title={NameScreen.DrawerScreen.WarningScreen} />
-        <View style={{flex: 1, paddingHorizontal: 10}}>
-          <Text
-            style={{
-              ...theme.fontSize.h3,
-              color: theme.colors.text,
-              fontWeight: 'bold',
-            }}>
-            {item.alert || '---'}
-          </Text>
-          <Text style={{...theme.fontSize.h3, color: theme.colors.text}}>
-            {wordApp.number}:{item.number || '---'}
-          </Text>
-          <Text style={{...theme.fontSize.h3, color: theme.colors.text}}>
-            {wordApp.status}:{item.status || '---'}
-          </Text>
+        <View style={{flex: 1}}>
+          <View pl={2} pr={2}>
+            <Text
+              style={{
+                ...theme.fontSize.h3,
+                color: theme.colors.text,
+                fontWeight: 'bold',
+              }}>
+              {item.alert || '---'}
+            </Text>
+            <Text style={{...theme.fontSize.h3, color: theme.colors.text}}>
+              {wordApp.number}: {item.number || '---'}
+            </Text>
+            <Text style={{...theme.fontSize.h3, color: theme.colors.text}}>
+              {wordApp.status}: {item.status || '---'}
+            </Text>
+            <Text style={{...theme.fontSize.h3, color: theme.colors.text}}>
+              {wordApp.description}: {item.description || '  ---  '}
+            </Text>
+          </View>
+
           <TabView
             renderTabBar={renderTabBar}
             navigationState={{index, routes}}
-            renderScene={renderScene}
+            renderScene={props => {
+              return (
+                <View style={{backgroundColor: theme.colors.text}} flex={1}>
+                  {renderScene(props)}
+                </View>
+              );
+            }}
             onIndexChange={onChangetab}
             initialLayout={{width: windowWidth}}
             style={{padding: 0}}

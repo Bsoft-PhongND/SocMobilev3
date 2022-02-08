@@ -11,6 +11,7 @@ const wordApp = {
     refresh:'Làm mới',
     number:"Số lượng",
     status:"Trạng thái",
+    description:"Mô tả",
     wait:"Chuyển xử lý",
     doing:'Đang xác minh',
     verified:"Đã xác minh",
