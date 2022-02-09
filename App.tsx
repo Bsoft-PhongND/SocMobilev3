@@ -21,15 +21,15 @@ function App() {
   const theme = extendTheme({customTheme});
   return (
     <NativeBaseProvider config={config} theme={theme}>
-      <LoadingContextProvider>
-        <AuthContextProvider>
-          <NavigationContainer>
-          {/* <AppStack /> */}
-            <AuthStack />
-            {/* <Authenticate /> */}
-          </NavigationContainer>
-        </AuthContextProvider>
-      </LoadingContextProvider>
+        <LoadingContextProvider>
+          <AuthContextProvider>
+            <NavigationContainer>
+              {/* <AppStack /> */}
+              <AuthStack />
+              {/* <Authenticate /> */}
+            </NavigationContainer>
+          </AuthContextProvider>
+        </LoadingContextProvider>
     </NativeBaseProvider>
   );
 }
