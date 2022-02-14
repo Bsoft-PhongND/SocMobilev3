@@ -7,19 +7,18 @@ import {
   Dimensions,
   Animated,
 } from 'react-native';
+import {Box} from 'native-base';
 import data from './data';
 
-const { width, height } = Dimensions.get('window');
-const LOGO_WIDTH = 220;
-const LOGO_HEIGHT = 40;
-const DOT_SIZE = 40;
-const TICKER_HEIGHT = 40;
+const {width} = Dimensions.get('window');
+const DOT_SIZE = 20;
+const TICKER_HEIGHT = 20;
 const CIRCLE_SIZE = width * 0.6;
 
-const Circle = ({ scrollX }) => {
+const Circle = ({scrollX}) => {
   return (
     <View style={[StyleSheet.absoluteFillObject, styles.circleContainer]}>
-      {data.map(({ color }, index) => {
+      {data.map(({color}, index) => {
         const inputRange = [
           (index - 0.55) * width,
           index * width,
@@ -42,7 +41,7 @@ const Circle = ({ scrollX }) => {
               {
                 backgroundColor: color,
                 opacity,
-                transform: [{ scale }],
+                transform: [{scale}],
               },
             ]}
           />
@@ -52,7 +51,7 @@ const Circle = ({ scrollX }) => {
   );
 };
 
-const Ticker = ({ scrollX }) => {
+const Ticker = ({scrollX}) => {
   const inputRange = [-width, 0, width];
   const translateY = scrollX.interpolate({
     inputRange,
@@ -60,8 +59,8 @@ const Ticker = ({ scrollX }) => {
   });
   return (
     <View style={styles.tickerContainer}>
-      <Animated.View style={{ transform: [{ translateY }] }}>
-        {data.map(({ type }, index) => {
+      <Animated.View style={{transform: [{translateY}]}}>
+        {data.map(({type}, index) => {
           return (
             <Text key={index} style={styles.tickerText}>
               {type}
@@ -73,38 +72,29 @@ const Ticker = ({ scrollX }) => {
   );
 };
 
-const Item = ({ imageUri, heading, description, index, scrollX }) => {
+const Item = ({imageUri, heading, description, color, index, scrollX}) => {
   const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
-  const inputRangeOpacity = [
-    (index - 0.3) * width,
-    index * width,
-    (index + 0.3) * width,
-  ];
   const scale = scrollX.interpolate({
     inputRange,
     outputRange: [0, 1, 0],
   });
-  const translateXHeading = scrollX.interpolate({
-    inputRange,
-    outputRange: [width * 0.1, 0, -width * 0.1],
-  });
-  const translateXDescription = scrollX.interpolate({
-    inputRange,
-    outputRange: [width * 0.7, 0, -width * 0.7],
-  });
-  const opacity = scrollX.interpolate({
-    inputRange: inputRangeOpacity,
-    outputRange: [0, 1, 0],
-  });
 
   return (
-    <View style={styles.itemStyle}>
-    
+    <View style={[styles.itemStyle]}>
+      <Animated.View
+        style={[
+          styles.imageStyle,
+          // {
+          //   transform: [{ scale }],
+          // },
+        ]}>
+        <Box flex={1} style={{backgroundColor: color,borderRadius:10}}></Box>
+      </Animated.View>
     </View>
   );
 };
 
-const Pagination = ({ scrollX }) => {
+const Pagination = ({scrollX}) => {
   const inputRange = [-width, 0, width];
   const translateX = scrollX.interpolate({
     inputRange,
@@ -117,16 +107,15 @@ const Pagination = ({ scrollX }) => {
           styles.paginationIndicator,
           {
             position: 'absolute',
-            backgroundColor: 'red',
-            transform: [{ translateX }],
+            transform: [{translateX}],
           },
         ]}
       />
-      {data.map((item) => {
+      {data.map(item => {
         return (
           <View key={item.key} style={styles.paginationDotContainer}>
             <View
-              style={[styles.paginationDot, { backgroundColor: item.color }]}
+              style={[styles.paginationDot, {backgroundColor: item.color}]}
             />
           </View>
         );
@@ -141,83 +130,45 @@ export default function Carousel() {
     <View style={styles.container}>
       <Circle scrollX={scrollX} />
       <Animated.FlatList
-        keyExtractor={(item) => item.key}
+        keyExtractor={item => item.key}
         data={data}
-        renderItem={({ item, index }) => (
+        renderItem={({item, index}) => (
           <Item {...item} index={index} scrollX={scrollX} />
         )}
         pagingEnabled
-        showsHorizontalScrollIndicator={true}
+        showsHorizontalScrollIndicator={false}
         horizontal
+        bounces
+        contentContainerStyle={{justifyContent: 'center'}}
         onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: true }
+          [{nativeEvent: {contentOffset: {x: scrollX}}}],
+          {useNativeDriver: true},
         )}
         scrollEventThrottle={16}
       />
-      <Pagination scrollX={scrollX} />
-      <Ticker scrollX={scrollX} />
+      {/* <Pagination scrollX={scrollX} /> */}
+      {/* <Ticker scrollX={scrollX} /> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: 'green',
   },
   itemStyle: {
-    width,
-    height,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: width - DOT_SIZE,
   },
   imageStyle: {
-    width: width * 0.75,
-    height: width * 0.75,
-    resizeMode: 'contain',
     flex: 1,
-  },
-  textContainer: {
-    alignItems: 'flex-start',
-    alignSelf: 'flex-end',
-    flex: 0.5,
-  },
-  heading: {
-    color: '#444',
-    textTransform: 'uppercase',
-    fontSize: 24,
-    fontWeight: '800',
-    letterSpacing: 2,
-    marginBottom: 5,
-  },
-  description: {
-    color: '#ccc',
-    fontWeight: '600',
-    textAlign: 'left',
-    width: width * 0.75,
-    marginRight: 10,
-    fontSize: 16,
-    lineHeight: 16 * 1.5,
-  },
-  logo: {
-    opacity: 0.9,
-    height: LOGO_HEIGHT,
-    width: LOGO_WIDTH,
-    resizeMode: 'contain',
-    position: 'absolute',
-    left: 10,
-    bottom: 10,
-    transform: [
-      { translateX: -LOGO_WIDTH / 2 },
-      { translateY: -LOGO_HEIGHT / 2 },
-      { rotateZ: '-90deg' },
-      { translateX: LOGO_WIDTH / 2 },
-      { translateY: LOGO_HEIGHT / 2 },
-    ],
+    justifyContent: 'center',
+    padding: 10,
   },
   pagination: {
     position: 'absolute',
     right: 20,
-    bottom: 40,    
+    bottom: 40,
     flexDirection: 'row',
     height: DOT_SIZE,
   },
@@ -240,7 +191,7 @@ const styles = StyleSheet.create({
   },
   tickerContainer: {
     position: 'absolute',
-    top: 40,
+    top: 0,
     left: 20,
     overflow: 'hidden',
     height: TICKER_HEIGHT,
@@ -248,7 +199,6 @@ const styles = StyleSheet.create({
   tickerText: {
     fontSize: TICKER_HEIGHT,
     lineHeight: TICKER_HEIGHT,
-    textTransform: 'uppercase',
     fontWeight: '800',
   },
 

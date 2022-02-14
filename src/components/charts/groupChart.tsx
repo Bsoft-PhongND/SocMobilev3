@@ -31,7 +31,6 @@ function GroupBarChart() {
         offset={24}
         style={{data: {width: 20}}}
         animate={{
-          duration: 2000,
           onLoad: {duration: 500},
         }}
         colorScale={[theme.colors.low, theme.colors.medium, theme.colors.hight]}

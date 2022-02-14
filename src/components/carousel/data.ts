@@ -1,14 +1,14 @@
 export default [
     {
-      type: 'Humlan P',
-      imageUri: require('../../assets/images/world.png'),
+      type: 'Sự cố mạng',
+      imageUri: require('../../assets/images/homescreen/game-1.jpeg'),
       heading: 'Vibrant colors',
       description: 'Four on-trend colorways to seamlessly suit your style.',
       key: 'first',
       color: '#9dcdfa',
     },
     {
-      type: 'Pampas',
+      type: 'Sự cố máy chủ',
       imageUri: require('../../assets/images/world.png'),
       heading: 'Redefined sound',
       description: 'A bold statement tuned to perfection.',
@@ -16,7 +16,7 @@ export default [
       color: '#db9efa',
     },
     {
-      type: 'Humlan P',
+      type: 'Sự cố ứng dụng',
       imageUri: require('../../assets/images/world.png'),
       heading: 'Great quality',
       description:
@@ -25,7 +25,7 @@ export default [
       color: '#999',
     },
     {
-      type: 'Humlan B',
+      type: 'Sự cố thiết bị đầu cuối',
       imageUri: require('../../assets/images/world.png'),
       heading: 'From Sweden',
       description:
