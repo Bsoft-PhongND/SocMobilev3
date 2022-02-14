@@ -21,7 +21,7 @@ function HomeScreen() {
         <ScrollView style={{paddingHorizontal: 10}}>
         <ImageBackground
           source={require('../../assets/images/world.png')}
-          style={{width: '100%', height: 200}}
+          style={{width: '100%', height: 220}}
           imageStyle={{opacity: 0.5}}>
           <Carousel />
         </ImageBackground>

@@ -5,7 +5,7 @@ export default [
       heading: 'Vibrant colors',
       description: 'Four on-trend colorways to seamlessly suit your style.',
       key: 'first',
-      color: '#9dcdfa',
+      color: 'rgba(12,11,27,.6)',
     },
     {
       type: 'Sự cố máy chủ',

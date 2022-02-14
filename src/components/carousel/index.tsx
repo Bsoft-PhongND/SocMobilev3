@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,18 +6,22 @@ import {
   Image,
   Dimensions,
   Animated,
+  FlatList,
 } from 'react-native';
-import {Box} from 'native-base';
+import {Box, VStack} from 'native-base';
 import data from './data';
+import CardPieChart from '../cards/cardPie';
+import {theme} from '../../theme/theme';
+import {PropsCarosel} from './props';
 
 const {width} = Dimensions.get('window');
 const DOT_SIZE = 20;
-const TICKER_HEIGHT = 20;
+const TICKER_HEIGHT = 18;
 const CIRCLE_SIZE = width * 0.6;
 
-const Circle = ({scrollX}) => {
+const Circle = ({scrollX}: any) => {
   return (
-    <View style={[StyleSheet.absoluteFillObject, styles.circleContainer]}>
+    <View style={[styles.circleContainer]}>
       {data.map(({color}, index) => {
         const inputRange = [
           (index - 0.55) * width,
@@ -51,33 +55,31 @@ const Circle = ({scrollX}) => {
   );
 };
 
-const Ticker = ({scrollX}) => {
+const Ticker = ({scrollX}: any) => {
   const inputRange = [-width, 0, width];
   const translateY = scrollX.interpolate({
     inputRange,
-    outputRange: [TICKER_HEIGHT, 0, -TICKER_HEIGHT],
+    outputRange: [TICKER_HEIGHT + 4, 0, -TICKER_HEIGHT - 4],
   });
   return (
-    <View style={styles.tickerContainer}>
+    <View style={[styles.tickerContainer, {overflow: 'hidden'}]}>
       <Animated.View style={{transform: [{translateY}]}}>
-        {data.map(({type}, index) => {
-          return (
-            <Text key={index} style={styles.tickerText}>
-              {type}
-            </Text>
-          );
-        })}
+        <VStack space={'4px'}>
+          {data.map(({type}, index) => {
+            return (
+              <Text key={index} style={styles.tickerText}>
+                {type}
+              </Text>
+            );
+          })}
+        </VStack>
       </Animated.View>
     </View>
   );
 };
 
-const Item = ({imageUri, heading, description, color, index, scrollX}) => {
+const Item = ({index, scrollX}: any) => {
   const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
-  const scale = scrollX.interpolate({
-    inputRange,
-    outputRange: [0, 1, 0],
-  });
 
   return (
     <View style={[styles.itemStyle]}>
@@ -88,17 +90,21 @@ const Item = ({imageUri, heading, description, color, index, scrollX}) => {
           //   transform: [{ scale }],
           // },
         ]}>
-        <Box flex={1} style={{backgroundColor: color,borderRadius:10}}></Box>
+        <Box
+          flex={1}
+          style={{backgroundColor: theme.colors.card, borderRadius: 10}}>
+          <CardPieChart />
+        </Box>
       </Animated.View>
     </View>
   );
 };
 
-const Pagination = ({scrollX}) => {
+const Pagination = ({scrollX}: any) => {
   const inputRange = [-width, 0, width];
   const translateX = scrollX.interpolate({
     inputRange,
-    outputRange: [-DOT_SIZE, 0, DOT_SIZE],
+    outputRange: [-DOT_SIZE + 1, 0, DOT_SIZE + 1],
   });
   return (
     <View style={[styles.pagination]}>
@@ -124,18 +130,42 @@ const Pagination = ({scrollX}) => {
   );
 };
 
-export default function Carousel() {
+export default function Carousel(props: PropsCarosel) {
   const scrollX = React.useRef(new Animated.Value(0)).current;
+  const flastList = React.useRef<FlatList>(null);
+  const {autoPlay} = props;
+  const offset = React.useRef(0);
+  const handleGoNext = () => {};
+  
+  useEffect(() => {
+    const timer = setInterval(() => {
+  console.log(scrollX);
+      if (offset.current >= data.length - 1) {
+        offset.current = 0;
+      } else {
+        offset.current++;
+      }
+      if (flastList.current) {
+        flastList?.current.scrollToIndex({animated:true, index: offset.current});
+      }
+    }, 2000);
+    return () => {
+      clearInterval(timer)
+      console.log(`clearInterval(timer)`);
+    };
+  }, []);
   return (
     <View style={styles.container}>
       <Circle scrollX={scrollX} />
       <Animated.FlatList
+        ref={flastList}
         keyExtractor={item => item.key}
         data={data}
         renderItem={({item, index}) => (
           <Item {...item} index={index} scrollX={scrollX} />
         )}
         pagingEnabled
+        legacyImplementation={false}
         showsHorizontalScrollIndicator={false}
         horizontal
         bounces
@@ -146,8 +176,8 @@ export default function Carousel() {
         )}
         scrollEventThrottle={16}
       />
-      {/* <Pagination scrollX={scrollX} /> */}
-      {/* <Ticker scrollX={scrollX} /> */}
+      <Pagination scrollX={scrollX} />
+      <Ticker scrollX={scrollX} />
     </View>
   );
 }
@@ -155,15 +185,18 @@ export default function Carousel() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
   },
   itemStyle: {
     width: width - DOT_SIZE,
+    justifyContent: 'center',
+    flex: 1,
+    flexDirection: 'row',
   },
   imageStyle: {
     flex: 1,
     justifyContent: 'center',
     padding: 10,
+    maxWidth: 400,
   },
   pagination: {
     position: 'absolute',
@@ -191,14 +224,15 @@ const styles = StyleSheet.create({
   },
   tickerContainer: {
     position: 'absolute',
-    top: 0,
+    top: 10,
     left: 20,
     overflow: 'hidden',
-    height: TICKER_HEIGHT,
+    height: TICKER_HEIGHT + 2,
   },
   tickerText: {
     fontSize: TICKER_HEIGHT,
     lineHeight: TICKER_HEIGHT,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 

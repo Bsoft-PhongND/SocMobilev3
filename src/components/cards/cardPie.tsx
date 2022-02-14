@@ -1,41 +1,80 @@
-import {
-    VictoryBar,
-    VictoryChart,
-    VictoryLabel,
-    VictoryPie,
-    VictoryTheme,
-  } from 'victory-native';
-  import React from 'react';
-  import {Center, View} from 'native-base';
-  import Svg from 'react-native-svg';
-  import {windowHeight, windowWidth} from '../../utils/Dimensions';
-  import {Dimensions} from 'react-native';
-  const chartHeight = Dimensions.get('window').height * 0.3;
-  const chartWidth = Dimensions.get('window').width;
-  const data = [
-    {quarter: 1, earnings: 13000},
-    {quarter: 2, earnings: 16500},
-    {quarter: 3, earnings: 14250},
-    {quarter: 4, earnings: 19000},
-  ];
-  function CardPieChart() {
-    return (
-      //     <VictoryChart width={350} theme={VictoryTheme.material}>
-      //     <VictoryBar data={data} x="quarter" y="earnings" />
-      //   </VictoryChart>
-      <VictoryChart innerRadius={50} >
-        <VictoryPie
-          standalone={false}
-          animate={{
-            duration: 2000,
-          }}
-          height={chartHeight - 100} width={chartWidth / 3.5} 
-          colorScale={['tomato']}
-          data={[{x: 'A', y: 100}]}
-          innerRadius={50}
-        />
-      </VictoryChart>
-    );
-  }
-  export default CardPieChart;
-  
+import { Circle, HStack, Text, VStack } from 'native-base';
+import React from 'react';
+import { VictoryPie } from 'victory-native';
+import { theme } from '../../theme/theme';
+import { windowWidth } from '../../utils/Dimensions';
+const mock = [
+  {label: 'Cats', y: 35, color: theme.colors.hight},
+  {label: 'Dogs', y: 40, color: theme.colors.medium},
+  {label: 'Birds', y: 55, color: theme.colors.low},
+];
+interface PieItem {
+  label: string;
+  y: number | string;
+  color: string;
+}
+interface PropsTypes {
+  data?: Array<PieItem>;
+  showLables?: boolean;
+}
+function CardPieChart(props: PropsTypes) {
+  const data = props.data || mock;
+  const labels = data.map(item => item.label || '---');
+  const colors = data.map(item => item.color || 'black');
+  const {showLables} = props;
+  return (
+    <HStack alignItems="center" flex={1} justifyContent="flex-start">
+      <VictoryPie
+        width={windowWidth * 0.5}
+        height={150}
+        padding={0}
+        padAngle={5}
+        animate={{
+          duration: 2000,
+        }}
+        data={data}
+        innerRadius={25}
+        labels={labels}
+        colorScale={colors}
+        style={{
+          labels: {
+            fill: theme.colors.text,
+            MozMarginStart: 100,
+            display: showLables ? 'block' : 'none',
+          },
+          data: {
+            stroke: 'rgba(255,255,255)',
+            strokeWidth: 2,
+          },
+        }}
+        labelRadius={({innerRadius}) => {
+          return innerRadius + 10;
+        }}
+      />
+    
+      <VStack space={1} marginLeft={5}>
+      <Text style={{marginLeft: 20, ...theme.fontSize.h4,color: theme.colors.text}}>
+                Legends
+      </Text>
+        {data.map(item => {
+          return (
+            <HStack justifyContent="flex-start" alignItems={'center'}>
+              <Circle
+                size="15px"
+                style={{
+                  backgroundColor: item.color || 'black',
+                  borderWidth: 1,
+                  borderColor: theme.colors.text,
+                }}
+              />
+              <Text style={{marginLeft: 20, ...theme.fontSize.h4,color: theme.colors.text}}>
+                {item.label || '---'}
+              </Text>
+            </HStack>
+          );
+        })}
+      </VStack>
+    </HStack>
+  );
+}
+export default CardPieChart;
