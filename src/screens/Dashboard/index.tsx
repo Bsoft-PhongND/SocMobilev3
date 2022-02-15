@@ -36,12 +36,11 @@ function HomeScreen() {
             imageStyle={{opacity: 0.5}}>
             <Carousel autoPlay={true} />
           </ImageBackground>
-          <Box h={300} style={{backgroundColor: theme.colors.card, borderRadius:20}} p={4}>
+          <Box h={400} style={{backgroundColor: theme.colors.card, borderRadius:20}} p={4}>
             <Text style={styles.title}>{wordApp.function}</Text>
             <FlatList
               data={dataFunctions}
               contentContainerStyle={{
-             
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
