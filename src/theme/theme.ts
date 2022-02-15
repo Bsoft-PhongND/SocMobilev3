@@ -38,7 +38,7 @@ export const theme = {
     medium: '#c026d3',
     low:"#fb923c",
     black:'#000',
-    card: 'rgba(12,11,27,.6)'
+    card: 'rgba(20,20,60,.7)'
   },
   fontSize: {
     h1: {fontFamily: 'Roboto-Bold', fontSize: SIZES.h1, lineHeight: 36},

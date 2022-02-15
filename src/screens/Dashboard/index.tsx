@@ -23,34 +23,8 @@ function HomeScreen() {
           source={require('../../assets/images/world.png')}
           style={{width: '100%', height: 220}}
           imageStyle={{opacity: 0.5}}>
-          <Carousel />
+          <Carousel autoPlay={false}/>
         </ImageBackground>
-          <VStack space={5}>
-            <Text style={{...theme.fontSize.h3, color: 'white'}}>
-              Top canh bao
-            </Text>
-            <HStack
-              style={{
-                justifyContent: 'space-between',
-                paddingVertical: 0,
-              }}>
-              <CircularProgressBarComponent
-                title={wordApp.hight}
-                value={50}
-                color={theme.colors.hight}
-              />
-              <CircularProgressBarComponent
-                title={wordApp.medium}
-                value={120}
-                color={theme.colors.medium}
-              />
-              <CircularProgressBarComponent
-                title={wordApp.low}
-                value={60}
-                color={theme.colors.low}
-              />
-            </HStack>
-          </VStack>
         </ScrollView>
       </View>
     </ViewBackGround>

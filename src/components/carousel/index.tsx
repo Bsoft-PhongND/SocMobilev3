@@ -1,17 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import {Box, VStack} from 'native-base';
+import React, {useEffect} from 'react';
 import {
+  Animated,
+  Dimensions,
+  FlatList,
   StyleSheet,
   Text,
   View,
-  Image,
-  Dimensions,
-  Animated,
-  FlatList,
 } from 'react-native';
-import {Box, VStack} from 'native-base';
-import data from './data';
-import CardPieChart from '../cards/cardPie';
 import {theme} from '../../theme/theme';
+import data from './data';
 import {PropsCarosel} from './props';
 
 const {width} = Dimensions.get('window');
@@ -59,12 +57,12 @@ const Ticker = ({scrollX}: any) => {
   const inputRange = [-width, 0, width];
   const translateY = scrollX.interpolate({
     inputRange,
-    outputRange: [TICKER_HEIGHT + 4, 0, -TICKER_HEIGHT - 4],
+    outputRange: [TICKER_HEIGHT, 0, -TICKER_HEIGHT - 4],
   });
   return (
     <View style={[styles.tickerContainer, {overflow: 'hidden'}]}>
       <Animated.View style={{transform: [{translateY}]}}>
-        <VStack space={'4px'}>
+        <VStack space={'2px'} justifyContent="space-between" mt={1}>
           {data.map(({type}, index) => {
             return (
               <Text key={index} style={styles.tickerText}>
@@ -78,11 +76,12 @@ const Ticker = ({scrollX}: any) => {
   );
 };
 
-const Item = ({index, scrollX}: any) => {
-  const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
+const Item = (props: any) => {
+  // const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
+  const {index, scrollX, component} = props;
 
   return (
-    <View style={[styles.itemStyle]}>
+    <View style={[styles.itemStyle]} key={index}>
       <Animated.View
         style={[
           styles.imageStyle,
@@ -93,7 +92,7 @@ const Item = ({index, scrollX}: any) => {
         <Box
           flex={1}
           style={{backgroundColor: theme.colors.card, borderRadius: 10}}>
-          <CardPieChart />
+          {component}
         </Box>
       </Animated.View>
     </View>
@@ -117,9 +116,9 @@ const Pagination = ({scrollX}: any) => {
           },
         ]}
       />
-      {data.map(item => {
+      {data.map((item, index) => {
         return (
-          <View key={item.key} style={styles.paginationDotContainer}>
+          <View key={index} style={styles.paginationDotContainer}>
             <View
               style={[styles.paginationDot, {backgroundColor: item.color}]}
             />
@@ -136,21 +135,28 @@ export default function Carousel(props: PropsCarosel) {
   const {autoPlay} = props;
   const offset = React.useRef(0);
   const handleGoNext = () => {};
-  
+
   useEffect(() => {
-    const timer = setInterval(() => {
-  console.log(scrollX);
-      if (offset.current >= data.length - 1) {
-        offset.current = 0;
-      } else {
-        offset.current++;
-      }
-      if (flastList.current) {
-        flastList?.current.scrollToIndex({animated:true, index: offset.current});
-      }
-    }, 2000);
+    let timer: any = null;
+    if (autoPlay) {
+      timer = setInterval(() => {
+        console.log('change', offset.current);
+        if (offset.current >= data.length - 1) {
+          offset.current = 0;
+        } else {
+          offset.current++;
+        }
+        if (flastList.current) {
+          flastList?.current.scrollToIndex({
+            animated: true,
+            index: offset.current,
+          });
+        }
+      }, 2000);
+    }
+
     return () => {
-      clearInterval(timer)
+      clearInterval(timer);
       console.log(`clearInterval(timer)`);
     };
   }, []);
@@ -201,7 +207,7 @@ const styles = StyleSheet.create({
   pagination: {
     position: 'absolute',
     right: 20,
-    bottom: 40,
+    bottom: 20,
     flexDirection: 'row',
     height: DOT_SIZE,
   },

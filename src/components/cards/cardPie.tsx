@@ -56,9 +56,9 @@ function CardPieChart(props: PropsTypes) {
       <Text style={{marginLeft: 20, ...theme.fontSize.h4,color: theme.colors.text}}>
                 Legends
       </Text>
-        {data.map(item => {
+        {data.map((item,index) => {
           return (
-            <HStack justifyContent="flex-start" alignItems={'center'}>
+            <HStack justifyContent="flex-start" alignItems={'center'} key={index}>
               <Circle
                 size="15px"
                 style={{
