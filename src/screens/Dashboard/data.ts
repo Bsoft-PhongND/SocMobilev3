@@ -1,3 +1,4 @@
+import { NameScreen } from '../../config';
 import wordApp from '../../utils/word';
 
 const dataFunctions = [
@@ -5,7 +6,7 @@ const dataFunctions = [
     id: 1,
     title: wordApp.functions.netWork,
     icon: require('../../assets/icons/png/network.png'),
-    navigation: null,
+    navigation: NameScreen.DrawerScreen.WarningScreen,
   },
   {
     id: 2,

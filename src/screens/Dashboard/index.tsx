@@ -1,19 +1,8 @@
-import {
-  Box,
-  FlatList,
-  HStack,
-  Icon,
-  Image,
-  ScrollView,
-  Text,
-  View,
-  VStack,
-} from 'native-base';
-import React from 'react';
+import {Box, FlatList, Image, Text, View} from 'native-base';
+import React, {useState} from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
 import Carousel from '../../components/carousel';
-import PieChart from '../../components/charts/VictoryPie';
-import CircularProgressBarComponent from '../../components/circleprogress';
 import HeaderMenu from '../../components/headermenu';
 import ViewBackGround from '../../components/viewbackground';
 import {theme} from '../../theme/theme';
@@ -25,6 +14,13 @@ export default function Container() {
   return <HomeScreen />;
 }
 function HomeScreen() {
+  const [autoPlay, setAutoPlay] = useState(false);
+  useFocusEffect(() => {
+    setAutoPlay(true);
+    return () => {
+      setAutoPlay(false);
+    };
+  });
   return (
     <ViewBackGround>
       <View style={{flex: 1}}>
@@ -34,9 +30,12 @@ function HomeScreen() {
             source={require('../../assets/images/world.png')}
             style={{width: '100%', height: 220}}
             imageStyle={{opacity: 0.5}}>
-            <Carousel autoPlay={true} />
+            <Carousel autoPlay={autoPlay} />
           </ImageBackground>
-          <Box h={400} style={{backgroundColor: theme.colors.card, borderRadius:20}} p={4}>
+          <Box
+            h={400}
+            style={{backgroundColor: theme.colors.card, borderRadius: 20}}
+            p={4}>
             <Text style={styles.title}>{wordApp.function}</Text>
             <FlatList
               data={dataFunctions}
@@ -44,7 +43,7 @@ function HomeScreen() {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              keyExtractor={item => item.id+""}
+              keyExtractor={item => item.id + ''}
               renderItem={({item, index}) => {
                 return (
                   <Box style={styles.itemF}>

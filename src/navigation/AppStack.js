@@ -52,6 +52,8 @@ const AppStack = () => {
           fontFamily: 'Roboto-Medium',
           fontSize: 15,
         },
+        animationEnabled: true,
+        animation: 'slide_from_right',
       }}>
       <Drawer.Screen
         name={NameScreen.DashBoardScreen}

@@ -1,5 +1,6 @@
-import {Box, VStack} from 'native-base';
+import {Box, HStack, Icon, Pressable, VStack} from 'native-base';
 import React, {useEffect} from 'react';
+import Feather from 'react-native-vector-icons/Feather';
 import {
   Animated,
   Dimensions,
@@ -11,6 +12,8 @@ import {
 import {theme} from '../../theme/theme';
 import data from './data';
 import {PropsCarosel} from './props';
+import {useNavigation} from '@react-navigation/native';
+import {NameScreen} from '../../config';
 
 const {width} = Dimensions.get('window');
 const DOT_SIZE = 20;
@@ -61,17 +64,19 @@ const Ticker = ({scrollX}: any) => {
   });
   return (
     <View style={[styles.tickerContainer, {overflow: 'hidden'}]}>
-      <Animated.View style={{transform: [{translateY}]}}>
-        <VStack space={'2px'} justifyContent="space-between" mt={1}>
-          {data.map(({type}, index) => {
-            return (
-              <Text key={index} style={styles.tickerText}>
-                {type}
-              </Text>
-            );
-          })}
-        </VStack>
-      </Animated.View>
+      <HStack>
+        <Animated.View style={{transform: [{translateY}]}}>
+          <VStack space={'2px'} justifyContent="space-between" mt={1}>
+            {data.map(({type}, index) => {
+              return (
+                <Text key={index} style={styles.tickerText}>
+                  {type}
+                </Text>
+              );
+            })}
+          </VStack>
+        </Animated.View>
+      </HStack>
     </View>
   );
 };
@@ -79,7 +84,12 @@ const Ticker = ({scrollX}: any) => {
 const Item = (props: any) => {
   // const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
   const {index, scrollX, component} = props;
-
+  const navigation = useNavigation();
+  const handleNavigate = () => {
+    if (props?.navigation) {
+      navigation.navigate(props.navigation);
+    }
+  };
   return (
     <View style={[styles.itemStyle]} key={index}>
       <Animated.View
@@ -94,6 +104,18 @@ const Item = (props: any) => {
           style={{backgroundColor: theme.colors.card, borderRadius: 10}}>
           {component}
         </Box>
+        <Pressable
+          style={{position: 'absolute', top: 10, right: 10}}
+          onPress={handleNavigate}>
+          <HStack justifyContent="center" alignItems="center" space={0}>
+            <Text style={{color: theme.colors.text}}>Chi Tiet</Text>
+            <Icon
+              as={<Feather name="chevrons-right" />}
+              size={5}
+              color="primary.50"
+            />
+          </HStack>
+        </Pressable>
       </Animated.View>
     </View>
   );
@@ -152,14 +174,13 @@ export default function Carousel(props: PropsCarosel) {
             index: offset.current,
           });
         }
-      }, 2000);
+      }, 3000);
     }
 
     return () => {
       clearInterval(timer);
-      console.log(`clearInterval(timer)`);
     };
-  }, []);
+  }, [autoPlay]);
   return (
     <View style={styles.container}>
       <Circle scrollX={scrollX} />
@@ -197,6 +218,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     flexDirection: 'row',
+    position: 'relative',
   },
   imageStyle: {
     flex: 1,
