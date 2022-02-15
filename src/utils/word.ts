@@ -17,6 +17,14 @@ const wordApp = {
     verified:"Đã xác minh",
     hight:"Cao",
     medium:"Trung Bình",
-    low:"Thấp"
+    low:"Thấp",
+    function:"Chức năng",
+    functions:{
+        netWork:"Lớp mạng",
+        server:"Lớp máy chủ",
+        Application:"Lớp ứng dụng",
+        endpoint:"Thiết bị đầu cuối"
+    }
+
 }
 export default wordApp;

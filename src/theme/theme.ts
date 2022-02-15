@@ -16,9 +16,11 @@ export const SIZES = {
   h4: 14,
   body1: 30,
   body2: 22,
-  body3: 16,
-  body4: 14,
-  body5: 12,
+  body3: 18,
+  body4: 16,
+  body5: 14,
+  body6: 12,
+
 
   // app dimensions
   width,
@@ -38,7 +40,11 @@ export const theme = {
     medium: '#c026d3',
     low:"#fb923c",
     black:'#000',
-    card: 'rgba(20,20,60,.7)'
+    card: 'rgba(20,20,60,.7)',
+    purple: 'rgba(15,23,42,1)',
+    red:'rgba(254,101,92,1)',
+    blue: 'rgba(68,162,249,1)',
+
   },
   fontSize: {
     h1: {fontFamily: 'Roboto-Bold', fontSize: SIZES.h1, lineHeight: 36},

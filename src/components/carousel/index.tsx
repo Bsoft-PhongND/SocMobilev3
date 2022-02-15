@@ -201,8 +201,9 @@ const styles = StyleSheet.create({
   imageStyle: {
     flex: 1,
     justifyContent: 'center',
-    padding: 10,
+    padding: 5,
     maxWidth: 400,
+    overflow: 'hidden',
   },
   pagination: {
     position: 'absolute',

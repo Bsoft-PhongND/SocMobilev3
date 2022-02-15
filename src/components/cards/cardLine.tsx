@@ -39,7 +39,7 @@ function CardLineChart() {
        minDomain={100}
         style={{
           grid: {
-            stroke: 'transparent',
+            // stroke: 'transparent',
           },
         }}
       />
