@@ -1,10 +1,17 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {Box, FlatList, Image, Pressable, Text, View} from 'native-base';
-import React, {useState} from 'react';
+import {Box, FlatList, HStack, Image, Pressable, Text, View} from 'native-base';
+import React, {useEffect, useRef, useState} from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import Carousel from '../../components/carousel';
 import HeaderMenu from '../../components/headermenu';
 import ViewBackGround from '../../components/viewbackground';
+import {NameScreen} from '../../config';
 import {theme} from '../../theme/theme';
 import {windowWidth} from '../../utils/Dimensions';
 import wordApp from '../../utils/word';
@@ -15,7 +22,17 @@ export default function Container() {
 }
 function HomeScreen() {
   const [autoPlay, setAutoPlay] = useState(false);
+  const [isFull, setIsFull] = useState(false);
   const navigation = useNavigation();
+  const visibleCarousel = useSharedValue(220);
+  const heightCarousel = useAnimatedStyle(() => {
+    return {
+      height: withTiming(visibleCarousel.value, {
+        duration: 500,
+        easing: Easing.ease,
+      }),
+    };
+  });
   useFocusEffect(() => {
     setAutoPlay(true);
     return () => {
@@ -27,51 +44,82 @@ function HomeScreen() {
       navigation.navigate(navigate);
     }
   };
+  const toggleOpen = () => {
+    visibleCarousel.value = isFull ? 220 : 0;
+    setIsFull(!isFull);
+  };
   return (
     <ViewBackGround>
       <View style={{flex: 1}}>
-        <HeaderMenu title="Dashboard" />
-        <View style={{paddingHorizontal: 10}}>
-          <ImageBackground
-            source={require('../../assets/images/world.png')}
-            style={{width: '100%', height: 220}}
-            imageStyle={{opacity: 0.5}}>
-            <Carousel autoPlay={autoPlay} />
-          </ImageBackground>
-          <Box
-            h={400}
-            style={{backgroundColor: theme.colors.card, borderRadius: 20}}
-            >
-            <ImageBackground source={require('../../assets/giff/273610384_652321456012718_4833755231786264808_n.gif')} style={{flex: 1}}>
+        <HeaderMenu title={NameScreen.DrawerScreen.DashboardScreen} />
+        <View style={{flex: 1}}>
+          <Animated.View style={[heightCarousel, {overflow: 'hidden',paddingVertical:5}]}>
+            {!isFull && (
+              <ImageBackground
+                // source={require('../../assets/images/world.png')}
+                source={require('../../assets/giff/electric2.gif')}
+                style={{width: '100%', height: '100%'}}
+                resizeMode='cover'
+                imageStyle={{opacity: .7,borderRadius:10}}>
+                <Carousel autoPlay={autoPlay} />
+              </ImageBackground>
+            )}
+          </Animated.View>
+
+          <View
+            flex={1}
+            style={{
+              backgroundColor: theme.colors.card,
+              borderRadius: 10,
+              overflow: 'hidden',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              flex: 1,
+            }}>
+            <ImageBackground
+              source={require('../../assets/giff/radar2.gif')}
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                opacity: 0.6,
+              }}
+              resizeMode="cover"
+            />
+            <HStack space="2" justifyContent="space-between">
               <Text style={styles.title}>{wordApp.function}</Text>
-              <FlatList
-                data={dataFunctions}
-                contentContainerStyle={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                keyExtractor={item => item.id + ''}
-                renderItem={({item, index}) => {
-                  return (
-                    <Pressable
-                      style={styles.itemF}
-                      onPress={() => handleNavigate(item.navigation)}>
-                      <Box style={styles.icon}>
-                        <Image
-                          resizeMode="contain"
-                          style={{width: '100%', height: '100%'}}
-                          source={item.icon}
-                          alt={item.title}
-                        />
-                      </Box>
-                      <Text style={styles.titleF}>{item.title}</Text>
-                    </Pressable>
-                  );
-                }}
-                numColumns={2}
-              />
-            </ImageBackground>
-          </Box>
+              <Pressable onPress={toggleOpen}>
+                <Text style={[styles.title, {fontSize: 14}]}>Open</Text>
+              </Pressable>
+            </HStack>
+            <FlatList
+              data={dataFunctions}
+              contentContainerStyle={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex: isFull ? 1 : 0,
+              }}
+              keyExtractor={item => item.id + ''}
+              renderItem={({item, index}) => {
+                return (
+                  <Pressable
+                    style={styles.itemF}
+                    onPress={() => handleNavigate(item.navigation)}>
+                    <Box style={styles.icon}>
+                      <Image
+                        resizeMode="contain"
+                        style={{width: '100%', height: '100%'}}
+                        source={item.icon}
+                        alt={item.title}
+                      />
+                    </Box>
+                    <Text style={styles.titleF}>{item.title}</Text>
+                  </Pressable>
+                );
+              }}
+              numColumns={2}
+            />
+          </View>
         </View>
       </View>
     </ViewBackGround>
@@ -81,6 +129,7 @@ const styles = StyleSheet.create({
   title: {
     color: theme.colors.text,
     fontWeight: 'bold',
+    padding: 10,
     ...theme.fontSize.body3,
   },
   titleF: {
@@ -97,13 +146,8 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 20,
     shadowColor: 'rgba(255,255,255,.9)',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.9,
-    shadowRadius: 2,
-    elevation: 3,
+    borderWidth: 1,
+    borderColor: theme.colors.blue,
     justifyContent: 'center',
     alignItems: 'center',
   },

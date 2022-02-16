@@ -18,7 +18,7 @@ import {NameScreen} from '../../config';
 const {width} = Dimensions.get('window');
 const DOT_SIZE = 20;
 const TICKER_HEIGHT = 18;
-const CIRCLE_SIZE = width * 0.6;
+const CIRCLE_SIZE = 210;
 
 const Circle = ({scrollX}: any) => {
   return (
@@ -125,7 +125,7 @@ const Pagination = ({scrollX}: any) => {
   const inputRange = [-width, 0, width];
   const translateX = scrollX.interpolate({
     inputRange,
-    outputRange: [-DOT_SIZE + 1, 0, DOT_SIZE + 1],
+    outputRange: [-DOT_SIZE, 0, DOT_SIZE],
   });
   return (
     <View style={[styles.pagination]}>
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   itemStyle: {
-    width: width - DOT_SIZE,
+    width: width,
     justifyContent: 'center',
     flex: 1,
     flexDirection: 'row',
@@ -223,7 +223,6 @@ const styles = StyleSheet.create({
   imageStyle: {
     flex: 1,
     justifyContent: 'center',
-    padding: 5,
     maxWidth: 400,
     overflow: 'hidden',
   },
@@ -256,7 +255,7 @@ const styles = StyleSheet.create({
     top: 10,
     left: 20,
     overflow: 'hidden',
-    height: TICKER_HEIGHT + 2,
+    height: TICKER_HEIGHT,
   },
   tickerText: {
     fontSize: TICKER_HEIGHT,

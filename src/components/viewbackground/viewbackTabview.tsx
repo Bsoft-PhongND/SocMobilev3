@@ -23,9 +23,9 @@ function ViewBackGround({children, safeArea = true}: PropsTypes) {
       bg={{
         linearGradient: {
           colors: [
+            theme.colors.purplebackground,
             theme.colors.background,
-            theme.colors.secondary,
-            theme.colors.background,
+            theme.colors.purplebackground,
           ],
           start: [0, 0.5, 1],
           end: [1, 0.5, 0],

@@ -24,24 +24,21 @@ function ViewBackGround({children, safeArea = true}: PropsTypes) {
       bg={{
         linearGradient: {
           colors: [
+            theme.colors.purplebackground,
             theme.colors.background,
-            theme.colors.secondary,
-            theme.colors.background,
+            theme.colors.purplebackground,
           ],
-          start: [0, 0.5, 1],
-          end: [1, 0.5, 0],
+          start: [0, 1, 1],
+          end: [1, 1, 0],
         },
       }}
-      safeAreaTop={safeArea}
-      >
+      safeAreaTop={safeArea}>
       <StatusBar
         barStyle={'light-content'}
         translucent={true}
         backgroundColor={'transparent'}
       />
-      <Box style={{flex: 1}}>
-        {children}
-      </Box>
+      <Box style={{flex: 1}}>{children}</Box>
       {loading && (
         <Box
           position={'absolute'}

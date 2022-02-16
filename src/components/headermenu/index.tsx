@@ -1,7 +1,7 @@
 import React from 'react';
 import {Center, Flex, Icon, Stack, Text} from 'native-base';
 import {theme} from '../../theme/theme';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 interface PropsTypes {
   title?: string;
@@ -24,7 +24,8 @@ function HeaderMenu(props: PropsTypes) {
         <Flex flexDirection="row" flex={1}>
           <Flex flex={1} style={{paddingLeft: 5}}>
             <Icon
-              as={<FontAwesome name={'bars'} />}
+              as={<Ionicons
+                name={'menu'} />}
               size={'7'}
               color="muted.100"
               onPress={handleOpenDrawer}
@@ -50,7 +51,7 @@ function HeaderMenu(props: PropsTypes) {
             }}>
             {props.IconLeft && (
               <Icon
-                as={<FontAwesome name={'bars'} />}
+                as={<Ionicons name={'menu'} />}
                 size={'8'}
                 color="muted.100"
                 onPress={handleOpenDrawer}
