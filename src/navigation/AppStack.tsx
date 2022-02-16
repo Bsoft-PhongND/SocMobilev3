@@ -123,6 +123,7 @@ const AppStack = () => {
           fontFamily: 'Roboto-Medium',
           fontSize: 15,
         },
+        drawerType:'slide'
       }}
       >
         <Drawer.Screen

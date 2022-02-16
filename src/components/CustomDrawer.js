@@ -20,6 +20,7 @@ const CustomDrawer = props => {
       routes: [{name: NameScreen.LoginScreen}],
     });
   }
+
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView

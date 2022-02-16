@@ -81,10 +81,7 @@ const TabNavigator = () => {
 };
 
 const getTabBarVisibility = route => {
-  // console.log(route);
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
-  // console.log(routeName);
-
   if (routeName == 'GameDetails') {
     return 'none';
   }
