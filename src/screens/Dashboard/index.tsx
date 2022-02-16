@@ -1,26 +1,32 @@
-import {Box, FlatList, Image, Text, View} from 'native-base';
-import React, {useState} from 'react';
-import {ImageBackground, StyleSheet} from 'react-native';
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { Box, FlatList, Image, Pressable, Text, View } from 'native-base';
+import React, { useState } from 'react';
+import { ImageBackground, StyleSheet } from 'react-native';
 import Carousel from '../../components/carousel';
 import HeaderMenu from '../../components/headermenu';
 import ViewBackGround from '../../components/viewbackground';
-import {theme} from '../../theme/theme';
-import {windowWidth} from '../../utils/Dimensions';
+import { theme } from '../../theme/theme';
+import { windowWidth } from '../../utils/Dimensions';
 import wordApp from '../../utils/word';
-import {dataFunctions} from './data';
+import { dataFunctions } from './data';
 
 export default function Container() {
   return <HomeScreen />;
 }
 function HomeScreen() {
   const [autoPlay, setAutoPlay] = useState(false);
+  const navigation = useNavigation();
   useFocusEffect(() => {
     setAutoPlay(true);
     return () => {
       setAutoPlay(false);
     };
   });
+  const handleNavigate = (navigate: any) => {
+    if(navigate){
+      navigation.navigate(navigate);
+    }
+  };
   return (
     <ViewBackGround>
       <View style={{flex: 1}}>
@@ -46,7 +52,9 @@ function HomeScreen() {
               keyExtractor={item => item.id + ''}
               renderItem={({item, index}) => {
                 return (
-                  <Box style={styles.itemF}>
+                  <Pressable
+                    style={styles.itemF}
+                    onPress={() => handleNavigate(item.navigation)}>
                     <Box style={styles.icon}>
                       <Image
                         resizeMode="contain"
@@ -56,7 +64,7 @@ function HomeScreen() {
                       />
                     </Box>
                     <Text style={styles.titleF}>{item.title}</Text>
-                  </Box>
+                  </Pressable>
                 );
               }}
               numColumns={2}
@@ -77,11 +85,12 @@ const styles = StyleSheet.create({
     color: theme.colors.text,
     fontWeight: 'bold',
     textAlign: 'center',
+    paddingVertical: 5,
     ...theme.fontSize.h4,
   },
   itemF: {
     backgroundColor: theme.colors.purple,
-    height: 100,
+    height: 130,
     width: windowWidth / 2 - 50,
     margin: 5,
     borderRadius: 20,

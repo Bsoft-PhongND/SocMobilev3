@@ -1,6 +1,6 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CustomDrawer from '../components/CustomDrawer';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -15,6 +15,9 @@ import InfoWarningScreen from '../screens/Warning/info';
 import TabNavigator from './TabNavigator';
 import {NameScreen} from '../config';
 import DashBoardScreen from '../screens/Dashboard';
+import NetWorkScreen from '../screens/Network';
+import ApplicationScreen from '../screens/Application';
+import EndpointScreen from '../screens/Endpoint';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -32,7 +35,54 @@ const WarningStack = () => {
         component={InfoWarningScreen}
         options={({route}) => ({
           title: route.params?.title,
-          headerShown: false
+          headerShown: false,
+        })}
+      />
+    </Stack.Navigator>
+  );
+};
+const DashboardStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        animationEnabled: true,
+        animation:'fade_from_bottom'
+      }}>
+      <Stack.Screen
+        name={NameScreen.DashBoardScreen}
+        component={DashBoardScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name={NameScreen.NetWorkScreen}
+        component={NetWorkScreen}
+        options={({route}) => ({
+          title: route.params?.title,
+          headerShown: false,
+        })}
+      />
+      <Stack.Screen
+        name={NameScreen.HostingScreen}
+        component={NetWorkScreen}
+        options={({route}) => ({
+          title: route.params?.title,
+          headerShown: false,
+        })}
+      />
+      <Stack.Screen
+        name={NameScreen.ApplicationScreen}
+        component={ApplicationScreen}
+        options={({route}) => ({
+          title: route.params?.title,
+          headerShown: false,
+        })}
+      />
+      <Stack.Screen
+        name={NameScreen.EndpointScreen}
+        component={EndpointScreen}
+        options={({route}) => ({
+          title: route.params?.title,
+          headerShown: false,
         })}
       />
     </Stack.Navigator>
@@ -56,8 +106,8 @@ const AppStack = () => {
         animation: 'slide_from_right',
       }}>
       <Drawer.Screen
-        name={NameScreen.DashBoardScreen}
-        component={DashBoardScreen}
+        name={NameScreen.StacksScreen.DashboardStack}
+        component={DashboardStack}
         options={{
           drawerIcon: ({color}) => (
             <AntDesign name="dashboard" size={22} color={color} />

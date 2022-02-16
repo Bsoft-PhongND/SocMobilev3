@@ -7,6 +7,7 @@ const NameScreen = {
         NewsStack:"NewsStack",
         AppStack:"AppStack",
         WarningStack:"WarningStack",
+        DashboardStack:"DashboardStack",
     },
     DrawerScreen:{
         DashboardScreen:"Thống kê",
@@ -16,6 +17,10 @@ const NameScreen = {
         ContactScreen:"Liên hệ"
     },
     DashBoardScreen:"DashboardScreen",
+    NetWorkScreen:"NetWorkScreen",
+    HostingScreen:"HostingScreen",
+    EndpointScreen:"EndpointScreen",
+    ApplicationScreen:"ApplicationScreen",
     StatisticScreen:"StatisticScreen",
     DetailWarningScreen:"DetailWarningScreen",
     WarningScreen:"WarningScreen",
