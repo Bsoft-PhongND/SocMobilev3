@@ -18,6 +18,8 @@ import DashBoardScreen from '../screens/Dashboard';
 import NetWorkScreen from '../screens/Network';
 import ApplicationScreen from '../screens/Application';
 import EndpointScreen from '../screens/Endpoint';
+import Animated, { AnimatedStyleProp } from 'react-native-reanimated';
+import { StyleSheet } from 'react-native';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -45,7 +47,6 @@ const DashboardStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        animationEnabled: true,
         animation:'fade_from_bottom'
       }}>
       <Stack.Screen
@@ -88,7 +89,27 @@ const DashboardStack = () => {
     </Stack.Navigator>
   );
 };
+const Screens = ({style}:any) =>{
+  return(
+    <Animated.View style={StyleSheet.flatten([styles.stack, style])}>
+      <Stack.Navigator>
+      
+      </Stack.Navigator>
+    </Animated.View>
+  )
+}
 const AppStack = () => {
+  const [progress, setProgress] = React.useState(new Animated.Value(0));
+  const scale = Animated.interpolateNode(progress, {
+    inputRange: [0, 1],
+    outputRange: [1, 0.8],
+  });
+  const borderRadius = Animated.interpolateNode(progress, {
+    inputRange: [0, 1],
+    outputRange: [0, 16],
+  });
+
+  const animatedStyle = { borderRadius, transform: [{ scale }] };
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}
@@ -102,10 +123,9 @@ const AppStack = () => {
           fontFamily: 'Roboto-Medium',
           fontSize: 15,
         },
-        animationEnabled: true,
-        animation: 'slide_from_right',
-      }}>
-      <Drawer.Screen
+      }}
+      >
+        <Drawer.Screen
         name={NameScreen.StacksScreen.DashboardStack}
         component={DashboardStack}
         options={{
@@ -160,3 +180,27 @@ const AppStack = () => {
 };
 
 export default AppStack;
+const styles = StyleSheet.create({
+  stack: {
+    flex: 1,
+    shadowColor: '#FFF',
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 10.32,
+    elevation: 5,
+    // overflow: 'scroll',
+    // borderWidth: 1,
+  },
+  drawerStyles: { flex: 1, width: '50%', backgroundColor: 'transparent' },
+  drawerItem: { alignItems: 'flex-start', marginVertical: 0 },
+  drawerLabel: { color: 'white', marginLeft: -16 },
+  avatar: {
+    borderRadius: 60,
+    marginBottom: 16,
+    borderColor: 'white',
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+});

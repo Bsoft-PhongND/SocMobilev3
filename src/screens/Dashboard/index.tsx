@@ -1,14 +1,14 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { Box, FlatList, Image, Pressable, Text, View } from 'native-base';
-import React, { useState } from 'react';
-import { ImageBackground, StyleSheet } from 'react-native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {Box, FlatList, Image, Pressable, Text, View} from 'native-base';
+import React, {useState} from 'react';
+import {ImageBackground, StyleSheet} from 'react-native';
 import Carousel from '../../components/carousel';
 import HeaderMenu from '../../components/headermenu';
 import ViewBackGround from '../../components/viewbackground';
-import { theme } from '../../theme/theme';
-import { windowWidth } from '../../utils/Dimensions';
+import {theme} from '../../theme/theme';
+import {windowWidth} from '../../utils/Dimensions';
 import wordApp from '../../utils/word';
-import { dataFunctions } from './data';
+import {dataFunctions} from './data';
 
 export default function Container() {
   return <HomeScreen />;
@@ -23,7 +23,7 @@ function HomeScreen() {
     };
   });
   const handleNavigate = (navigate: any) => {
-    if(navigate){
+    if (navigate) {
       navigation.navigate(navigate);
     }
   };
@@ -41,34 +41,36 @@ function HomeScreen() {
           <Box
             h={400}
             style={{backgroundColor: theme.colors.card, borderRadius: 20}}
-            p={4}>
-            <Text style={styles.title}>{wordApp.function}</Text>
-            <FlatList
-              data={dataFunctions}
-              contentContainerStyle={{
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              keyExtractor={item => item.id + ''}
-              renderItem={({item, index}) => {
-                return (
-                  <Pressable
-                    style={styles.itemF}
-                    onPress={() => handleNavigate(item.navigation)}>
-                    <Box style={styles.icon}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: '100%', height: '100%'}}
-                        source={item.icon}
-                        alt={item.title}
-                      />
-                    </Box>
-                    <Text style={styles.titleF}>{item.title}</Text>
-                  </Pressable>
-                );
-              }}
-              numColumns={2}
-            />
+            >
+            <ImageBackground source={require('../../assets/giff/273610384_652321456012718_4833755231786264808_n.gif')} style={{flex: 1}}>
+              <Text style={styles.title}>{wordApp.function}</Text>
+              <FlatList
+                data={dataFunctions}
+                contentContainerStyle={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                keyExtractor={item => item.id + ''}
+                renderItem={({item, index}) => {
+                  return (
+                    <Pressable
+                      style={styles.itemF}
+                      onPress={() => handleNavigate(item.navigation)}>
+                      <Box style={styles.icon}>
+                        <Image
+                          resizeMode="contain"
+                          style={{width: '100%', height: '100%'}}
+                          source={item.icon}
+                          alt={item.title}
+                        />
+                      </Box>
+                      <Text style={styles.titleF}>{item.title}</Text>
+                    </Pressable>
+                  );
+                }}
+                numColumns={2}
+              />
+            </ImageBackground>
           </Box>
         </View>
       </View>

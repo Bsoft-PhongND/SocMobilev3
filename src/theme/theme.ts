@@ -41,7 +41,7 @@ export const theme = {
     low:"#fb923c",
     black:'#000',
     card: 'rgba(20,20,60,.7)',
-    purple: 'rgba(15,23,42,1)',
+    purple: 'rgba(15,23,42,.9)',
     red:'rgba(254,101,92,1)',
     blue: 'rgba(68,162,249,1)',
 
