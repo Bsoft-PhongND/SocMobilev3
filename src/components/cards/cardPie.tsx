@@ -16,6 +16,7 @@ interface PieItem {
 interface PropsTypes {
   data?: Array<PieItem>;
   showLables?: boolean;
+  title?:string;
 }
 function CardPieChart(props: PropsTypes) {
   const data = props.data || mock;

@@ -1,5 +1,8 @@
 import React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {
+  createDrawerNavigator,
+  useDrawerProgress,
+} from '@react-navigation/drawer';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CustomDrawer from '../components/CustomDrawer';
 
@@ -18,8 +21,9 @@ import DashBoardScreen from '../screens/Dashboard';
 import NetWorkScreen from '../screens/Network';
 import ApplicationScreen from '../screens/Application';
 import EndpointScreen from '../screens/Endpoint';
-import Animated, { AnimatedStyleProp } from 'react-native-reanimated';
-import { StyleSheet } from 'react-native';
+import Animated, {AnimatedStyleProp} from 'react-native-reanimated';
+import {StyleSheet} from 'react-native';
+import DetailNetworkScreen from '../screens/Network/DetailNetwork';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -47,7 +51,7 @@ const DashboardStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        animation:'fade_from_bottom'
+        animation: 'fade_from_bottom',
       }}>
       <Stack.Screen
         name={NameScreen.DashBoardScreen}
@@ -61,6 +65,11 @@ const DashboardStack = () => {
           title: route.params?.title,
           headerShown: false,
         })}
+      />
+      <Stack.Screen
+        name={NameScreen.DetailNetworkScreen}
+        component={DetailNetworkScreen}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name={NameScreen.HostingScreen}
@@ -89,27 +98,80 @@ const DashboardStack = () => {
     </Stack.Navigator>
   );
 };
-const Screens = ({style}:any) =>{
-  return(
-    <Animated.View style={StyleSheet.flatten([styles.stack, style])}>
-      <Stack.Navigator>
-      
-      </Stack.Navigator>
-    </Animated.View>
-  )
-}
-const AppStack = () => {
-  const [progress, setProgress] = React.useState(new Animated.Value(0));
-  const scale = Animated.interpolateNode(progress, {
-    inputRange: [0, 1],
-    outputRange: [1, 0.8],
-  });
-  const borderRadius = Animated.interpolateNode(progress, {
-    inputRange: [0, 1],
-    outputRange: [0, 16],
-  });
+/* custum drawer*/
+// const Screens = () => {
+//   const progress: any = React.useState(new Animated.Value(useDrawerProgress().value));
+//   const scale = Animated.interpolateNode(progress.value, {
+//     inputRange: [0, 1],
+//     outputRange: [1, 0.8],
+//   });
+//   const borderRadius = Animated.interpolateNode(progress, {
+//     inputRange: [0, 1],
+//     outputRange: [0, 16],
+//   });
 
-  const animatedStyle = { borderRadius, transform: [{ scale }] };
+//   const style = {borderRadius, transform: [{scale}]};
+//   React.useEffect(() => {
+//     console.log(progress);
+//   }, [progress]);
+//   return (
+//     <Animated.View style={StyleSheet.flatten([styles.stack, style])}>
+//       <Stack.Navigator screenOptions={{headerShown: false}}>
+//         <Drawer.Screen
+//           name={NameScreen.StacksScreen.DashboardStack}
+//           component={DashboardStack}
+//           options={{
+//             drawerIcon: ({color}) => (
+//               <AntDesign name="dashboard" size={22} color={color} />
+//             ),
+//             title: NameScreen.DrawerScreen.DashboardScreen,
+//           }}
+//         />
+//         <Drawer.Screen
+//           name={NameScreen.StacksScreen.WarningStack}
+//           component={WarningStack}
+//           options={{
+//             drawerIcon: ({color}) => (
+//               <Feather name="alert-triangle" size={22} color={color} />
+//             ),
+//             title: NameScreen.DrawerScreen.WarningScreen,
+//           }}
+//         />
+//         <Drawer.Screen
+//           name={NameScreen.ResponseScreen}
+//           component={ResponseScreen}
+//           options={{
+//             drawerIcon: ({color}) => (
+//               <FontAwesome name="gears" size={22} color={color} />
+//             ),
+//             title: NameScreen.DrawerScreen.ResponseScreen,
+//           }}
+//         />
+//         <Drawer.Screen
+//           name={NameScreen.StacksScreen.TabBarBottom}
+//           component={TabNavigator}
+//           options={{
+//             drawerIcon: ({color}) => (
+//               <Ionicons name="newspaper-outline" size={22} color={color} />
+//             ),
+//             title: NameScreen.DrawerScreen.NewsScreen,
+//           }}
+//         />
+//         <Drawer.Screen
+//           name={NameScreen.ContactScreen}
+//           component={ContactScreen}
+//           options={{
+//             drawerIcon: ({color}) => (
+//               <AntDesign name="contacts" size={22} color={color} />
+//             ),
+//             title: NameScreen.DrawerScreen.ContactScreen,
+//           }}
+//         />
+//       </Stack.Navigator>
+//     </Animated.View>
+//   );
+// };
+const AppStack = () => {
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}
@@ -123,10 +185,17 @@ const AppStack = () => {
           fontFamily: 'Roboto-Medium',
           fontSize: 15,
         },
-        drawerType:'slide'
+        drawerType: 'slide',
       }}
-      >
-        <Drawer.Screen
+      defaultScreenOptions={{
+        sceneContainerStyle: {backgroundColor: 'transparent'},
+        drawerActiveBackgroundColor: 'transparent',
+        drawerInactiveBackgroundColor: 'transparent',
+        drawerActiveTintColor: 'green',
+        drawerInactiveTintColor: 'green',
+      }}>
+      {/* <Drawer.Screen name="defaultScreen">{() => <Screens />}</Drawer.Screen> */}
+      <Drawer.Screen
         name={NameScreen.StacksScreen.DashboardStack}
         component={DashboardStack}
         options={{
@@ -192,16 +261,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.44,
     shadowRadius: 10.32,
     elevation: 5,
-    // overflow: 'scroll',
-    // borderWidth: 1,
-  },
-  drawerStyles: { flex: 1, width: '50%', backgroundColor: 'transparent' },
-  drawerItem: { alignItems: 'flex-start', marginVertical: 0 },
-  drawerLabel: { color: 'white', marginLeft: -16 },
-  avatar: {
-    borderRadius: 60,
-    marginBottom: 16,
-    borderColor: 'white',
-    borderWidth: StyleSheet.hairlineWidth,
   },
 });

@@ -24,7 +24,9 @@ const wordApp = {
         server:"Lớp máy chủ",
         Application:"Lớp ứng dụng",
         endpoint:"Thiết bị đầu cuối"
-    }
+    },
+    expand:'Mở rộng',
+    detail:'Chi tiết'
 
 }
 export default wordApp;

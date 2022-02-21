@@ -82,14 +82,14 @@ function HomeScreen() {
                 position: 'absolute',
                 width: '100%',
                 height: '100%',
-                opacity: 0.6,
+                opacity: 0.4,
               }}
               resizeMode="cover"
             />
             <HStack space="2" justifyContent="space-between">
               <Text style={styles.title}>{wordApp.function}</Text>
               <Pressable onPress={toggleOpen}>
-                <Text style={[styles.title, {fontSize: 14}]}>Open</Text>
+                <Text style={[styles.title, {fontSize: 14}]}>{wordApp.expand}</Text>
               </Pressable>
             </HStack>
             <FlatList
@@ -97,7 +97,8 @@ function HomeScreen() {
               contentContainerStyle={{
                 justifyContent: 'center',
                 alignItems: 'center',
-                flex: isFull ? 1 : 0,
+                // flex: isFull ? 1 : 0,
+                flex: 1,
               }}
               keyExtractor={item => item.id + ''}
               renderItem={({item, index}) => {
@@ -134,14 +135,14 @@ const styles = StyleSheet.create({
   },
   titleF: {
     color: theme.colors.text,
-    fontWeight: 'bold',
+    fontWeight: '900',
     textAlign: 'center',
-    paddingVertical: 5,
-    ...theme.fontSize.h4,
+    paddingTop: 20,
+    ...theme.fontSize.h3,
   },
   itemF: {
     backgroundColor: theme.colors.purple,
-    height: 130,
+    height: 150,
     width: windowWidth / 2 - 50,
     margin: 5,
     borderRadius: 20,

@@ -36,7 +36,8 @@ const NameScreen = {
         InForDetailTab:"InForDetailTab",
         InForPolicyTab:"InForPolicyTab",
         InfoProcessTab:"InfoProcessTab",
-    }
+    },
+    DetailNetworkScreen:"DetailNetworkScreen",
 
 }
 export default NameScreen;

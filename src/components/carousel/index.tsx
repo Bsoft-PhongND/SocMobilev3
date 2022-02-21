@@ -14,6 +14,7 @@ import data from './data';
 import {PropsCarosel} from './props';
 import {useNavigation} from '@react-navigation/native';
 import {NameScreen} from '../../config';
+import wordApp from '../../utils/word';
 
 const {width} = Dimensions.get('window');
 const DOT_SIZE = 20;
@@ -108,7 +109,7 @@ const Item = (props: any) => {
           style={{position: 'absolute', top: 10, right: 10}}
           onPress={handleNavigate}>
           <HStack justifyContent="center" alignItems="center" space={0}>
-            <Text style={{color: theme.colors.text}}>Chi Tiet</Text>
+            <Text style={{color: theme.colors.text}}>{wordApp.detail}</Text>
             <Icon
               as={<Feather name="chevrons-right" />}
               size={5}
@@ -186,7 +187,7 @@ export default function Carousel(props: PropsCarosel) {
       <Circle scrollX={scrollX} />
       <Animated.FlatList
         ref={flastList}
-        keyExtractor={item => item.key}
+        keyExtractor={item => item.id + ''}
         data={data}
         renderItem={({item, index}) => (
           <Item {...item} index={index} scrollX={scrollX} />

@@ -17,7 +17,7 @@ const chartData = [
 ];
 function CardLineChart() {
   return (
-    <VictoryChart theme={victoryCustum} height={220} width={windowWidth * 0.9}>
+    <VictoryChart theme={victoryCustum} height={220} width={windowWidth}>
       <VictoryLine
         style={{
           data: {

@@ -1,11 +1,12 @@
 import {
-  DrawerContentScrollView, DrawerItemList
+  DrawerContentScrollView, DrawerItemList, useDrawerProgress
 } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import {
   Image, ImageBackground, Text, TouchableOpacity, View
 } from 'react-native';
+import Animated from 'react-native-reanimated';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { NameScreen } from '../config';
@@ -13,6 +14,7 @@ import { AuthContext } from '../context/AuthContext';
 const CustomDrawer = props => {
   const {handleSaveToken} = useContext(AuthContext);
   const navigation = useNavigation();
+
   const handleLogout = ()=>{
     handleSaveToken(null);
     navigation.reset({

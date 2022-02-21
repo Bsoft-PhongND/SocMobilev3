@@ -28,19 +28,5 @@ const dataFunctions = [
     icon: require('../../assets/icons/png/database.png'),
     navigation: NameScreen.EndpointScreen,
   },
-  {
-    id: 4,
-
-    title: wordApp.functions.netWork,
-    icon: require('../../assets/icons/png/network.png'),
-    navigation: NameScreen.NetWorkScreen,
-  },
-  {
-    id: 5,
-
-    title: wordApp.functions.server,
-    icon: require('../../assets/icons/png/network2.png'),
-    navigation: NameScreen.HostingScreen,
-  },
 ];
 export {dataFunctions};
