@@ -15,12 +15,14 @@ import {
 import HeaderBack from '../../../components/headerback';
 import ViewBackGround from '../../../components/viewbackground';
 import wordApp from '../../../utils/word';
-function DetailNetworkScreen() {
+function DetailNetworkScreen(props:any) {
   let endAncestor;
   let endNode;
+  const item = props.route?.params?.item;
+
   return (
     <ViewBackGround>
-      <HeaderBack title={'Chi Tiet Lop Mang'} />
+      <HeaderBack title={item?item.title:'--'} />
       <ScrollView>
         <View ref={ref => (endAncestor = nodeFromRef(ref))}>
           <SharedElement onNode={node => (endNode = node)}>

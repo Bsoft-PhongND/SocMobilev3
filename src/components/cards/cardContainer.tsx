@@ -1,23 +1,19 @@
-import { useNavigation } from '@react-navigation/native';
-import {Box, Pressable, Text} from 'native-base';
+import {Box, Heading, Pressable, Text} from 'native-base';
 import React from 'react';
 import {TextStyle, ViewStyle} from 'react-native';
-import { NameScreen } from '../../config';
 import {theme} from '../../theme/theme';
 interface PropsTypes {
   children: React.ReactNode;
   title?: string;
   styleContainer?: ViewStyle;
   styleTitle?: TextStyle;
+  onPress?: any;
 }
 function CardContainer(props: PropsTypes) {
-  const {children, title, styleContainer, styleTitle} = props;
-  const navigation = useNavigation();
-  const handleNavigation = ()=>{
-    navigation.navigate(NameScreen.DetailNetworkScreen);
-  }
+  const {children, title, styleContainer, styleTitle, onPress} = props;
+
   return (
-    <Pressable onPress={handleNavigation}>
+    <Pressable onPress={() => (onPress ? onPress() : null)}>
       <Box
         style={{
           borderWidth: 1,
@@ -27,17 +23,9 @@ function CardContainer(props: PropsTypes) {
           ...styleContainer,
         }}>
         {title && (
-          <Text
-            style={{
-              ...theme.fontSize.h3,
-              color: theme.colors.text,
-              paddingLeft: 20,
-              fontWeight: 'bold',
-              marginBottom: 5,
-              ...styleTitle,
-            }}>
+          <Heading size="xs" style={{color: theme.colors.text,...styleTitle}}>
             {title}
-          </Text>
+          </Heading>
         )}
         {children}
       </Box>

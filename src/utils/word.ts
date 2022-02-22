@@ -26,7 +26,11 @@ const wordApp = {
         endpoint:"Thiết bị đầu cuối"
     },
     expand:'Mở rộng',
-    detail:'Chi tiết'
-
+    detail:'Chi tiết',
+    unauthorizedAccess:'Truy cập trái phép',
+    bandwidthWarning:'Cảnh báo băng thông',
+    ddosWarning:'Cảnh báo Ddos',
+    devicesStatus:'Trạng thái thiết bị',
+    violateByTime:'Số lượng vi phạm theo thời gian'
 }
 export default wordApp;

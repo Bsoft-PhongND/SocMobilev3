@@ -69,7 +69,9 @@ const DashboardStack = () => {
       <Stack.Screen
         name={NameScreen.DetailNetworkScreen}
         component={DetailNetworkScreen}
-        options={{headerShown: false}}
+        options={({route})=>({
+          headerShown: false,title: route.params?.title
+        })}
       />
       <Stack.Screen
         name={NameScreen.HostingScreen}

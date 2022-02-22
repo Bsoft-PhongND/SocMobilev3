@@ -39,9 +39,9 @@ function HomeScreen() {
       setAutoPlay(false);
     };
   });
-  const handleNavigate = (navigate: any) => {
+  const handleNavigate = (navigate: any, item: any) => {
     if (navigate) {
-      navigation.navigate(navigate);
+      navigation.navigate(navigate, {item});
     }
   };
   const toggleOpen = () => {
@@ -53,14 +53,15 @@ function HomeScreen() {
       <View style={{flex: 1}}>
         <HeaderMenu title={NameScreen.DrawerScreen.DashboardScreen} />
         <View style={{flex: 1}}>
-          <Animated.View style={[heightCarousel, {overflow: 'hidden',paddingVertical:5}]}>
+          <Animated.View
+            style={[heightCarousel, {overflow: 'hidden', paddingVertical: 5}]}>
             {!isFull && (
               <ImageBackground
                 // source={require('../../assets/images/world.png')}
                 source={require('../../assets/giff/electric2.gif')}
                 style={{width: '100%', height: '100%'}}
-                resizeMode='cover'
-                imageStyle={{opacity: .7,borderRadius:10}}>
+                resizeMode="cover"
+                imageStyle={{opacity: 0.7, borderRadius: 10}}>
                 <Carousel autoPlay={autoPlay} />
               </ImageBackground>
             )}
@@ -89,7 +90,9 @@ function HomeScreen() {
             <HStack space="2" justifyContent="space-between">
               <Text style={styles.title}>{wordApp.function}</Text>
               <Pressable onPress={toggleOpen}>
-                <Text style={[styles.title, {fontSize: 14}]}>{wordApp.expand}</Text>
+                <Text style={[styles.title, {fontSize: 14}]}>
+                  {wordApp.expand}
+                </Text>
               </Pressable>
             </HStack>
             <FlatList
@@ -105,7 +108,7 @@ function HomeScreen() {
                 return (
                   <Pressable
                     style={styles.itemF}
-                    onPress={() => handleNavigate(item.navigation)}>
+                    onPress={() => handleNavigate(item.navigation, item)}>
                     <Box style={styles.icon}>
                       <Image
                         resizeMode="contain"

@@ -14,8 +14,11 @@ import {
   ResponsiveValue,
 } from 'native-base/lib/typescript/components/types';
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ModalSheetComponent from '../../../components/actionsheet';
+import {CardContainer, CardGroupBar, CardGroupPieChart} from '../../../components/cards';
+import CardBar from '../../../components/cards/cardBar';
 import BarChart from '../../../components/charts/barChart';
 import GroupBarChart from '../../../components/charts/groupChart';
 import CircularProgressBarComponent from '../../../components/circleprogress';
@@ -43,38 +46,27 @@ function StatisticScreen() {
   return (
     <ViewBackTabview safeArea={false}>
       <View style={{flex: 1, paddingHorizontal: 10}}>
-        <ToolBar filterClick={() => onOpen()} onRefresh={waited} loading={state.refreshing}/>
+        <ToolBar
+          filterClick={() => onOpen()}
+          onRefresh={waited}
+          loading={state.refreshing}
+        />
         <ScrollView>
-          <View>
-            <Heading size="xs" style={{color: theme.colors.text}}>
-              {wordApp.warningLevel}
-            </Heading>
-            <HStack
-              style={{
-                justifyContent: 'space-between',
-                paddingVertical: 10,
-              }}>
-              <CircularProgressBarComponent title={wordApp.hight} value={50} color={theme.colors.hight}/>
-              <CircularProgressBarComponent
-                title={wordApp.medium}
-                value={120}
-                color={theme.colors.medium}
-              />
-              <CircularProgressBarComponent title={wordApp.low} value={60} color={theme.colors.low} />
-            </HStack>
-          </View>
-          <View>
-            <Heading size="xs" style={{color: theme.colors.text}}>
-              {wordApp.correctationLevel}
-            </Heading>
-            <GroupBarChart />
-          </View>
-          <View>
-            <Heading size="xs" style={{color: theme.colors.text}}>
-              {wordApp.warningStatus}
-            </Heading>
-            <BarChart />
-          </View>
+          <CardContainer
+            title={wordApp.warningLevel}
+            styleContainer={styles.cardSpace}>
+            <CardGroupPieChart />
+          </CardContainer>
+          <CardContainer
+            title={wordApp.correctationLevel}
+            styleContainer={styles.cardSpace}>
+            <CardGroupBar />
+          </CardContainer>
+          <CardContainer
+            title={wordApp.warningStatus}
+            styleContainer={styles.cardSpace}>
+            <CardBar />
+          </CardContainer>
         </ScrollView>
       </View>
       <ModalSheetComponent isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
@@ -82,3 +74,9 @@ function StatisticScreen() {
   );
 }
 export default React.memo(StatisticScreen);
+const styles = StyleSheet.create({
+  cardSpace: {
+    marginVertical:5,
+    borderWidth:0
+  }
+})

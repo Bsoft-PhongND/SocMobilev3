@@ -24,7 +24,7 @@ function CardPieChart(props: PropsTypes) {
   const colors = data.map(item => item.color || 'black');
   const {showLables} = props;
   return (
-    <HStack alignItems="center" flex={1} justifyContent="flex-start">
+    <HStack alignItems="center" flex={1} justifyContent="flex-start" mt={2}>
       <VictoryPie
         width={windowWidth * 0.5}
         height={150}

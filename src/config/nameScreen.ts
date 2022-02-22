@@ -1,4 +1,4 @@
-const NameScreen = {
+const NameScreen:any = {
     LoginScreen:"LoginScreen",
     OnboardingScreen:"OnboardingScreen",
     SecurityNetWorkScreen:"SecurityNetWorkScreen",

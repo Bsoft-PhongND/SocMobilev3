@@ -1,47 +1,46 @@
-import {Box, ScrollView, Text, View} from 'native-base';
-import {StyleSheet} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'native-base';
 import React from 'react';
-import {
-  SharedElement,
-  SharedElementTransition,
-  nodeFromRef,
-} from 'react-native-shared-element';
-import ViewBackGround from '../../components/viewbackground';
-import {theme} from '../../theme/theme';
-import HeaderBack from '../../components/headerback';
-import wordApp from '../../utils/word';
-import CardGroupPieChart from '../../components/cards/cardGroupPie';
-import CardPieChart from '../../components/cards/cardPie';
+import { StyleSheet } from 'react-native';
+import { CardContainer, CardGroupBar } from '../../components/cards';
+import CardBar from '../../components/cards/cardBar';
 import CardLineChart from '../../components/cards/cardLine';
-import {CardContainer} from '../../components/cards';
-import Animated from 'react-native-reanimated';
+import CardPieChart from '../../components/cards/cardPie';
+import HeaderBack from '../../components/headerback';
+import ViewBackGround from '../../components/viewbackground';
+import { NameScreen } from '../../config';
+import wordApp from '../../utils/word';
 
-function NetWorkScreen() {
-  let startAncestor;
-  let startNode;
-
+function NetWorkScreen(props: any) {
+  const item = props.route?.params?.item;
+  const navigation = useNavigation();
+  const handleNavigation = (item: any) => {
+    navigation.navigate(NameScreen.DetailNetworkScreen, {item});
+  };
   return (
     <ViewBackGround>
-      <HeaderBack title={wordApp.functions.netWork} />
+      <HeaderBack title={item ? item.title : '--'} />
       <ScrollView>
-        <View ref={ref => (startAncestor = nodeFromRef(ref))}>
-          <SharedElement onNode={node => (startNode = node)}>
-            <CardContainer
-              title={'Luu luong mang truy cap'}
-              styleContainer={styles.cardSpace}>
-              <CardGroupPieChart />
-            </CardContainer>
-          </SharedElement>
-        </View>
         <CardContainer
-          title={'Truy cap trai phep'}
+          title={wordApp.unauthorizedAccess}
+          styleContainer={styles.cardSpace}
+          styleTitle={styles.title}>
+          <CardBar />
+        </CardContainer>
+        <CardContainer
+          title={wordApp.devicesStatus}
           styleContainer={styles.cardSpace}>
           <CardPieChart />
         </CardContainer>
         <CardContainer
-          title={'Vi pham theo thoi gian'}
+          title={wordApp.violateByTime}
           styleContainer={styles.cardSpace}>
           <CardLineChart />
+        </CardContainer>
+        <CardContainer
+          title={wordApp.ddosWarning}
+          styleContainer={styles.cardSpace}>
+          <CardGroupBar />
         </CardContainer>
       </ScrollView>
     </ViewBackGround>
@@ -49,6 +48,10 @@ function NetWorkScreen() {
 }
 export default NetWorkScreen;
 const styles = StyleSheet.create({
-  cardSpace: {marginVertical: 5},
+  cardSpace: {
+    marginVertical: 5,
+    borderWidth: 0,
+    paddingHorizontal: 10,
+  },
 });
 // Render overlay in front of screen
