@@ -1,13 +1,19 @@
 import React from 'react';
 import {
-    VictoryAxis,
-    VictoryBar,
-    VictoryChart, VictoryLabel,
-    VictoryLegend,
-    VictoryTheme
+  VictoryAxis,
+  VictoryBar,
+  VictoryChart,
+  VictoryLabel,
+  VictoryLegend,
+  VictoryTheme,
 } from 'victory-native';
-import { theme } from '../../theme/theme';
-function CardBar() {
+import barChartModel, {labelBarChartModel} from '../../model/barChart';
+import {theme} from '../../theme/theme';
+interface PropsTypes {
+  dataSource?: {x: string; y: string | number; colorScale: string}[];
+}
+function CardBar(props: PropsTypes) {
+  const dataSource = props.dataSource || barChartModel;
   return (
     <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
       <VictoryAxis
@@ -24,12 +30,7 @@ function CardBar() {
       />
       <VictoryBar
         style={{data: {fill: d => d.datum.colorScale}}}
-        data={[
-          {x: 'Pending', y: 3, colorScale: theme.colors.hight},
-          {x: 'Verified', y: 4, colorScale: theme.colors.medium},
-          {x: 'Waiting', y: 6, colorScale: theme.colors.low},
-          {x: 'Notified', y: 3, colorScale: theme.colors.primary},
-        ]}
+        data={dataSource}
         labelComponent={<VictoryLabel textAnchor="start" />}
       />
       <VictoryLegend
@@ -38,23 +39,7 @@ function CardBar() {
         centerTitle
         orientation="horizontal"
         style={{title: {fontSize: 20, color: theme.colors.text}}}
-        data={[
-          {
-            name: 'One',
-            symbol: {fill: 'tomato', type: 'star'},
-            labels: {fill: theme.colors.text},
-          },
-          {
-            name: 'Two',
-            symbol: {fill: 'orange'},
-            labels: {fill: theme.colors.text},
-          },
-          {
-            name: 'Three',
-            symbol: {fill: 'gold'},
-            labels: {fill: theme.colors.text},
-          },
-        ]}
+        data={labelBarChartModel}
       />
     </VictoryChart>
   );

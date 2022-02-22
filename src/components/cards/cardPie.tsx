@@ -1,13 +1,10 @@
-import { Circle, HStack, Text, VStack } from 'native-base';
+import {Circle, HStack, Text, VStack} from 'native-base';
 import React from 'react';
-import { VictoryPie } from 'victory-native';
-import { theme } from '../../theme/theme';
-import { windowWidth } from '../../utils/Dimensions';
-const mock = [
-  {label: 'Cats', y: 35, color: theme.colors.hight},
-  {label: 'Dogs', y: 40, color: theme.colors.medium},
-  {label: 'Birds', y: 55, color: theme.colors.low},
-];
+import {VictoryPie} from 'victory-native';
+import {pieChartModel} from '../../model/pieChart';
+import {theme} from '../../theme/theme';
+import {windowWidth} from '../../utils/Dimensions';
+
 interface PieItem {
   label: string;
   y: number | string;
@@ -16,10 +13,10 @@ interface PieItem {
 interface PropsTypes {
   data?: Array<PieItem>;
   showLables?: boolean;
-  title?:string;
+  title?: string;
 }
 function CardPieChart(props: PropsTypes) {
-  const data = props.data || mock;
+  const data = props.data || pieChartModel;
   const labels = data.map(item => item.label || '---');
   const colors = data.map(item => item.color || 'black');
   const {showLables} = props;
@@ -52,14 +49,22 @@ function CardPieChart(props: PropsTypes) {
           return innerRadius + 10;
         }}
       />
-    
+
       <VStack space={1} marginLeft={5}>
-      <Text style={{marginLeft: 20, ...theme.fontSize.h4,color: theme.colors.text}}>
-                Legends
-      </Text>
-        {data.map((item,index) => {
+        <Text
+          style={{
+            marginLeft: 20,
+            ...theme.fontSize.h4,
+            color: theme.colors.text,
+          }}>
+          Legends
+        </Text>
+        {data.map((item, index) => {
           return (
-            <HStack justifyContent="flex-start" alignItems={'center'} key={index}>
+            <HStack
+              justifyContent="flex-start"
+              alignItems={'center'}
+              key={index}>
               <Circle
                 size="15px"
                 style={{
@@ -68,7 +73,12 @@ function CardPieChart(props: PropsTypes) {
                   borderColor: theme.colors.text,
                 }}
               />
-              <Text style={{marginLeft: 20, ...theme.fontSize.h4,color: theme.colors.text}}>
+              <Text
+                style={{
+                  marginLeft: 20,
+                  ...theme.fontSize.h4,
+                  color: theme.colors.text,
+                }}>
                 {item.label || '---'}
               </Text>
             </HStack>

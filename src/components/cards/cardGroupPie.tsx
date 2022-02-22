@@ -1,13 +1,32 @@
 import { HStack, VStack } from 'native-base';
-import React from 'react';
+import React, { useCallback } from 'react';
+import { groupPieChartModel } from '../../model/groupPieChart';
 import { theme } from '../../theme/theme';
-import wordApp from '../../utils/word';
 import CircularProgressBarComponent from '../circleprogress';
 
+interface ItemProps {
+  title: string;
+  value: string | number;
+  color: string;
+}
 interface PropsTypes {
-  title?: string;
+  dataSource?: [ItemProps, ItemProps, ItemProps];
 }
 function CardGroupPieChart(props: PropsTypes) {
+  const dataSource = props.dataSource || groupPieChartModel;
+  const renderGroups = () => {
+    return dataSource.map((group: any, index: number) => {
+      return (
+        <CircularProgressBarComponent
+          title={group.title || '--'}
+          value={group.value || 0}
+          color={group.color || theme.colors.blue}
+          key={index}
+        />
+      );
+    });
+  };
+  const memorizedGroups = useCallback(() => renderGroups(), [dataSource]);
   return (
     <VStack space={5} flex={1} justifyContent="center">
       <HStack
@@ -15,21 +34,7 @@ function CardGroupPieChart(props: PropsTypes) {
           justifyContent: 'center',
           paddingVertical: 0,
         }}>
-        <CircularProgressBarComponent
-          title={wordApp.hight}
-          value={50}
-          color={theme.colors.hight}
-        />
-        <CircularProgressBarComponent
-          title={wordApp.medium}
-          value={120}
-          color={theme.colors.medium}
-        />
-        <CircularProgressBarComponent
-          title={wordApp.low}
-          value={60}
-          color={theme.colors.low}
-        />
+        {memorizedGroups()}
       </HStack>
     </VStack>
   );

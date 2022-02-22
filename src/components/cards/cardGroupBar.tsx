@@ -1,15 +1,39 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {
-    VictoryAxis,
-    VictoryBar,
-    VictoryChart,
-    VictoryGroup,
-    VictoryLabel,
-    VictoryLegend,
-    VictoryTheme
+  VictoryAxis,
+  VictoryBar,
+  VictoryChart,
+  VictoryGroup,
+  VictoryLabel,
+  VictoryLegend,
+  VictoryTheme,
 } from 'victory-native';
-import { theme } from '../../theme/theme';
-function CardGroupBar() {
+import {
+  groupBarChartModel,
+  lableGroupBarChart,
+} from '../../model/groupBarChart';
+import {theme} from '../../theme/theme';
+
+interface GroupType {
+  x: string;
+  y: number | string;
+  label?: string;
+}
+interface PropsTypes {
+  dataSource?: GroupType[][];
+}
+function CardGroupBar(props: PropsTypes) {
+  const dataSource = props.dataSource || groupBarChartModel;
+  const renderGroups = () => {
+    return dataSource.map((group: any, index: number) => {
+      console.log('render group', index);
+      return <VictoryBar data={group} key={index} />;
+    });
+  };
+  const memorizedGroups = useCallback(
+    () => renderGroups(),
+    [dataSource],
+  );
   return (
     <VictoryChart theme={VictoryTheme.material} domain={{y: [0.5, 5.5]}}>
       <VictoryAxis
@@ -34,27 +58,7 @@ function CardGroupBar() {
         labelComponent={
           <VictoryLabel textAnchor="middle" style={{fill: theme.colors.text}} />
         }>
-        <VictoryBar
-          data={[
-            {x: 'Hight', y: 1},
-            {x: 'Medium', y: 2},
-            {x: 'Low', y: 3},
-          ]}
-        />
-        <VictoryBar
-          data={[
-            {x: 'Hight', y: 2, label: 'Alpha'},
-            {x: 'Medium', y: 3, label: 'Alpha'},
-            {x: 'Low', y: 4, label: 'Alpha'},
-          ]}
-        />
-        <VictoryBar
-          data={[
-            {x: 'Hight', y: 1, label: 'Alpha'},
-            {x: 'Medium', y: 2, label: 'Alpha'},
-            {x: 'Low', y: 3, label: 'Alpha'},
-          ]}
-        />
+        {memorizedGroups()}
       </VictoryGroup>
       <VictoryLegend
         x={0}
@@ -65,23 +69,7 @@ function CardGroupBar() {
         style={{
           title: {fontSize: 20},
         }}
-        data={[
-          {
-            name: 'One',
-            symbol: {fill: 'tomato', type: 'star'},
-            labels: {fill: theme.colors.text},
-          },
-          {
-            name: 'Two',
-            symbol: {fill: 'orange'},
-            labels: {fill: theme.colors.text},
-          },
-          {
-            name: 'Three',
-            symbol: {fill: 'gold'},
-            labels: {fill: theme.colors.text},
-          },
-        ]}
+        data={lableGroupBarChart}
       />
     </VictoryChart>
   );

@@ -8,26 +8,24 @@ import {
 import victoryCustum from '../victoryCustum';
 import {theme} from '../../theme/theme';
 import {windowWidth} from '../../utils/Dimensions';
-const chartData = [
-  {x: '01/2022', y: 100},
-  {x: '02/2022', y: 600},
-  {x: '03/2022', y: 700},
-  {x: '04/2022', y: 400},
-  {x: '05/2022', y: 900},
-];
-function CardLineChart() {
+import {lineChartModel} from '../../model/lineChart';
+interface PropsTypes {
+  dataSource: {x: string; y: number}[];
+}
+function CardLineChart(props: PropsTypes) {
+  const dataSource = props.dataSource || lineChartModel;
   return (
     <VictoryChart theme={victoryCustum} height={220} width={windowWidth}>
       <VictoryLine
         style={{
           data: {
             stroke: theme.colors.border,
-          }
+          },
         }}
-        data={chartData}
+        data={dataSource}
       />
       <VictoryScatter
-        data={chartData}
+        data={dataSource}
         size={7}
         style={{
           data: {
@@ -36,7 +34,7 @@ function CardLineChart() {
         }}
       />
       <VictoryAxis
-       minDomain={100}
+        minDomain={100}
         style={{
           grid: {
             // stroke: 'transparent',
@@ -45,7 +43,7 @@ function CardLineChart() {
       />
       <VictoryAxis
         dependentAxis
-       minDomain={100}
+        minDomain={100}
         style={{
           grid: {
             stroke: 'gray',
