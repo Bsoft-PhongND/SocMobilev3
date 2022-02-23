@@ -40,6 +40,7 @@ const NameScreen:any = {
     DetailNetworkScreen:"DetailNetworkScreen",
     DashboardElementaryScreen:"DashboardElementaryScreen",
     DashboardHightScreen:"DashboardHightScreen",
+    DashboardUniversityScreen:"DashboardUniversityScreen",
     NotFoundScreen:"NotFoundScreen",
 }
 export default NameScreen;

@@ -5,11 +5,13 @@ import DashBoardScreen from '../../screens/Dashboard';
 import NetWorkScreen from '../../screens/Network';
 import ApplicationScreen from '../../screens/Application';
 import EndpointScreen from '../../screens/Endpoint';
-import DetailNetworkScreen from '../../screens/Network/DetailNetwork';
 import HostingScreen from '../../screens/Hosts';
 import NotFoundError from '../../screens/NotFound';
 import ViewBackGround from '../../components/viewbackground';
 import HeaderBack from '../../components/headerback';
+import TableListView from '../../components/TableList';
+import InfoWarning from '../../components/infoWarning';
+import wordApp from '../../utils/word';
 const Stack = createNativeStackNavigator();
 
 const DashboardStack = () => {
@@ -34,6 +36,14 @@ const DashboardStack = () => {
       <Stack.Screen
         name={NameScreen.DashboardHightScreen}
         component={DashboardHightScreen}
+        options={({route}) => ({
+          // title: route.params?.title,
+          headerShown: false,
+        })}
+      />
+       <Stack.Screen
+        name={NameScreen.DashboardUniversityScreen}
+        component={DashboardUniversityScreen}
         options={({route}) => ({
           // title: route.params?.title,
           headerShown: false,
@@ -110,7 +120,17 @@ const DashboardHightScreen = (props: any) => {
     <ViewBackGround>
       <HeaderBack title={item.title || '--'}/>
       {item.component}
-      
+      <TableListView/>
+    </ViewBackGround>
+  );
+  return <NotFoundError />;
+};
+const DashboardUniversityScreen = (props: any) => {
+  const item = props.route?.params?.item;
+  return (
+    <ViewBackGround>
+      <HeaderBack title={wordApp.infoWarning || '--'}/>
+      <InfoWarning item={item}/>
     </ViewBackGround>
   );
   return <NotFoundError />;

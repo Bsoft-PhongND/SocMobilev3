@@ -39,7 +39,7 @@ function TabDetailWarning() {
     <View>
       {inforData.map((item, index) => {
         return (
-          <HStack alignItems="center" mt={3}>
+          <HStack alignItems="center" mt={3} key={index}>
             <Icon
               as={item.icon || <Ionicons name="ios-person-circle-outline" />}
               size={7}

@@ -31,6 +31,8 @@ const wordApp = {
     bandwidthWarning:'Cảnh báo băng thông',
     ddosWarning:'Cảnh báo Ddos',
     devicesStatus:'Trạng thái thiết bị',
-    violateByTime:'Số lượng vi phạm theo thời gian'
+    violateByTime:'Số lượng vi phạm theo thời gian',
+    list:'Danh sách',
+    infoWarning:'Thông tin cảnh báo',
 }
 export default wordApp;

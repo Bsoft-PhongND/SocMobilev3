@@ -1,7 +1,8 @@
-import {Box, Heading, Pressable, Text} from 'native-base';
+import {Box, Heading, HStack, Pressable, Text} from 'native-base';
 import React from 'react';
 import {TextStyle, ViewStyle} from 'react-native';
 import {theme} from '../../theme/theme';
+import wordApp from '../../utils/word';
 interface PropsTypes {
   children: React.ReactNode;
   title?: string;
@@ -13,23 +14,30 @@ function CardContainer(props: PropsTypes) {
   const {children, title, styleContainer, styleTitle, onPress} = props;
 
   return (
-    <Pressable onPress={() => (onPress ? onPress() : null)}>
-      <Box
-        style={{
-          borderWidth: 1,
-          borderColor: theme.colors.border,
-          borderRadius: 10,
-          paddingVertical: 10,
-          ...styleContainer,
-        }}>
-        {title && (
-          <Heading size="xs" style={{color: theme.colors.text,...styleTitle}}>
+    <Box
+      style={{
+        borderWidth: 1,
+        borderColor: theme.colors.border,
+        borderRadius: 10,
+        paddingVertical: 10,
+        ...styleContainer,
+      }}>
+      {title && (
+        <HStack justifyContent="space-between">
+          <Heading size="xs" style={{color: theme.colors.text, ...styleTitle}}>
             {title}
           </Heading>
-        )}
-        {children}
-      </Box>
-    </Pressable>
+          {onPress && (
+            <Pressable onPress={onPress}>
+              <Text style={{color: theme.colors.text, ...theme.fontSize.h4}}>
+                {wordApp.detail}
+              </Text>
+            </Pressable>
+          )}
+        </HStack>
+      )}
+      {children}
+    </Box>
   );
 }
 export default CardContainer;

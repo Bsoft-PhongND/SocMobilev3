@@ -56,6 +56,7 @@ function InfoWarningScreen({route}: any) {
             });
             return (
               <TouchableOpacity
+                key={i}
                 style={styles.tabItem}
                 onPress={() => setIndex(i)}>
                 <Animated.View style={{opacity}}>
