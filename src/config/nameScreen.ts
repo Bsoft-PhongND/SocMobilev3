@@ -38,6 +38,8 @@ const NameScreen:any = {
         InfoProcessTab:"InfoProcessTab",
     },
     DetailNetworkScreen:"DetailNetworkScreen",
-
+    DashboardElementaryScreen:"DashboardElementaryScreen",
+    DashboardHightScreen:"DashboardHightScreen",
+    NotFoundScreen:"NotFoundScreen",
 }
 export default NameScreen;

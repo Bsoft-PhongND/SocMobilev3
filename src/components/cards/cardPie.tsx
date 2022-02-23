@@ -11,12 +11,12 @@ interface PieItem {
   color: string;
 }
 interface PropsTypes {
-  data?: Array<PieItem>;
+  dataSource?: Array<PieItem>;
   showLables?: boolean;
   title?: string;
 }
 function CardPieChart(props: PropsTypes) {
-  const data = props.data || pieChartModel;
+  const data = props.dataSource || pieChartModel;
   const labels = data.map(item => item.label || '---');
   const colors = data.map(item => item.color || 'black');
   const {showLables} = props;
@@ -88,4 +88,4 @@ function CardPieChart(props: PropsTypes) {
     </HStack>
   );
 }
-export default CardPieChart;
+export default React.memo(CardPieChart);

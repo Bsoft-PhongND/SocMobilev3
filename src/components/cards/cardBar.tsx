@@ -10,10 +10,17 @@ import {
 import barChartModel, {labelBarChartModel} from '../../model/barChart';
 import {theme} from '../../theme/theme';
 interface PropsTypes {
-  dataSource?: {x: string; y: string | number; colorScale: string}[];
+  dataSource?: {x: string; y: string | number; colorScale?: string}[];
 }
 function CardBar(props: PropsTypes) {
   const dataSource = props.dataSource || barChartModel;
+  const lables = dataSource.map((type,index) => {
+    return {
+      name: type.x || type?.lable,
+      symbol: {fill: type.colorScale, type: 'star'},
+      labels: {fill: theme.colors.text},
+    }
+  })
   return (
     <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
       <VictoryAxis
@@ -39,9 +46,9 @@ function CardBar(props: PropsTypes) {
         centerTitle
         orientation="horizontal"
         style={{title: {fontSize: 20, color: theme.colors.text}}}
-        data={labelBarChartModel}
+        data={lables || labelBarChartModel}
       />
     </VictoryChart>
   );
 }
-export default CardBar;
+export default React.memo(CardBar);

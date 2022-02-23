@@ -12,7 +12,6 @@ function HeaderBack(props: PropsTypes) {
   const navigation = useNavigation();
   const handleGoBack = () => {
     console.log('back');
-
     navigation.goBack();
   };
   return (

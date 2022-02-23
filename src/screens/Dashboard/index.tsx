@@ -41,7 +41,7 @@ function HomeScreen() {
   });
   const handleNavigate = (navigate: any, item: any) => {
     if (navigate) {
-      navigation.navigate(navigate, {item});
+      navigation.navigate(NameScreen.DashboardElementaryScreen, {item});
     }
   };
   const toggleOpen = () => {

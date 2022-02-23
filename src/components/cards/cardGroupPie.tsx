@@ -39,4 +39,4 @@ function CardGroupPieChart(props: PropsTypes) {
     </VStack>
   );
 }
-export default CardGroupPieChart;
+export default React.memo(CardGroupPieChart);

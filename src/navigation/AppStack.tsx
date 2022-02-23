@@ -1,105 +1,23 @@
-import React from 'react';
 import {
-  createDrawerNavigator,
-  useDrawerProgress,
+  createDrawerNavigator
 } from '@react-navigation/drawer';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import CustomDrawer from '../components/CustomDrawer';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import WarningScreen from '../screens/Warning';
-import ResponseScreen from '../screens/Response/detail';
-import NewsScreen from '../screens/News';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import CustomDrawer from '../components/CustomDrawer';
+import { NameScreen } from '../config';
 import ContactScreen from '../screens/Contact';
-import InfoWarningScreen from '../screens/Warning/info';
+import ResponseScreen from '../screens/Response/detail';
+import { DashboardStack, WarningStack } from './routers';
 import TabNavigator from './TabNavigator';
-import {NameScreen} from '../config';
-import DashBoardScreen from '../screens/Dashboard';
-import NetWorkScreen from '../screens/Network';
-import ApplicationScreen from '../screens/Application';
-import EndpointScreen from '../screens/Endpoint';
-import Animated, {AnimatedStyleProp} from 'react-native-reanimated';
-import {StyleSheet} from 'react-native';
-import DetailNetworkScreen from '../screens/Network/DetailNetwork';
+
+
 
 const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator();
 
-const WarningStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name={NameScreen.WarningScreen}
-        component={WarningScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name={NameScreen.InfoWarningScreen}
-        component={InfoWarningScreen}
-        options={({route}) => ({
-          title: route.params?.title,
-          headerShown: false,
-        })}
-      />
-    </Stack.Navigator>
-  );
-};
-const DashboardStack = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        animation: 'fade_from_bottom',
-      }}>
-      <Stack.Screen
-        name={NameScreen.DashBoardScreen}
-        component={DashBoardScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name={NameScreen.NetWorkScreen}
-        component={NetWorkScreen}
-        options={({route}) => ({
-          title: route.params?.title,
-          headerShown: false,
-        })}
-      />
-      <Stack.Screen
-        name={NameScreen.DetailNetworkScreen}
-        component={DetailNetworkScreen}
-        options={({route})=>({
-          headerShown: false,title: route.params?.title
-        })}
-      />
-      <Stack.Screen
-        name={NameScreen.HostingScreen}
-        component={NetWorkScreen}
-        options={({route}) => ({
-          title: route.params?.title,
-          headerShown: false,
-        })}
-      />
-      <Stack.Screen
-        name={NameScreen.ApplicationScreen}
-        component={ApplicationScreen}
-        options={({route}) => ({
-          title: route.params?.title,
-          headerShown: false,
-        })}
-      />
-      <Stack.Screen
-        name={NameScreen.EndpointScreen}
-        component={EndpointScreen}
-        options={({route}) => ({
-          title: route.params?.title,
-          headerShown: false,
-        })}
-      />
-    </Stack.Navigator>
-  );
-};
 /* custum drawer*/
 // const Screens = () => {
 //   const progress: any = React.useState(new Animated.Value(useDrawerProgress().value));

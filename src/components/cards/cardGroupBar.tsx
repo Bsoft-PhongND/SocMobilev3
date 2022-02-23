@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react';
+import {G} from 'react-native-svg';
 import {
   VictoryAxis,
   VictoryBar,
@@ -18,6 +19,7 @@ interface GroupType {
   x: string;
   y: number | string;
   label?: string;
+  color?: string;
 }
 interface PropsTypes {
   dataSource?: GroupType[][];
@@ -30,10 +32,20 @@ function CardGroupBar(props: PropsTypes) {
       return <VictoryBar data={group} key={index} />;
     });
   };
-  const memorizedGroups = useCallback(
-    () => renderGroups(),
-    [dataSource],
-  );
+  const memorizedGroups = useCallback(() => renderGroups(), [dataSource]);
+  const colorScale = dataSource[0]?.map((type, index) => {
+    return type.color || theme.colors.card;
+  });
+  const lables = dataSource.map((group, index) => {
+    return {
+      name: group[0]?.label,
+      symbol: {
+        fill: colorScale[index] ? colorScale[index] : theme.colors.black,
+        type: 'star',
+      },
+      labels: {fill: theme.colors.text},
+    };
+  });
   return (
     <VictoryChart theme={VictoryTheme.material} domain={{y: [0.5, 5.5]}}>
       <VictoryAxis
@@ -54,7 +66,7 @@ function CardGroupBar(props: PropsTypes) {
         animate={{
           onLoad: {duration: 500},
         }}
-        colorScale={[theme.colors.low, theme.colors.medium, theme.colors.hight]}
+        colorScale={colorScale}
         labelComponent={
           <VictoryLabel textAnchor="middle" style={{fill: theme.colors.text}} />
         }>
@@ -69,9 +81,9 @@ function CardGroupBar(props: PropsTypes) {
         style={{
           title: {fontSize: 20},
         }}
-        data={lableGroupBarChart}
+        data={lables || lableGroupBarChart}
       />
     </VictoryChart>
   );
 }
-export default CardGroupBar;
+export default React.memo(CardGroupBar);

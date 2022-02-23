@@ -10,7 +10,7 @@ import {theme} from '../../theme/theme';
 import {windowWidth} from '../../utils/Dimensions';
 import {lineChartModel} from '../../model/lineChart';
 interface PropsTypes {
-  dataSource: {x: string; y: number}[];
+  dataSource?: {x: string; y: number}[];
 }
 function CardLineChart(props: PropsTypes) {
   const dataSource = props.dataSource || lineChartModel;
@@ -56,4 +56,4 @@ function CardLineChart(props: PropsTypes) {
     </VictoryChart>
   );
 }
-export default CardLineChart;
+export default React.memo(CardLineChart);

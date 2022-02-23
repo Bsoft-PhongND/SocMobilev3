@@ -4,10 +4,11 @@ import ViewBackGround from '../../components/viewbackground';
 import HeaderBack from '../../components/headerback';
 import {theme} from '../../theme/theme';
 
-function HostingScreen() {
+function HostingScreen(props:any) {
+  const item = props.route?.params?.item;
   return (
     <ViewBackGround>
-      <HeaderBack title="Back" />
+      <HeaderBack title={item.title || '--'} />
       <Text style={{color: theme.colors.text}}>NetworkWorkScreen</Text>
     </ViewBackGround>
   );
