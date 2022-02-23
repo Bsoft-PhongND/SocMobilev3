@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react';
+import Animated, { FadeIn, FadeInRight, ZoomIn } from 'react-native-reanimated';
 import {G} from 'react-native-svg';
 import {
   VictoryAxis,
@@ -47,7 +48,8 @@ function CardGroupBar(props: PropsTypes) {
     };
   });
   return (
-    <VictoryChart theme={VictoryTheme.material} domain={{y: [0.5, 5.5]}}>
+   <Animated.View entering={ZoomIn.delay(80)}>
+      <VictoryChart theme={VictoryTheme.material} domain={{y: [0.5, 5.5]}}>
       <VictoryAxis
         theme={VictoryTheme.material}
         standalone={false}
@@ -63,9 +65,9 @@ function CardGroupBar(props: PropsTypes) {
       <VictoryGroup
         offset={24}
         style={{data: {width: 20}}}
-        animate={{
-          onLoad: {duration: 500},
-        }}
+        // animate={{
+        //   onLoad: {duration: 500},
+        // }}
         colorScale={colorScale}
         labelComponent={
           <VictoryLabel textAnchor="middle" style={{fill: theme.colors.text}} />
@@ -84,6 +86,7 @@ function CardGroupBar(props: PropsTypes) {
         data={lables || lableGroupBarChart}
       />
     </VictoryChart>
+   </Animated.View>
   );
 }
 export default React.memo(CardGroupBar);

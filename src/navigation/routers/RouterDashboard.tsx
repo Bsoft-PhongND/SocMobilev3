@@ -12,6 +12,7 @@ import HeaderBack from '../../components/headerback';
 import TableListView from '../../components/TableList';
 import InfoWarning from '../../components/infoWarning';
 import wordApp from '../../utils/word';
+import {ScrollView} from 'native-base';
 const Stack = createNativeStackNavigator();
 
 const DashboardStack = () => {
@@ -41,7 +42,7 @@ const DashboardStack = () => {
           headerShown: false,
         })}
       />
-       <Stack.Screen
+      <Stack.Screen
         name={NameScreen.DashboardUniversityScreen}
         component={DashboardUniversityScreen}
         options={({route}) => ({
@@ -118,9 +119,11 @@ const DashboardHightScreen = (props: any) => {
   // }
   return (
     <ViewBackGround>
-      <HeaderBack title={item.title || '--'}/>
-      {item.component}
-      <TableListView/>
+      <HeaderBack title={item.title || '--'} />
+      <ScrollView>
+        {item.component}
+        <TableListView />
+      </ScrollView>
     </ViewBackGround>
   );
   return <NotFoundError />;
@@ -129,8 +132,8 @@ const DashboardUniversityScreen = (props: any) => {
   const item = props.route?.params?.item;
   return (
     <ViewBackGround>
-      <HeaderBack title={wordApp.infoWarning || '--'}/>
-      <InfoWarning item={item}/>
+      <HeaderBack title={wordApp.infoWarning || '--'} />
+      <InfoWarning item={item} />
     </ViewBackGround>
   );
   return <NotFoundError />;

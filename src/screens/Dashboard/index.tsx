@@ -1,6 +1,6 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {Box, FlatList, HStack, Image, Pressable, Text, View} from 'native-base';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import Animated, {
   Easing,
@@ -12,6 +12,8 @@ import Carousel from '../../components/carousel';
 import HeaderMenu from '../../components/headermenu';
 import ViewBackGround from '../../components/viewbackground';
 import {NameScreen} from '../../config';
+import { LoadingContext } from '../../context/LoadingContext';
+import helpers from '../../helpers/helpers';
 import {theme} from '../../theme/theme';
 import {windowWidth} from '../../utils/Dimensions';
 import wordApp from '../../utils/word';
@@ -39,9 +41,17 @@ function HomeScreen() {
       setAutoPlay(false);
     };
   });
-  const handleNavigate = (navigate: any, item: any) => {
+  const {loading, setLoading} = useContext(LoadingContext);
+
+  const handleNavigate = async (navigate: any, item: any) => {
     if (navigate) {
-      navigation.navigate(NameScreen.DashboardElementaryScreen, {item});
+      setLoading(true)
+      await helpers.waited(500).then(async ()=>{
+        navigation.navigate(NameScreen.DashboardElementaryScreen, {item});
+        helpers.waited(2000).then(()=>{
+          setLoading(false)
+        })
+      })
     }
   };
   const toggleOpen = () => {

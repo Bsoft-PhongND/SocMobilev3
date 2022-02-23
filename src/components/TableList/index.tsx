@@ -31,7 +31,7 @@ function TableListView() {
   };
   const renderItem = ({item, index}: any) => {
     return (
-      <Animated.View entering={SlideInLeft.delay(index * 8)}>
+      <Animated.View entering={SlideInLeft.delay(index * 8)} key={index}>
         <Box borderBottomWidth={1} borderColor={theme.colors.border}>
           <Pressable onPress={() => handleNavigate(item)} _dark={{}}>
             <Box pl="4" pr="5" py="2">
@@ -161,7 +161,10 @@ function TableListView() {
         previewOpenValue={-40}
         previewOpenDelay={3000}
       />*/}
-      <FlatList data={listData} renderItem={renderItem} />
+      {/* <FlatList data={listData} renderItem={renderItem} /> */}
+      {listData.map((item, index) =>{
+        return (renderItem({item,index}))
+      })}
     </View>
   );
 }

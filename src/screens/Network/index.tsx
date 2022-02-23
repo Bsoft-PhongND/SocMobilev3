@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {FlatList, ScrollView} from 'native-base';
-import React from 'react';
+import React, { useContext } from 'react';
 import {StyleSheet} from 'react-native';
 import {CardContainer, CardGroupBar} from '../../components/cards';
 import CardBar from '../../components/cards/cardBar';
@@ -9,6 +9,8 @@ import CardPieChart from '../../components/cards/cardPie';
 import HeaderBack from '../../components/headerback';
 import ViewBackGround from '../../components/viewbackground';
 import {NameScreen} from '../../config';
+import { LoadingContext } from '../../context/LoadingContext';
+import helpers from '../../helpers/helpers';
 import wordApp from '../../utils/word';
 import {devicesStatus, unauthorizedAccess, violateByTime} from './data';
 const groupsNetwork = [
@@ -32,7 +34,7 @@ const groupsNetwork = [
 function NetWorkScreen(props: any) {
   const item = props.route?.params?.item;
   const navigation = useNavigation();
-  const handleNavigation = (item: any) => {
+  const handleNavigation =async (item: any) => {
     navigation.navigate(NameScreen.DashboardHightScreen, {item});
   };
   return (
@@ -56,7 +58,7 @@ function NetWorkScreen(props: any) {
     </ViewBackGround>
   );
 }
-export default NetWorkScreen;
+export default React.memo(NetWorkScreen);
 const styles = StyleSheet.create({
   cardSpace: {
     marginVertical: 5,
