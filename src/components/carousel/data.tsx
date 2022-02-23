@@ -21,7 +21,7 @@ export default [
     {
       id:3,
       type: 'Tiến trình phản ứng',
-      component: <CardPieChart/>,
+      component: <CardPieChart flex={1}/>,
       color: '#999',
       navigation: NameScreen.ResponseScreen
     }

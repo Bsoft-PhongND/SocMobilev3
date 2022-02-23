@@ -14,6 +14,7 @@ interface PropsTypes {
   dataSource?: Array<PieItem>;
   showLables?: boolean;
   title?: string;
+  flex?:number
 }
 function CardPieChart(props: PropsTypes) {
   const data = props.dataSource || pieChartModel;
@@ -21,7 +22,7 @@ function CardPieChart(props: PropsTypes) {
   const colors = data.map(item => item.color || 'black');
   const {showLables} = props;
   return (
-    <HStack alignItems="center" flex={1} justifyContent="flex-start" mt={2}>
+    <HStack alignItems="center" flex={props.flex|| null} justifyContent="flex-start" mt={2}>
       <VictoryPie
         width={windowWidth * 0.5}
         height={150}

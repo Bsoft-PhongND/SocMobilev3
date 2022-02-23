@@ -68,7 +68,7 @@ function InfoWarning(props: any) {
   };
   return (
     <View flex={1}>
-      <View>
+      <Animated.View enter>
         <HStack>
           <Text style={styles.index}>Name:</Text>
           <Text style={styles.contentIndex}>{item.name || '--'}</Text>
@@ -108,7 +108,7 @@ function InfoWarning(props: any) {
           <Text style={styles.index}>Event Modules:</Text>
           <Text style={styles.contentIndex}> {item.eventModule || '--'}</Text>
         </HStack>
-      </View>
+      </Animated.View>
       <TabView
         renderTabBar={renderTabBar}
         navigationState={{index, routes}}
@@ -183,7 +183,8 @@ const styles = StyleSheet.create({
   contentIndex: {
     paddingLeft: 10,
     color: theme.colors.text,
-    ...theme.fontSize.h3,
+    fontWeight: '200',
+    ...theme.fontSize.h4,
   },
   item: {},
 });

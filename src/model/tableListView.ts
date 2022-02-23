@@ -93,7 +93,7 @@ const tableListModel = [
   },
   {
     id: '68694a0f-3da1-431f-bd56-142371e29d72',
-    name: 'HTTP Blocked Locations',
+    name: 'HTTP Blocked Locations Locations Locations Locations Locations',
     timeStamp: '2021-11-24T17:51:21.921Z',
     eventAppId: 'DOMAIN',
     destination: {

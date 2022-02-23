@@ -34,5 +34,13 @@ const wordApp = {
     violateByTime:'Số lượng vi phạm theo thời gian',
     list:'Danh sách',
     infoWarning:'Thông tin cảnh báo',
+    serverStatus:'Trạng thái máy chủ',
+    scanPort:'Rà quyét cổng',
+    violatePolicy:'Vi phạm chính sách',
+    strangProcessDetected:'Phát hiện tiến trình lạ',
+    disconnectWarning:'Cảnh báo mất kết nối',
+    attackServiceWarning:'Cảnh báo tấn công dịch vụ',
+    speedResponse:'Tốc độ phản hồi ứng dụng web',
+    detailWaring:'Chi tiết cảnh báo'
 }
 export default wordApp;
