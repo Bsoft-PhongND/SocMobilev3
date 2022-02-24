@@ -1,7 +1,7 @@
 import {Box, HStack, ScrollView, Text, View, VStack} from 'native-base';
 import React from 'react';
 import {StyleSheet, TextInput, ViewStyle} from 'react-native';
-import Animated from 'react-native-reanimated';
+import Animated, { ZoomInEasyDown } from 'react-native-reanimated';
 import {backgroundLinear, rotateBg, theme} from '../../theme/theme';
 import {Feather} from '../../assets/icons';
 interface PropsTypes {
@@ -109,7 +109,8 @@ const TabItems = ({
   item,
 }: any) => {
   return (
-    <VStack flex={1} style={{paddingHorizontal: 5}}>
+    <Animated.View entering={ZoomInEasyDown.delay(10)} style={{flex: 1}}>
+      <VStack  style={{paddingHorizontal: 5}}>
       <Box
         bg={{
           linearGradient: {
@@ -129,6 +130,7 @@ const TabItems = ({
         <Text>{items.cityName}</Text>
       </Box>
     </VStack>
+    </Animated.View>
   );
 };
 const styles = StyleSheet.create({
