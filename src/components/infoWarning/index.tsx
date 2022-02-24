@@ -1,7 +1,7 @@
 import {Box, HStack, ScrollView, Text, View, VStack} from 'native-base';
 import React from 'react';
 import {StyleSheet, TextInput, ViewStyle} from 'react-native';
-import Animated, { ZoomInEasyDown } from 'react-native-reanimated';
+import Animated, {ZoomInEasyDown} from 'react-native-reanimated';
 import {backgroundLinear, rotateBg, theme} from '../../theme/theme';
 import {Feather} from '../../assets/icons';
 interface PropsTypes {
@@ -28,8 +28,18 @@ function InfoWarning(props: PropsTypes) {
   return (
     <View flex={1} style={{...styleContainer}}>
       <HStack justifyContent={'space-evenly'}>
-        <TabItems title={'Source'} items={item.source} {...props} />
-        <TabItems title={'Destination'} items={item.destination} {...props} />
+        <TabItems
+          title={'Source'}
+          items={item.source}
+          {...props}
+          rotateLnBg={rotateBg}
+        />
+        <TabItems
+          title={'Destination'}
+          items={item.destination}
+          {...props}
+          rotateLnBg={{start: [0, 1], end: [1, 0]}}
+        />
       </HStack>
       <View
         flex={1}
@@ -83,7 +93,7 @@ function InfoWarning(props: PropsTypes) {
                           {kv.key[0] ? kv.key[0].toUpperCase() : '--'}
                         </Text>
                       </Box>
-                      <VStack ml={3}>
+                      <VStack pl={3}>
                         <Text style={styles.index}>{kv.key || '--'}</Text>
                         <Text style={styles.contentIndex}>
                           {kv.value || '--'}
@@ -110,26 +120,26 @@ const TabItems = ({
 }: any) => {
   return (
     <Animated.View entering={ZoomInEasyDown.delay(10)} style={{flex: 1}}>
-      <VStack  style={{paddingHorizontal: 5}}>
-      <Box
-        bg={{
-          linearGradient: {
-            colors: bgColors || [
-              theme.colors.green,
-              item ? item.color || theme.colors.hight : theme.colors.green,
-            ],
-            start: rotateLnBg.start,
-            end: rotateLnBg.end,
-          },
-        }}
-        style={[styles.item]}>
-        <Text style={styles.index}>{title}</Text>
-        <Text>Ip Address</Text>
-        <Text>{items.ip}</Text>
-        <Text>City</Text>
-        <Text>{items.cityName}</Text>
-      </Box>
-    </VStack>
+      <VStack style={{paddingHorizontal: 5}}>
+        <Box
+          bg={{
+            linearGradient: {
+              colors: bgColors || [
+                theme.colors.coolGray,
+                item ? item.color || theme.colors.hight : theme.colors.green,
+              ],
+              start: rotateLnBg.start,
+              end: rotateLnBg.end,
+            },
+          }}
+          style={[styles.item]}>
+          <Text style={styles.index}>{title}</Text>
+          <Text>Ip Address</Text>
+          <Text>{items.ip}</Text>
+          <Text>City</Text>
+          <Text>{items.cityName}</Text>
+        </Box>
+      </VStack>
     </Animated.View>
   );
 };

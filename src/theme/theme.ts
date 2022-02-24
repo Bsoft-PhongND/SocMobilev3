@@ -43,7 +43,8 @@ export const theme = {
     purple: 'rgba(15,23,42,.8)',
     red: 'rgba(254,101,92,1)',
     blue: 'rgba(68,162,249,1)',
-    green:'#4ade80',
+    green:'#fed7aa',
+    coolGray:'#d1d5db',
     purplebackground: 'rgba(15,17,25,1)',
   },
   fontSize: {
