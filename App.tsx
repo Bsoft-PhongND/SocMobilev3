@@ -7,6 +7,7 @@ import {extendTheme, NativeBaseProvider} from 'native-base';
 import AuthContextProvider, {AuthContext} from './src/context/AuthContext';
 import customTheme from './src/theme/customTheme';
 import LoadingContextProvider from './src/context/LoadingContext';
+import NotFoundError from './src/screens/NotFound';
 const Authenticate = () => {
   const {token} = React.useContext(AuthContext);
   if (token) return <AppStack />;
@@ -18,20 +19,25 @@ const config = {
   },
 };
 function App() {
-  const theme = extendTheme({customTheme});
-  return (
-    <NativeBaseProvider config={config} theme={theme}>
-        <LoadingContextProvider>
-          <AuthContextProvider>
-            <NavigationContainer>
-              {/* <AppStack /> */}
-              <AuthStack />
-              {/* <Authenticate /> */}
-            </NavigationContainer>
-          </AuthContextProvider>
-        </LoadingContextProvider>
-    </NativeBaseProvider>
-  );
+  try {
+    const theme = extendTheme({customTheme});
+    return (
+      <NativeBaseProvider config={config} theme={theme}>
+          <LoadingContextProvider>
+            <AuthContextProvider>
+              <NavigationContainer>
+                {/* <AppStack /> */}
+                <AuthStack />
+                {/* <Authenticate /> */}
+              </NavigationContainer>
+            </AuthContextProvider>
+          </LoadingContextProvider>
+      </NativeBaseProvider>
+    );
+  } catch (error:any) {
+    return <NotFoundError message={error.message} />;
+  }
+ 
 }
 
 export default App;

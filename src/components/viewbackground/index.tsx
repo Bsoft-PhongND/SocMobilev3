@@ -2,7 +2,7 @@ import {Box, Spinner, StatusBar, View} from 'native-base';
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 import {LoadingContext} from '../../context/LoadingContext';
-import {theme} from '../../theme/theme';
+import {backgroundLinear, rotateBg, theme} from '../../theme/theme';
 import {
   statusbarHeight,
   STATUSBAR_HEIGHT,
@@ -12,24 +12,25 @@ import {
 interface PropsTypes {
   children: React.ReactNode;
   safeArea?: boolean;
+  bgColors?: string[];
+  rotateLnBg?:{
+    start?:number[];
+    end?:number[];
+  }
 }
 function Container(props: PropsTypes) {
   return <ViewBackGround {...props} />;
 }
-function ViewBackGround({children, safeArea = true}: PropsTypes) {
+function ViewBackGround({children, safeArea = true, bgColors=backgroundLinear,rotateLnBg=rotateBg}: PropsTypes) {
   const {loading} = React.useContext(LoadingContext);
   return (
     <Box
       flex={1}
       bg={{
         linearGradient: {
-          colors: [
-            theme.colors.purplebackground,
-            theme.colors.background,
-            theme.colors.purplebackground,
-          ],
-          start: [0, 1, 1],
-          end: [1, 1, 0],
+          colors:bgColors,
+          start: rotateLnBg.start,
+          end: rotateLnBg.end,
         },
       }}
       safeAreaTop={safeArea}>

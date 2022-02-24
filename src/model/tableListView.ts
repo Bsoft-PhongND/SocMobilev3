@@ -13,6 +13,8 @@ const tableListModel = [
       cityName: 'TayNinh',
       lon: '11.29',
       lat: '106.09',
+      x: '11.29',
+      y: '106.09',
     },
     source: {
       ip: '10.2.32.65',
@@ -103,6 +105,7 @@ const tableListModel = [
       cityName: 'TayNinh',
       lon: '11.29',
       lat: '106.09',
+    
     },
     source: {
       ip: '10.2.32.65',

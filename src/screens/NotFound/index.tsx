@@ -1,14 +1,14 @@
-import {Image, View} from 'native-base';
+import {Image, View, Text} from 'native-base';
 import React from 'react';
 import HeaderBack from '../../components/headerback';
 import ViewBackGround from '../../components/viewbackground';
-function NotFoundError() {
+import {theme} from '../../theme/theme';
+function NotFoundError({message}: any) {
   return (
     <ViewBackGround>
       <HeaderBack title={'Not Found'} />
       <View
         flex={1}
-        bg={'amber.900'}
         justifyContent="center"
         alignItems="center">
         <Image
@@ -18,6 +18,7 @@ function NotFoundError() {
           width="300"
           height="300"
         />
+        {message && <Text style={{color: theme.colors.text}}>{message}</Text>}
       </View>
     </ViewBackGround>
   );

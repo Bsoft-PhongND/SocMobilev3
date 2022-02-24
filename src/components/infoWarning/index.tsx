@@ -1,190 +1,150 @@
-import {
-  Checkbox,
-  HStack,
-  Icon,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-  VStack,
-} from 'native-base';
+import {Box, HStack, ScrollView, Text, View, VStack} from 'native-base';
 import React from 'react';
-import {Animated, StyleSheet} from 'react-native';
-import {TabView} from 'react-native-tab-view';
-import {theme} from '../../theme/theme';
-import {windowWidth} from '../../utils/Dimensions';
-import {Ionicons} from '../../assets/icons';
-function InfoWarning(props: any) {
-  const {item} = props;
-
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    {key: '1', title: 'Nguồn'},
-    {key: '2', title: 'Đích'},
-  ]);
-  const renderScene = ({route, focused}: any) => {
-    switch (route.key) {
-      case '1':
-        return <TabItems items={item.source || {}} />;
-      case '2':
-        return <TabItems items={item.destination || {}} />;
-      default:
-        return <View></View>;
-    }
+import {StyleSheet, TextInput, ViewStyle} from 'react-native';
+import Animated from 'react-native-reanimated';
+import {backgroundLinear, rotateBg, theme} from '../../theme/theme';
+import {Feather} from '../../assets/icons';
+interface PropsTypes {
+  styleContainer?: ViewStyle;
+  item: any;
+  bgColors?: string[];
+  rotateLnBg?: {
+    start?: number[];
+    end?: number[];
   };
-  const renderTabBar = (props?: any) => {
-    const inputRange = props.navigationState.routes.map(
-      (x: any, i: number) => i,
-    );
-    return (
-      <HStack>
-        <ScrollView horizontal={true}>
-          {props.navigationState.routes.map((route: any, i: number) => {
-            const opacity = props.position.interpolate({
-              inputRange,
-              outputRange: inputRange.map((inputIndex: number) =>
-                inputIndex === i ? 1 : 0.5,
-              ),
-            });
-            return (
-              <Pressable
-                key={i}
-                style={styles.tabItem}
-                onPress={() => setIndex(i)}>
-                <Animated.View style={{opacity}}>
-                  <Text style={{...theme.fontSize.h3}} color="muted.100">
-                    {route.title}
-                  </Text>
-                </Animated.View>
-              </Pressable>
-            );
-          })}
-        </ScrollView>
-      </HStack>
-    );
-  };
-  const onChangetab = (index: number) => {
-    setIndex(index);
-  };
+}
+function InfoWarning(props: PropsTypes) {
+  const {item, styleContainer} = props;
+  const values = Object.values<any>(item);
+  const commonKV = Object.keys(item).map((key, index) => {
+    if (
+      values[index] !== undefined &&
+      values[index] !== null &&
+      typeof values[index] !== 'object'
+    ) {
+      return {key, value: values[index]};
+    } else return null;
+  });
   return (
-    <View flex={1}>
-      <Animated.View enter>
-        <HStack>
-          <Text style={styles.index}>Name:</Text>
-          <Text style={styles.contentIndex}>{item.name || '--'}</Text>
-        </HStack>
-        <HStack>
-          <Text style={styles.index}>City:</Text>
-          <Text style={styles.contentIndex}>{item.cityName || '--'}</Text>
-        </HStack>
-        <HStack>
-          <Text style={styles.index}>Country:</Text>
-          <Text style={styles.contentIndex}>{item.country || '--'}</Text>
-        </HStack>
-        <HStack>
-          <Text style={styles.index}>Time:</Text>
-          <Text style={styles.contentIndex}>
-            {`${new Date(item.timeStamp).toLocaleDateString()} - ${new Date(
-              item.timeStamp,
-            ).toLocaleTimeString()} ` || '--'}
-          </Text>
-        </HStack>
-        <HStack>
-          <Text style={styles.index}>TimeZone:</Text>
-          <Text style={styles.contentIndex}> {item.timeZone || '--'}</Text>
-        </HStack>
-        <HStack>
-          <Text style={styles.index}>Transport:</Text>
-          <Text style={styles.contentIndex}>
-            {' '}
-            {item.networkTransport || '--'}
-          </Text>
-        </HStack>
-        <HStack>
-          <Text style={styles.index}>Event Application:</Text>
-          <Text style={styles.contentIndex}> {item.eventAppId || '--'}</Text>
-        </HStack>
-        <HStack>
-          <Text style={styles.index}>Event Modules:</Text>
-          <Text style={styles.contentIndex}> {item.eventModule || '--'}</Text>
-        </HStack>
-      </Animated.View>
-      <TabView
-        renderTabBar={renderTabBar}
-        navigationState={{index, routes}}
-        renderScene={props => {
-          return (
-            <View
-              style={{
-                backgroundColor: theme.colors.text,
-                borderRadius: 10,
-                overflow: 'hidden',
-              }}
-              flex={1}>
-              {renderScene(props)}
-            </View>
-          );
-        }}
-        onIndexChange={onChangetab}
-        initialLayout={{width: windowWidth}}
-        style={{padding: 0}}
-      />
+    <View flex={1} style={{...styleContainer}}>
+      <HStack justifyContent={'space-evenly'}>
+        <TabItems title={'Source'} items={item.source} {...props} />
+        <TabItems title={'Destination'} items={item.destination} {...props} />
+      </HStack>
+      <View
+        flex={1}
+        backgroundColor={theme.colors.card}
+        pt={5}
+        mt={5}
+        borderRadius={10}>
+        <View
+          style={{
+            flexDirection: 'row',
+            borderColor: '#C6C6C6',
+            borderWidth: 1,
+            borderRadius: 8,
+            paddingHorizontal: 10,
+            paddingVertical: 8,
+            marginBottom: 8,
+          }}>
+          <Feather
+            name="search"
+            size={20}
+            color="#C6C6C6"
+            style={{marginRight: 5}}
+          />
+          <TextInput
+            placeholder="Search"
+            placeholderTextColor={theme.colors.border}
+          />
+        </View>
+        <Animated.View style={{flex: 1}}>
+          <ScrollView>
+            {commonKV.map(kv => {
+              if (kv) {
+                return (
+                  <View
+                    style={{
+                      backgroundColor: 'rgba(20,20,60,.2)',
+                      marginVertical: 2,
+                      padding: 10,
+                      borderBottomWidth: 0.2,
+                      borderColor: theme.colors.border,
+                    }}>
+                    <HStack>
+                      <Box
+                        bgColor={item.color}
+                        width={10}
+                        height={10}
+                        borderRadius={100}
+                        justifyContent="center"
+                        alignItems="center">
+                        <Text style={styles.index}>
+                          {kv.key[0] ? kv.key[0].toUpperCase() : '--'}
+                        </Text>
+                      </Box>
+                      <VStack ml={3}>
+                        <Text style={styles.index}>{kv.key || '--'}</Text>
+                        <Text style={styles.contentIndex}>
+                          {kv.value || '--'}
+                        </Text>
+                      </VStack>
+                    </HStack>
+                  </View>
+                );
+              }
+            })}
+          </ScrollView>
+        </Animated.View>
+      </View>
     </View>
   );
 }
 export default InfoWarning;
-const TabItems = ({items}: any) => {
-  const keys = Object.keys(items);
-
+const TabItems = ({
+  items,
+  title = '--',
+  bgColors,
+  rotateLnBg = rotateBg,
+  item,
+}: any) => {
   return (
-    <View>
-      {keys.map((key, index) => {
-        return (
-          <View p={2} key={index} style={styles.item}>
-            <HStack alignItems="center" mt={3}>
-              <Checkbox
-                isChecked
-                value="true"
-                accessibilityLabel="This is a dummy checkbox"
-              />
-              <VStack paddingLeft={5}>
-                <Text
-                  style={{
-                    ...theme.fontSize.h3,
-                    color: theme.colors.medium,
-                    fontWeight: 'bold',
-                  }}>
-                  {`${key[0] ? key[0].toUpperCase() : '--'}${
-                    key[1] ? key.slice(1) : '--'
-                  }` || '---'}
-                </Text>
-                <Text
-                  style={{...theme.fontSize.h4, color: theme.colors.medium}}>
-                  {items[`${key}`] || '---'}
-                </Text>
-              </VStack>
-            </HStack>
-          </View>
-        );
-      })}
-    </View>
+    <VStack flex={1} style={{paddingHorizontal: 5}}>
+      <Box
+        bg={{
+          linearGradient: {
+            colors: bgColors || [
+              theme.colors.green,
+              item ? item.color || theme.colors.hight : theme.colors.green,
+            ],
+            start: rotateLnBg.start,
+            end: rotateLnBg.end,
+          },
+        }}
+        style={[styles.item]}>
+        <Text style={styles.index}>{title}</Text>
+        <Text>Ip Address</Text>
+        <Text>{items.ip}</Text>
+        <Text>City</Text>
+        <Text>{items.cityName}</Text>
+      </Box>
+    </VStack>
   );
 };
 const styles = StyleSheet.create({
-  tabItem: {
-    alignItems: 'center',
-    padding: 5,
-  },
   index: {
     color: theme.colors.text,
     fontWeight: 'bold',
     ...theme.fontSize.h3,
   },
   contentIndex: {
-    paddingLeft: 10,
     color: theme.colors.text,
     fontWeight: '200',
     ...theme.fontSize.h4,
   },
-  item: {},
+  item: {
+    maxWidth: 200,
+    borderRadius: 10,
+    padding: 10,
+  },
 });

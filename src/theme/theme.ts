@@ -21,7 +21,6 @@ export const SIZES = {
   body5: 14,
   body6: 12,
 
-
   // app dimensions
   width,
   height,
@@ -36,16 +35,16 @@ export const theme = {
     error: '#f13a59',
     background: '#19173e',
     blue1: '#99cfef',
-    hight:'#9f1239',
+    hight: '#9f1239',
     medium: '#c026d3',
-    low:"#fb923c",
-    black:'#000',
+    low: '#fb923c',
+    black: '#000',
     card: 'rgba(20,20,60,.7)',
     purple: 'rgba(15,23,42,.8)',
-    red:'rgba(254,101,92,1)',
+    red: 'rgba(254,101,92,1)',
     blue: 'rgba(68,162,249,1)',
-    purplebackground: 'rgba(15,17,25,1)'
-
+    green:'#4ade80',
+    purplebackground: 'rgba(15,17,25,1)',
   },
   fontSize: {
     h1: {fontFamily: 'Roboto-Bold', fontSize: SIZES.h1, lineHeight: 36},
@@ -81,4 +80,13 @@ export const theme = {
   size: {
     ...SIZES,
   },
+};
+export const backgroundLinear = [
+  theme.colors.purplebackground,
+  theme.colors.background,
+  theme.colors.purplebackground,
+];
+export const rotateBg = {
+  start: [1, 0],
+  end: [0, 1],
 };

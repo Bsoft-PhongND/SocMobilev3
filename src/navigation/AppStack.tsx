@@ -1,20 +1,20 @@
-import {
-  createDrawerNavigator
-} from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Feather from 'react-native-vector-icons/Feather';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {StyleSheet} from 'react-native';
+import {
+  MaterialIcons,
+  Ionicons,
+  FontAwesome,
+  Feather,
+  AntDesign,
+} from '../assets/icons';
 import CustomDrawer from '../components/CustomDrawer';
-import { NameScreen } from '../config';
+import {NameScreen} from '../config';
 import ContactScreen from '../screens/Contact';
 import ResponseScreen from '../screens/Response/detail';
-import { DashboardStack, WarningStack } from './routers';
+import NotFoundScreen from '../screens/NotFound';
+import {DashboardStack, WarningStack} from './routers';
 import TabNavigator from './TabNavigator';
-
-
 
 const Drawer = createDrawerNavigator();
 
@@ -163,6 +163,16 @@ const AppStack = () => {
             <AntDesign name="contacts" size={22} color={color} />
           ),
           title: NameScreen.DrawerScreen.ContactScreen,
+        }}
+      />
+      <Drawer.Screen
+        name={NameScreen.NotFoundScreen}
+        component={NotFoundScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <MaterialIcons name="error-outline" size={22} color={color} />
+          ),
+          title: 'Not Found',
         }}
       />
     </Drawer.Navigator>

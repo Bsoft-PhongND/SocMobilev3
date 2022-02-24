@@ -1,5 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {ScrollView} from 'native-base';
+
 import {NameScreen} from '../../config';
 import DashBoardScreen from '../../screens/Dashboard';
 import NetWorkScreen from '../../screens/Network';
@@ -12,7 +14,7 @@ import HeaderBack from '../../components/headerback';
 import TableListView from '../../components/TableList';
 import InfoWarning from '../../components/infoWarning';
 import wordApp from '../../utils/word';
-import {ScrollView} from 'native-base';
+import {backgroundLinear, theme} from '../../theme/theme';
 const Stack = createNativeStackNavigator();
 
 const DashboardStack = () => {
@@ -129,13 +131,17 @@ const DashboardHightScreen = (props: any) => {
   return <NotFoundError />;
 };
 const DashboardUniversityScreen = (props: any) => {
-  const item = props.route?.params?.item;
-  return (
-    <ViewBackGround>
-      <HeaderBack title={wordApp.infoWarning || '--'} />
-      <InfoWarning item={item} />
-    </ViewBackGround>
-  );
-  return <NotFoundError />;
+  try {
+    const item = props.route?.params?.item;
+    return (
+      <ViewBackGround
+        bgColors={[item.color, ...backgroundLinear]}>
+        <HeaderBack title={wordApp.infoWarning || '--'} />
+        <InfoWarning item={item} styleContainer={{paddingTop:10}} />
+      </ViewBackGround>
+    );
+  } catch (error: any) {
+    return <NotFoundError message={error.message} />;
+  }
 };
 export default DashboardStack;
