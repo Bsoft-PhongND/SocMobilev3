@@ -1,9 +1,9 @@
-import {Box, HStack, ScrollView, Text, View, VStack} from 'native-base';
+import { Box, HStack, ScrollView, Text, View, VStack } from 'native-base';
 import React from 'react';
-import {StyleSheet, TextInput, ViewStyle} from 'react-native';
-import Animated, {ZoomInEasyDown} from 'react-native-reanimated';
-import {backgroundLinear, rotateBg, theme} from '../../theme/theme';
-import {Feather} from '../../assets/icons';
+import { StyleSheet, TextInput, ViewStyle } from 'react-native';
+import Animated, { ZoomInEasyDown } from 'react-native-reanimated';
+import { Feather } from '../../assets/icons';
+import { rotateBg, theme } from '../../theme/theme';
 interface PropsTypes {
   styleContainer?: ViewStyle;
   item: any;
@@ -70,10 +70,11 @@ function InfoWarning(props: PropsTypes) {
         </View>
         <Animated.View style={{flex: 1}}>
           <ScrollView>
-            {commonKV.map(kv => {
+            {commonKV.map((kv, index) => {
               if (kv) {
                 return (
                   <View
+                    key={index}
                     style={{
                       backgroundColor: 'rgba(20,20,60,.2)',
                       marginVertical: 2,
@@ -119,15 +120,12 @@ const TabItems = ({
   item,
 }: any) => {
   return (
-    <Animated.View entering={ZoomInEasyDown.delay(10)} style={{flex: 1}}>
+    <Animated.View entering={ZoomInEasyDown.delay(10)} style={styles.tabItem}>
       <VStack style={{paddingHorizontal: 5}}>
         <Box
           bg={{
             linearGradient: {
-              colors: bgColors || [
-                theme.colors.coolGray,
-                item ? item.color || theme.colors.hight : theme.colors.green,
-              ],
+              colors: bgColors || [theme.colors.green, theme.colors.blue],
               start: rotateLnBg.start,
               end: rotateLnBg.end,
             },
@@ -144,6 +142,9 @@ const TabItems = ({
   );
 };
 const styles = StyleSheet.create({
+  tabItem: {
+    flex: 1,
+  },
   index: {
     color: theme.colors.text,
     fontWeight: 'bold',

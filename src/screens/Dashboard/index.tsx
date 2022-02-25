@@ -1,23 +1,23 @@
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {Box, FlatList, HStack, Image, Pressable, Text, View} from 'native-base';
-import React, {useContext, useEffect, useRef, useState} from 'react';
-import {ImageBackground, StyleSheet} from 'react-native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { Box, FlatList, HStack, Image, Pressable, Text, View } from 'native-base';
+import React, { useContext, useState } from 'react';
+import { ImageBackground, StyleSheet } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
-  withTiming,
+  withTiming
 } from 'react-native-reanimated';
 import Carousel from '../../components/carousel';
 import HeaderMenu from '../../components/headermenu';
 import ViewBackGround from '../../components/viewbackground';
-import {NameScreen} from '../../config';
+import { NameScreen } from '../../config';
 import { LoadingContext } from '../../context/LoadingContext';
 import helpers from '../../helpers/helpers';
-import {theme} from '../../theme/theme';
-import {windowWidth} from '../../utils/Dimensions';
+import { theme } from '../../theme/theme';
+import { windowWidth } from '../../utils/Dimensions';
 import wordApp from '../../utils/word';
-import {dataFunctions} from './data';
+import { dataFunctions } from './data';
 
 export default function Container() {
   return <HomeScreen />;
@@ -38,6 +38,8 @@ function HomeScreen() {
   useFocusEffect(() => {
     setAutoPlay(true);
     return () => {
+      console.log('clear autoPlay');
+      
       setAutoPlay(false);
     };
   });
@@ -45,13 +47,13 @@ function HomeScreen() {
 
   const handleNavigate = async (navigate: any, item: any) => {
     if (navigate) {
-      setLoading(true)
-      await helpers.waited(500).then(async ()=>{
+      setLoading(true);
+      await helpers.waited(500).then(async () => {
         navigation.navigate(NameScreen.DashboardElementaryScreen, {item});
-        helpers.waited(2000).then(()=>{
-          setLoading(false)
-        })
-      })
+        helpers.waited(2000).then(() => {
+          setLoading(false);
+        });
+      });
     }
   };
   const toggleOpen = () => {
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
     ...theme.fontSize.h3,
   },
   itemF: {
-    backgroundColor: theme.colors.purple,
+    backgroundColor: theme.colors.darkBlue8000,
     height: 150,
     width: windowWidth / 2 - 50,
     margin: 5,

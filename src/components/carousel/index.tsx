@@ -1,5 +1,5 @@
 import {Box, HStack, Icon, Pressable, VStack} from 'native-base';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import {
   Animated,
@@ -158,11 +158,10 @@ export default function Carousel(props: PropsCarosel) {
   const {autoPlay} = props;
   const offset = React.useRef(0);
   const handleGoNext = () => {};
-
+  const refTimer = useRef<any>();
   useEffect(() => {
-    let timer: any = null;
     if (autoPlay) {
-      timer = setInterval(() => {
+      refTimer.current = setInterval(() => {
         console.log('change', offset.current);
         if (offset.current >= data.length - 1) {
           offset.current = 0;
@@ -179,7 +178,7 @@ export default function Carousel(props: PropsCarosel) {
     }
 
     return () => {
-      clearInterval(timer);
+      clearInterval(refTimer.current);
     };
   }, [autoPlay]);
   return (

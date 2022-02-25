@@ -109,7 +109,7 @@ const LoginScreen = () => {
                 label={wordApp.remember}
                 defaultIsChecked={true}
               />
-              <Button height={'1/5'} onPress={handleLogin}>
+              <Button height={'1/5'} onPress={handleLogin} style={styles.button}>
                 {wordApp.login}
               </Button>
             </Stack>
@@ -136,3 +136,4 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
+

@@ -17,9 +17,11 @@ export default function CircularProgressBarComponent(props: PropsTypes) {
         fontWeight: 'bold',
       }}
       height={120}
-      width={(windowWidth/3)-10}
-      style={styles.container}>
+      width={windowWidth / 3 - 10}
+      style={[styles.container, {shadowColor: 'white'}]}>
       <CircularProgress
+        strokeLinecap="round"
+        inActiveStrokeOpacity={0.5}
         value={60}
         radius={60}
         initialValue={0}
@@ -46,21 +48,26 @@ export default function CircularProgressBarComponent(props: PropsTypes) {
 }
 const styles = StyleSheet.create({
   container: {
-    transform: [
-      {rotate: '-135deg'}
-    ],
+    transform: [{rotate: '-135deg'}],
     position: 'relative',
     justifyContent: 'center',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: .4,
+    shadowRadius: 3,
+    elevation: 70,
   },
   translateTitle: {
     ...theme.fontSize.h2,
-    position:'absolute', 
+    position: 'absolute',
     fontWeight: 'bold',
     color: theme.colors.text,
     transform: [
-        {
-          rotate: '135deg',
-        },
+      {
+        rotate: '135deg',
+      },
     ],
   },
   translateSubTitle: {
