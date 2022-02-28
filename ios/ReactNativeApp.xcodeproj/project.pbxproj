@@ -558,6 +558,7 @@
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = ReactNativeApp/Info.plist;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -584,6 +585,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UQC3DXKV7M;
 				INFOPLIST_FILE = ReactNativeApp/Info.plist;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

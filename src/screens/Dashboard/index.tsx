@@ -50,7 +50,7 @@ function HomeScreen() {
       setLoading(true);
       await helpers.waited(500).then(async () => {
         navigation.navigate(NameScreen.DashboardElementaryScreen, {item});
-        helpers.waited(2000).then(() => {
+        helpers.waited(1000).then(() => {
           setLoading(false);
         });
       });

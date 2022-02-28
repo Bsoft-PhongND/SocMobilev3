@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {FlatList} from 'native-base';
-import React from 'react';
+import React, { useContext } from 'react';
 import {StyleSheet} from 'react-native';
 import {CardContainer, CardGroupBar} from '../../components/cards';
 import CardBar from '../../components/cards/cardBar';
@@ -10,6 +10,8 @@ import HeaderBack from '../../components/headerback';
 import {TableListStatus, TableListView} from '../../components/TableList';
 import ViewBackGround from '../../components/viewbackground';
 import {NameScreen} from '../../config';
+import { LoadingContext } from '../../context/LoadingContext';
+import helpers from '../../helpers/helpers';
 import {PropsHightScreen} from '../../navigation/routers/RouterDashboard';
 import wordApp from '../../utils/word';
 import {devicesStatus, unauthorizedAccess, violateByTime} from './data';
@@ -35,11 +37,23 @@ const groupsNetwork: Array<PropsHightScreen> = [
     tableList: <TableListView />,
   },
 ];
+const Container= (props:any)=>{
+  const {loading, setLoading} = useContext(LoadingContext);
+  return(<NetWorkScreen {...props} setLoading={setLoading} /> );
+}
 function NetWorkScreen(props: any) {
   const item = props.route?.params?.item;
+  const {setLoading} = props;
   const navigation = useNavigation();
+
   const handleNavigation = async (item: any) => {
-    navigation.navigate(NameScreen.DashboardHightScreen, {item});
+    setLoading(true);
+    await helpers.waited(500).then(async () => {
+      navigation.navigate(NameScreen.DashboardHightScreen, {item});
+      helpers.waited(1000).then(() => {
+        setLoading(false);
+      });
+    });
   };
   return (
     <ViewBackGround>
@@ -62,7 +76,8 @@ function NetWorkScreen(props: any) {
     </ViewBackGround>
   );
 }
-export default React.memo(NetWorkScreen);
+
+export default Container;
 const styles = StyleSheet.create({
   cardSpace: {
     marginVertical: 5,
