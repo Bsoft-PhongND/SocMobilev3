@@ -105,7 +105,6 @@ const tableListModel = [
       cityName: 'TayNinh',
       lon: '11.29',
       lat: '106.09',
-    
     },
     source: {
       ip: '10.2.32.65',
@@ -248,4 +247,58 @@ const tableListModel = [
     color: theme.colors.hight,
   },
 ];
-export default tableListModel;
+interface DeviceStatus {
+  id: string | number;
+  name: string;
+  ip: string;
+  status: 'connect' | 'disconnect';
+  color?: string
+}
+const tableListStatus: Array<DeviceStatus> = [
+  {
+    id: 1,
+    name: 'Sophos SG450',
+    ip: '10.184.254.4',
+    status: 'connect',
+    color: theme.colors.blue,
+  },
+  {
+    id: 2,
+    name: 'FortiGate 311B',
+    ip: '10.184.254.2',
+    status: 'disconnect',
+    color: theme.colors.hight,
+
+  },
+  {
+    id:3,
+    name: 'Baracuda Web 460',
+    ip: '10.184.240.90',
+    status: 'disconnect',
+    color: theme.colors.hight,
+
+  },
+  {
+    id:4,
+    name: 'Baracuda Email Security',
+    ip: '10.184.154.195',
+    status: 'connect',
+    color: theme.colors.blue,
+
+  },
+  {
+    id:4,
+    name: 'Anti DDOS Abor',
+    ip: '10.184.254.136',
+    status: 'connect',
+    color: theme.colors.blue,
+  },
+  {
+    id:5,
+    name: 'IPS Tipping Point',
+    ip: '10.184.240.4',
+    status: 'connect',
+    color: theme.colors.blue,
+  },
+];
+export {tableListStatus,tableListModel};

@@ -11,7 +11,6 @@ import HostingScreen from '../../screens/Hosts';
 import NotFoundError from '../../screens/NotFound';
 import ViewBackGround from '../../components/viewbackground';
 import HeaderBack from '../../components/headerback';
-import TableListView from '../../components/TableList';
 import InfoWarning from '../../components/infoWarning';
 import wordApp from '../../utils/word';
 import {backgroundLinear, theme} from '../../theme/theme';
@@ -110,21 +109,19 @@ const DashboardElementaryScreen = (props: any) => {
       return <NotFoundError />;
   }
 };
+interface PropsHightScreen {
+  title: string;
+  component: React.ReactNode;
+  tableList?: React.ReactNode;
+}
 const DashboardHightScreen = (props: any) => {
-  const item = props.route?.params?.item;
-  // console.log(item);
-  // switch (item.navigation) {
-  //   case NameScreen.DetailNetworkScreen:
-  //     return <DetailNetworkScreen {...props} />;
-  //   default:
-  //     return <NotFoundError />;
-  // }
+  const item: PropsHightScreen = props.route?.params?.item;
   return (
     <ViewBackGround>
       <HeaderBack title={item.title || '--'} />
       <ScrollView>
         {item.component}
-        <TableListView />
+        {item.tableList}
       </ScrollView>
     </ViewBackGround>
   );
@@ -134,10 +131,9 @@ const DashboardUniversityScreen = (props: any) => {
   try {
     const item = props.route?.params?.item;
     return (
-      <ViewBackGround
-        bgColors={[item.color, ...backgroundLinear]}>
+      <ViewBackGround bgColors={[item.color, ...backgroundLinear]}>
         <HeaderBack title={wordApp.infoWarning || '--'} />
-        <InfoWarning item={item} styleContainer={{paddingTop:10}} />
+        <InfoWarning item={item} styleContainer={{paddingTop: 10}} />
       </ViewBackGround>
     );
   } catch (error: any) {
@@ -145,3 +141,4 @@ const DashboardUniversityScreen = (props: any) => {
   }
 };
 export default DashboardStack;
+export type {PropsHightScreen}

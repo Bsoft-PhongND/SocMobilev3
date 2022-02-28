@@ -28,7 +28,7 @@ function CardContainer(props: PropsTypes) {
             {title}
           </Heading>
           {onPress && (
-            <Pressable onPress={onPress}>
+            <Pressable onPress={onPress} style={{padding: 5,paddingHorizontal:8}} >
               <Text style={{color: theme.colors.text, ...theme.fontSize.h4}}>
                 {wordApp.detail}
               </Text>

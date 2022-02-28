@@ -1,171 +1,257 @@
 import {useNavigation} from '@react-navigation/native';
-import {
-  Avatar,
-  Box,
-  Center,
-  FlatList,
-  Heading,
-  HStack,
-  Icon,
-  Pressable,
-  ScrollView,
-  Spacer,
-  Text,
-  View,
-  VStack,
-} from 'native-base';
+import {Box, HStack, Icon, Pressable, Text, View, VStack} from 'native-base';
 import React, {useState} from 'react';
+import {StyleSheet} from 'react-native';
 import Animated, {SlideInLeft} from 'react-native-reanimated';
-import {SwipeListView} from 'react-native-swipe-list-view';
-import Entypo from 'react-native-vector-icons/Entypo';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {NameScreen} from '../../config';
-import tableListModel from '../../model/tableListView';
+import {AntDesign, MaterialCommunityIcons} from '../../assets/icons';
+import {tableListModel, tableListStatus} from '../../model/tableListView';
 import {theme} from '../../theme/theme';
 import wordApp from '../../utils/word';
+const RenderItemText = ({label, content, content2}: any) => {
+  return (
+    <View style={styles.row}>
+      <Text
+        color={theme.colors.text}
+        numberOfLines={2}
+        _dark={{
+          color: 'warmGray.50',
+        }}
+        bold>
+        {label || '--'} :
+      </Text>
+      <HStack>
+        <Text
+          color={theme.colors.text}
+          numberOfLines={2}
+          _dark={{
+            color: 'warmGray.50',
+          }}
+          bold>
+          {content || '--'}
+        </Text>
+        {content2 && (
+          <HStack>
+            <Icon
+              as={<AntDesign name="arrowright" />}
+              size={5}
+              ml="2"
+              color="muted.100"
+            />
+            <Text
+              color={theme.colors.text}
+              numberOfLines={2}
+              ml={2}
+              _dark={{
+                color: 'warmGray.50',
+              }}
+              bold>
+              {content2 || '--'}
+            </Text>
+          </HStack>
+        )}
+      </HStack>
+    </View>
+  );
+};
 function TableListView() {
   const [listData, setListData] = useState(tableListModel);
   const navigation = useNavigation();
-  const handleNavigate = (item: any) => {
-    navigation.navigate(NameScreen.DashboardUniversityScreen, {item});
-  };
-  const renderItem = ({item, index}: any) => {
+  // const handleNavigate = (item: any) => {
+  // navigation.navigate(NameScreen.DashboardUniversityScreen, {item});
+  // console.log(item);
+  // };
+  const RenderItem = ({item, index}: any) => {
+    const [more, setMore] = useState(false);
+    console.log(`render index`, index);
     return (
       <Animated.View entering={SlideInLeft.delay(index * 8)} key={index}>
-        <Box borderBottomWidth={1} borderColor={theme.colors.border}>
-          <Pressable onPress={() => handleNavigate(item)} _dark={{}}>
-            <Box pl="4" pr="5" py="2">
-              <HStack alignItems="center" space={3}>
-                <Box
-                  borderRadius={50}
-                  backgroundColor={item.color || theme.colors.hight}
-                  w={50}
-                  h={50}
-                  justifyContent="center"
-                  alignItems="center">
-                  <Text
-                    style={{
-                      color: theme.colors.text,
-                      fontWeight: 'bold',
-
-                      ...theme.fontSize.h3,
-                    }}>
-                    {item.name ? item.name[0].toUpperCase() : '--'}
-                  </Text>
-                </Box>
-                <VStack flex={1}>
-                  <Text
-                    color={theme.colors.text}
-                    numberOfLines={2}
-                    _dark={{
-                      color: 'warmGray.50',
-                    }}
-                    bold>
-                    {item.name || '--'}
-                  </Text>
-                  <Text
-                    color={theme.colors.text}
-                    _dark={{
-                      color: 'warmGray.200',
-                    }}>
-                    {item.cityName}
-                  </Text>
-                </VStack>
+        <Box
+          borderBottomWidth={1}
+          borderColor={theme.colors.border}
+          pl="4"
+          pr="5"
+          py="2">
+          <Pressable onPress={() => setMore(!more)} _dark={{}}>
+            <HStack alignItems="center" space={3}>
+              <Box
+                borderRadius={50}
+                backgroundColor={item.color || theme.colors.hight}
+                w={50}
+                h={50}
+                justifyContent="center"
+                alignItems="center">
                 <Text
-                  fontSize="xs"
-                  color={theme.colors.text}
-                  _dark={{
-                    color: 'warmGray.50',
-                  }}
-                  alignSelf="flex-start">
-                  {item.timeStamp
-                    ? new Date(item.timeStamp).toLocaleDateString()
-                    : '--'}
+                  style={{
+                    color: theme.colors.text,
+                    fontWeight: 'bold',
+                    ...theme.fontSize.h3,
+                  }}>
+                  {item.name ? item.name[0].toUpperCase() : '--'}
                 </Text>
-              </HStack>
-            </Box>
+              </Box>
+              <VStack flex={1}>
+                <HStack justifyContent="space-evenly" alignItems="center">
+                  <HStack alignItems="center">
+                    <Icon
+                      as={
+                        <MaterialCommunityIcons name="access-point-network" />
+                      }
+                      size={5}
+                      mr="2"
+                      color="lime.300"
+                    />
+                    <Box style={styles.ipAdress}>
+                      <Text color={theme.colors.text} numberOfLines={2} bold>
+                        {item?.source?.ip || '--'}
+                      </Text>
+                    </Box>
+                  </HStack>
+                  <Icon
+                    as={<AntDesign name="arrowright" />}
+                    size={5}
+                    ml="2"
+                    color="muted.100"
+                  />
+                  <HStack alignItems="center">
+                    <Icon
+                      as={
+                        <MaterialCommunityIcons name="access-point-network" />
+                      }
+                      size={5}
+                      mr="2"
+                      color="lime.300"
+                    />
+                    <Box style={styles.ipAdress}>
+                      <Text color={theme.colors.text} numberOfLines={2} bold>
+                        {item?.source?.ip || '--'}
+                      </Text>
+                    </Box>
+                  </HStack>
+                </HStack>
+                <RenderItemText label="Alert" content={item.name} />
+                <RenderItemText
+                  label="Time"
+                  content={new Date(
+                    item.timeStamp || new Date().getTime(),
+                  ).toLocaleDateString()}
+                />
+                {more && (
+                  <Box key={`item${index}`}>
+                    <RenderItemText
+                      label="Port"
+                      content={item?.source?.port || '--'}
+                      content2={item?.destination?.port}
+                    />
+                    <RenderItemText
+                      label="City"
+                      content={item.cityName || '--'}
+                    />
+                    <RenderItemText
+                      label="Country Code"
+                      content={item.countryCode || '--'}
+                    />
+                    <RenderItemText
+                      label="EventApp"
+                      content={item.eventAppId || '--'}
+                    />
+                    <RenderItemText
+                      label="Module"
+                      content={item.eventModule || '--'}
+                    />
+                    <RenderItemText
+                      label="Transport"
+                      content={item.networkTransport || '--'}
+                    />
+                  </Box>
+                )}
+              </VStack>
+            </HStack>
           </Pressable>
         </Box>
       </Animated.View>
     );
   };
-  //   const closeRow = (rowMap, rowKey) => {
-  //     if (rowMap[rowKey]) {
-  //       rowMap[rowKey].closeRow();
-  //     }
-  //   };
-
-  //   const deleteRow = (rowMap, rowKey) => {
-  //     const newData = [...listData];
-  //     const prevIndex = listData.findIndex(item => item.id === rowKey);
-  //     newData.splice(prevIndex, 1);
-  //     setListData(newData);
-  //   };
-
-  //   const renderHiddenItem = (data, rowMap) => {
-  //     return (
-  //       <HStack flex="1" pl="2">
-  //         <Pressable
-  //           w="70"
-  //           ml="auto"
-  //           bg="coolGray.200"
-  //           justifyContent="center"
-  //           onPress={() => closeRow(rowMap, data.item.id)}
-  //           _pressed={{
-  //             opacity: 0.5,
-  //           }}>
-  //           <VStack alignItems="center" space={2}>
-  //             <Icon
-  //               as={<Entypo name="dots-three-horizontal" />}
-  //               size="xs"
-  //               color="coolGray.800"
-  //             />
-  //             <Text fontSize="xs" fontWeight="medium" color="coolGray.800">
-  //               More
-  //             </Text>
-  //           </VStack>
-  //         </Pressable>
-  //         <Pressable
-  //           w="70"
-  //           bg="red.500"
-  //           justifyContent="center"
-  //           onPress={() => deleteRow(rowMap, data.item.id)}
-  //           _pressed={{
-  //             opacity: 0.5,
-  //           }}>
-  //           <VStack alignItems="center" space={2}>
-  //             <Icon
-  //               as={<MaterialIcons name="delete" />}
-  //               color="white"
-  //               size="xs"
-  //             />
-  //             <Text color="white" fontSize="xs" fontWeight="medium">
-  //               Delete
-  //             </Text>
-  //           </VStack>
-  //         </Pressable>
-  //       </HStack>
-  //     );
-  //   };
   return (
     <View flex={1}>
       <Text style={{color: theme.colors.text, ...theme.fontSize.h3}}>
         {wordApp.list}
       </Text>
-      {/* <SwipeListView
-        data={listData}
-        renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
-        rightOpenValue={-130}
-        previewRowKey={'0'}
-        previewOpenValue={-40}
-        previewOpenDelay={3000}
-      />*/}
-      {/* <FlatList data={listData} renderItem={renderItem} /> */}
-      {listData.map((item, index) =>{
-        return (renderItem({item,index}))
+      {listData.map((item, index) => {
+        return <RenderItem item={item} index={index} />;
       })}
     </View>
   );
 }
-export default TableListView;
+function TableListStatus() {
+  const [listData, setListData] = useState(tableListStatus);
+  const RenderItem = ({item, index}: any) => {
+    return (
+      <Animated.View entering={SlideInLeft.delay(index * 8)} key={index}>
+        <Box
+          borderBottomWidth={1}
+          borderColor={theme.colors.border}
+          pl="4"
+          pr="5"
+          py="2">
+          <HStack alignItems="center" space={3}>
+            <Box
+              borderRadius={50}
+              backgroundColor={item.color || theme.colors.hight}
+              w={50}
+              h={50}
+              justifyContent="center"
+              alignItems="center">
+              <Text
+                style={{
+                  color: theme.colors.text,
+                  fontWeight: 'bold',
+                  ...theme.fontSize.h3,
+                }}>
+                {item.name ? item.name[0].toUpperCase() : '--'}
+              </Text>
+            </Box>
+            <VStack flex={1}>
+              <HStack justifyContent="flex-start" alignItems="center">
+                <Icon
+                  as={<MaterialCommunityIcons name="access-point-network" />}
+                  size={5}
+                  mr="2"
+                  color="lime.300"
+                />
+                <Box style={styles.ipAdress}>
+                  <Text color={theme.colors.text} numberOfLines={2} bold>
+                    {item?.ip || '--'}
+                  </Text>
+                </Box>
+              </HStack>
+              <RenderItemText label="Name" content={item.name} />
+              <RenderItemText label="Status" content={item.status} />
+            </VStack>
+          </HStack>
+        </Box>
+      </Animated.View>
+    );
+  };
+  return (
+    <View flex={1}>
+      <Text style={{color: theme.colors.text, ...theme.fontSize.h3}}>
+        {wordApp.list}
+      </Text>
+      {listData.map((item, index) => {
+        return <RenderItem item={item} index={index} key={index}/>;
+      })}
+    </View>
+  );
+}
+export {TableListView, TableListStatus};
+const styles = StyleSheet.create({
+  ipAdress: {
+    backgroundColor: theme.colors.lightBlue800,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+});
