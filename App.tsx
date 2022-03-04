@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Provider} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import AuthStack from './src/navigation/AuthStack';
 import AppStack from './src/navigation/AppStack';
@@ -8,6 +8,7 @@ import AuthContextProvider, {AuthContext} from './src/context/AuthContext';
 import customTheme from './src/theme/customTheme';
 import LoadingContextProvider from './src/context/LoadingContext';
 import NotFoundError from './src/screens/NotFound';
+import store from './src/redux/store';
 const Authenticate = () => {
   const {token} = React.useContext(AuthContext);
   if (token) return <AppStack />;
@@ -23,6 +24,7 @@ function App() {
     const theme = extendTheme({customTheme});
     return (
       <NativeBaseProvider config={config} theme={theme}>
+        <Provider store={store}>
           <LoadingContextProvider>
             <AuthContextProvider>
               <NavigationContainer>
@@ -32,12 +34,12 @@ function App() {
               </NavigationContainer>
             </AuthContextProvider>
           </LoadingContextProvider>
+        </Provider>
       </NativeBaseProvider>
     );
-  } catch (error:any) {
+  } catch (error: any) {
     return <NotFoundError message={error.message} />;
   }
- 
 }
 
 export default App;
