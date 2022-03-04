@@ -51,7 +51,7 @@ function StatisticScreen() {
           onRefresh={waited}
           loading={state.refreshing}
         />
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <CardContainer
             title={wordApp.warningLevel}
             styleContainer={styles.cardSpace}>
