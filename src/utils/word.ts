@@ -41,6 +41,14 @@ const wordApp = {
     disconnectWarning:'Cảnh báo mất kết nối',
     attackServiceWarning:'Cảnh báo tấn công dịch vụ',
     speedResponse:'Tốc độ phản hồi ứng dụng web',
-    detailWaring:'Chi tiết cảnh báo'
+    detailWaring:'Chi tiết cảnh báo',
+    done:'Hoàn tất',
+    name:"Name",
+    sourceIp:"Source",
+    destinationIp:"Destination",
+    date:'Date',
+    enterName:"Enter Name",
+    enterSource:"Enter Source IP",
+    enterDestination:"Enter Destination IP",
 }
 export default wordApp;

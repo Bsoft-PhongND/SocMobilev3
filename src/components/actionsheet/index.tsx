@@ -7,35 +7,45 @@ import {
   Box,
   Center,
   NativeBaseProvider,
+  KeyboardAvoidingView,
+  ScrollView,
+  View,
+  Pressable,
 } from 'native-base';
+import {windowWidth, windowHeight} from '../../utils/Dimensions';
+import {theme} from '../../theme/theme';
+import wordApp from '../../utils/word';
+
 interface PropsTypes {
   isOpen?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
+  children?: React.ReactNode;
 }
 export default function ModalSheetComponent(props: PropsTypes) {
-  const {isOpen, onOpen, onClose} = props;
+  const {isOpen, onOpen, onClose, children} = props;
   return (
-    <>
-      <Actionsheet isOpen={isOpen} onClose={onClose}>
+    <Actionsheet isOpen={isOpen} onClose={onClose}>
+      <KeyboardAvoidingView behavior="padding">
         <Actionsheet.Content>
-          <Box w="100%" h={60} px={4} justifyContent="center">
+          <Pressable onPress={onClose}>
             <Text
-              fontSize="16"
-              color="gray.500"
-              _dark={{
-                color: 'gray.300',
+              pr={5}
+              style={{
+                textAlign: 'right',
+                color: theme.colors.darkBlue8000,
+                fontWeight: 'bold',
+                width: windowWidth,
+                ...theme.fontSize.h3,
               }}>
-              Albums
+              {wordApp.done}
             </Text>
-          </Box>
-          <Actionsheet.Item>Delete</Actionsheet.Item>
-          <Actionsheet.Item>Share</Actionsheet.Item>
-          <Actionsheet.Item>Play</Actionsheet.Item>
-          <Actionsheet.Item>Favourite</Actionsheet.Item>
-          <Actionsheet.Item>Cancel</Actionsheet.Item>
+          </Pressable>
+          <ScrollView w={windowWidth} maxHeight={windowHeight * 0.5}>
+            {children}
+          </ScrollView>
         </Actionsheet.Content>
-      </Actionsheet>
-    </>
+      </KeyboardAvoidingView>
+    </Actionsheet>
   );
 }

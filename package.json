@@ -16,6 +16,8 @@
     "@react-navigation/native-stack": "^6.2.5",
     "axios": "^0.26.0",
     "babel-plugin-inline-import": "^3.0.0",
+    "moment": "^2.29.1",
+    "moment-range": "^4.0.2",
     "native-base": "^3.3.3",
     "react": "17.0.2",
     "react-native": "0.65.1",

@@ -1,12 +1,25 @@
 import {useNavigation} from '@react-navigation/native';
-import {Box, HStack, Icon, Pressable, Text, View, VStack} from 'native-base';
+import {
+  Actionsheet,
+  Box,
+  HStack,
+  Icon,
+  Input,
+  Pressable,
+  Text,
+  useDisclose,
+  View,
+  VStack,
+} from 'native-base';
 import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import Animated, {SlideInLeft} from 'react-native-reanimated';
 import {AntDesign, MaterialCommunityIcons} from '../../assets/icons';
+import ModalSheetComponent from '../../components/actionsheet';
 import {tableListModel, tableListStatus} from '../../model/tableListView';
 import {theme} from '../../theme/theme';
 import wordApp from '../../utils/word';
+import Dates from '../datepicker/dateRangePicker';
 const RenderItemText = ({label, content, content2}: any) => {
   return (
     <View style={styles.row}>
@@ -54,15 +67,105 @@ const RenderItemText = ({label, content, content2}: any) => {
   );
 };
 function TableListView() {
+  const {isOpen, onOpen, onClose} = useDisclose();
   const [listData, setListData] = useState(tableListModel);
-  const navigation = useNavigation();
-  // const handleNavigate = (item: any) => {
-  // navigation.navigate(NameScreen.DashboardUniversityScreen, {item});
-  // console.log(item);
-  // };
+  const onDatesChange = ({startDate, endDate, focusedInput}: any) => {
+    setState({...state, startDate, endDate, focus: focusedInput});
+  };
+  const [showDate, setShowDate] = useState(false);
+  const [state, setState] = useState<any>({
+    date: undefined,
+    focus: 'startDate',
+    startDate: new Date(),
+    endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
+  });
+
+  const handleFilter = () => {
+    // const newList = listData.filter(data => data.name === 'HTTP Blocked Locations');
+    setListData(listData);
+    onClose();
+  };
+  return (
+    <View flex={1}>
+      <HStack
+        justifyContent={'space-between'}
+        style={{marginHorizontal: 10}}
+        alignItems="center">
+        <Text style={{color: theme.colors.text, ...theme.fontSize.h3}}>
+          {wordApp.list}
+        </Text>
+        <Pressable padding={2} paddingRight={7} onPress={onOpen}>
+          <Icon
+            as={<MaterialCommunityIcons name="filter-menu" />}
+            size={6}
+            color={theme.colors.blue}
+          />
+        </Pressable>
+      </HStack>
+
+      <ContentTableListView listData={listData} />
+      <ModalSheetComponent
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={handleFilter}>
+        <View>
+          <HStack style={styles.rowInput}>
+            <Text style={styles.lable}>{wordApp.name}:</Text>
+            <Input
+              variant="underlined"
+              placeholder={wordApp.enterName}
+              flex={1}
+              marginLeft={5}
+            />
+          </HStack>
+          <HStack style={styles.rowInput}>
+            <Text style={styles.lable}>{wordApp.sourceIp}:</Text>
+            <Input
+              variant="underlined"
+              placeholder={wordApp.enterSource}
+              flex={1}
+              marginLeft={5}
+            />
+          </HStack>
+          <HStack style={styles.rowInput}>
+            <Text style={styles.lable}>{wordApp.destinationIp}:</Text>
+            <Input
+              variant="underlined"
+              placeholder={wordApp.enterDestination}
+              flex={1}
+              marginLeft={5}
+            />
+          </HStack>
+          <HStack style={styles.rowInput}>
+            <Text style={styles.lable}>{wordApp.date}:</Text>
+            <Pressable onPress={() => setShowDate(!showDate)}>
+              <Text flex={1}>
+                {`${new Date(state.startDate).toLocaleDateString()} - ${new Date(state.endDate || state.startDate).toLocaleDateString()}`}</Text>
+            </Pressable>
+          </HStack>
+          {showDate && (
+            <Dates
+              range={true}
+              onDatesChange={onDatesChange}
+              isDateBlocked={() => false}
+              startDate={state.startDate}
+              endDate={state.endDate}
+              focusedInput={state.focus}
+            />
+          )}
+        </View>
+      </ModalSheetComponent>
+    </View>
+  );
+}
+const ContentTableListView = React.memo(function ({
+  listData,
+}: {
+  listData: Array<any>;
+}) {
+  console.log('render ListItem');
   const RenderItem = ({item, index}: any) => {
     const [more, setMore] = useState(false);
-    console.log(`render index`, index);
     return (
       <Animated.View entering={SlideInLeft.delay(index * 8)} key={index}>
         <Box
@@ -172,25 +275,32 @@ function TableListView() {
     );
   };
   return (
-    <View flex={1}>
-      <Text style={{color: theme.colors.text, ...theme.fontSize.h3}}>
-        {wordApp.list}
-      </Text>
+    <View>
       {listData.map((item, index) => {
         return <RenderItem item={item} index={index} />;
       })}
     </View>
   );
-}
+});
 export default React.memo(TableListView);
+
 const styles = StyleSheet.create({
-    ipAdress: {
-      backgroundColor: theme.colors.lightBlue800,
-      paddingVertical: 5,
-      paddingHorizontal: 10,
-      borderRadius: 10,
-    },
-    row: {
-      flexDirection: 'row',
-    },
-  });
+  ipAdress: {
+    backgroundColor: theme.colors.lightBlue800,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  lable: {
+    minWidth: 80,
+  },
+  rowInput: {
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    marginVertical: 5,
+    justifyContent: 'space-between',
+  },
+});
