@@ -50,5 +50,7 @@ const wordApp = {
     enterName:"Enter Name",
     enterSource:"Enter Source IP",
     enterDestination:"Enter Destination IP",
+    disconnected:"Disconnected",
+    connected:"Connected",
 }
 export default wordApp;

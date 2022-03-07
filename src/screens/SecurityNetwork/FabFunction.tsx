@@ -2,7 +2,7 @@ import {Box, HStack, Icon, IconButton, useDisclose} from 'native-base';
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {MaterialIcons,FontAwesome5} from '../../assets/icons';
 import StaggerComponent from '../../components/stagger';
 function FabFunction() {
   const {isOpen, onToggle} = useDisclose();
@@ -20,48 +20,11 @@ function FabFunction() {
           borderRadius="full"
           icon={
             <Icon
-              as={MaterialIcons}
+              as={<MaterialIcons name="settings"/>}
               size="6"
-              name="location-pin"
               _dark={{
                 color: 'warmGray.50',
               }}
-              color="warmGray.50"
-            />
-          }
-        />
-        <IconButton
-          mb="4"
-          variant="solid"
-          bg="yellow.400"
-          colorScheme="yellow"
-          borderRadius="full"
-          icon={
-            <Icon
-              as={MaterialCommunityIcons}
-              _dark={{
-                color: 'warmGray.50',
-              }}
-              size="6"
-              name="microphone"
-              color="warmGray.50"
-            />
-          }
-        />
-        <IconButton
-          mb="4"
-          variant="solid"
-          bg="teal.400"
-          colorScheme="teal"
-          borderRadius="full"
-          icon={
-            <Icon
-              as={MaterialCommunityIcons}
-              _dark={{
-                color: 'warmGray.50',
-              }}
-              size="6"
-              name="video"
               color="warmGray.50"
             />
           }
@@ -74,7 +37,7 @@ function FabFunction() {
           borderRadius="full"
           icon={
             <Icon
-              as={MaterialIcons}
+              as={<FontAwesome5 name="file-import"/>}
               size="6"
               name="photo-library"
               _dark={{

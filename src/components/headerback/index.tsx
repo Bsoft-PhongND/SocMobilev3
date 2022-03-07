@@ -7,6 +7,7 @@ import {position} from 'native-base/lib/typescript/theme/styled-system';
 import wordApp from '../../utils/word';
 interface PropsTypes {
   title?: string;
+  RightElement?: React.ReactNode;
 }
 function HeaderBack(props: PropsTypes) {
   const navigation = useNavigation();
@@ -15,9 +16,7 @@ function HeaderBack(props: PropsTypes) {
     navigation.goBack();
   };
   return (
-    <Flex
-      flexDirection="row"
-      style={{alignItems: 'center'}}>
+    <Flex flexDirection="row" style={{alignItems: 'center'}}>
       <View>
         <Icon
           as={<Ionicons name={'arrow-back'} />}
@@ -35,10 +34,11 @@ function HeaderBack(props: PropsTypes) {
           textAlign: 'center',
           fontWeight: '500',
           flex: 1,
-          paddingRight:40
+          paddingRight: props.RightElement ? 0 : 40,
         }}>
         {props.title || wordApp.securityNetWork}
       </Text>
+      {props.RightElement && <View pr={2}>{props.RightElement}</View>}
     </Flex>
   );
 }
