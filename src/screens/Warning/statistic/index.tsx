@@ -1,36 +1,37 @@
 import {
-  Circle,
-  Heading,
   HStack,
-  Icon,
-  ScrollView,
-  Text,
-  useDisclose,
-  View,
+  Input,
+  Pressable,
+  ScrollView, Text, useDisclose,
+  View
 } from 'native-base';
-import {ILinearGradientProps} from 'native-base/lib/typescript/components/primitives/Box/types';
-import {
-  ColorType,
-  ResponsiveValue,
-} from 'native-base/lib/typescript/components/types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ModalSheetComponent from '../../../components/actionsheet';
-import {CardContainer, CardGroupBar, CardGroupPieChart} from '../../../components/cards';
+import {
+  CardContainer,
+  CardGroupBar,
+  CardGroupPieChart
+} from '../../../components/cards';
 import CardBar from '../../../components/cards/cardBar';
-import BarChart from '../../../components/charts/barChart';
-import GroupBarChart from '../../../components/charts/groupChart';
-import CircularProgressBarComponent from '../../../components/circleprogress';
-import {ToolBar} from '../../../components/tools/ToolBar';
+import Dates from '../../../components/datepicker/dateRangePicker';
+import { ToolBar } from '../../../components/tools/ToolBar';
 import ViewBackTabview from '../../../components/viewbackground/viewbackTabview';
-import {theme} from '../../../theme/theme';
+import { theme } from '../../../theme/theme';
 import wordApp from '../../../utils/word';
-
+type searchType = {
+  name: string | undefined;
+  sourceIp: string | undefined;
+  destinationIp: string | undefined;
+}
 function StatisticScreen() {
   const {isOpen, onOpen, onClose} = useDisclose();
   const [state, setState] = React.useState({
     refreshing: false,
+    date: undefined,
+    focus: 'startDate',
+    startDate: new Date(),
+    endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
   });
   const waited = async () => {
     setState({...state, refreshing: true});
@@ -39,9 +40,14 @@ function StatisticScreen() {
         resolve(true);
       }, 3000);
     }).then(d => {
-      console.log(d);
       setState({...state, refreshing: false});
     });
+  };
+  const onDatesChange = ({startDate, endDate, focusedInput}: any) => {
+    setState({...state, startDate, endDate, focus: focusedInput});
+  };
+  const handleFilter = () => {
+    onClose();
   };
   return (
     <ViewBackTabview safeArea={false}>
@@ -50,6 +56,7 @@ function StatisticScreen() {
           filterClick={() => onOpen()}
           onRefresh={waited}
           loading={state.refreshing}
+          date={state}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           <CardContainer
@@ -69,14 +76,48 @@ function StatisticScreen() {
           </CardContainer>
         </ScrollView>
       </View>
-      <ModalSheetComponent isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+      <ModalSheetComponent
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        onFilter={handleFilter}>
+        <View>
+        <Dates
+              range={true}
+              onDatesChange={onDatesChange}
+              isDateBlocked={() => false}
+              startDate={state.startDate}
+              endDate={state.endDate}
+              focusedInput={state.focus}
+            />
+        </View>
+      </ModalSheetComponent>
     </ViewBackTabview>
   );
 }
 export default React.memo(StatisticScreen);
 const styles = StyleSheet.create({
   cardSpace: {
-    marginVertical:5,
-    borderWidth:0
-  }
-})
+    marginVertical: 5,
+    borderWidth: 0,
+  },
+  ipAdress: {
+    backgroundColor: theme.colors.lightBlue800,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  lable: {
+    minWidth: 80,
+  },
+  rowInput: {
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    marginVertical: 5,
+    justifyContent: 'space-between',
+  },
+  text: {color: theme.colors.text, ...theme.fontSize.h3},
+});

@@ -25,7 +25,6 @@ function ResponseScreen() {
         resolve(true);
       }, 3000);
     }).then(d => {
-      console.log(d);
       setState({...state, refreshing: false});
     });
   };
@@ -59,7 +58,6 @@ const FlatView = React.memo(({listWarnings}: any) => {
   );
 });
 const RenderItem = React.memo(({item, index}: any) => {
-  console.log(`index`, index);
   const color = Helpers.divideLevelWarning(item.number);
   return (
     <Pressable>

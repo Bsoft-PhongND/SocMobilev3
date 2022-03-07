@@ -38,8 +38,6 @@ function HomeScreen() {
   useFocusEffect(() => {
     setAutoPlay(true);
     return () => {
-      console.log('clear autoPlay');
-      
       setAutoPlay(false);
     };
   });

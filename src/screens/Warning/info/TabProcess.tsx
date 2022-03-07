@@ -14,7 +14,6 @@ function TabProcessWarning() {
   const height = useKeyboard();
   const marginTop = new Animated.Value(0);
   const toogleViewKeyboard = () => {
-    console.log('toogle');
     Animated.timing(marginTop, {
       toValue: height,
       duration: 200,

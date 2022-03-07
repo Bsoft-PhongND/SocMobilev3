@@ -162,7 +162,6 @@ export default function Carousel(props: PropsCarosel) {
   useEffect(() => {
     if (autoPlay) {
       refTimer.current = setInterval(() => {
-        console.log('change', offset.current);
         if (offset.current >= data.length - 1) {
           offset.current = 0;
         } else {

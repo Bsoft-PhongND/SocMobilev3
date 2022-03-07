@@ -44,7 +44,6 @@ function DetailScreen() {
         resolve(true);
       }, 3000);
     }).then(d => {
-      console.log(d);
       setState({...state, refreshing: false});
     });
   };

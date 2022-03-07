@@ -8,11 +8,16 @@ import wordApp from '../../utils/word';
 export function ToolBar({
   loading,
   onRefresh,
-  filterClick
+  filterClick,
+  date = {startDate: new Date(), endDate: new Date()},
 }: {
   loading?: boolean;
   onRefresh?: () => void;
   filterClick?: () => void;
+  date?: {
+    startDate: Date;
+    endDate?: Date;
+  }
 }) {
   return (
     <Stack flexDirection="row" space="md" style={{marginTop: 2}}>
@@ -33,7 +38,11 @@ export function ToolBar({
               ...theme.fontSize.h4,
               color: theme.colors.text,
               marginLeft: 10,
-            }}>{`${new Date().toLocaleDateString()} - ${new Date().toLocaleDateString()}`}</Text>
+            }}>
+                {`${new Date(date.startDate).toLocaleDateString()} - ${new Date(
+            date.endDate || date.startDate,
+          ).toLocaleDateString()}`}
+            </Text>
         </Flex>
         <View>
           <Button

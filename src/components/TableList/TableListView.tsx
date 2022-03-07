@@ -71,8 +71,6 @@ function TableListView() {
       else return true;
      
     });
-    console.log(newList);
-    
     setListData(newList);
     onClose();
   };
@@ -177,7 +175,6 @@ const HeaderTableList = (props: PropsHeader) => {
 const ContentTableListView = React.memo(function ({
   listData,
 }: PropsContentTable) {
-  console.log('render ListItem');
   const RenderItem = ({item, index}: any) => {
     const [more, setMore] = useState(false);
     return (

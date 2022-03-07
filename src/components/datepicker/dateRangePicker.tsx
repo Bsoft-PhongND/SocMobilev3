@@ -10,11 +10,11 @@ import {
 import Moment from 'moment';
 import {extendMoment} from 'moment-range';
 const moment = extendMoment(Moment);
-type DatesType = {
+export type DatesType = {
   range?: boolean;
-  date?: moment.Moment;
-  startDate?: moment.Moment;
-  endDate?: moment.Moment;
+  date?: moment.Moment | Date;
+  startDate?: moment.Moment | Date;
+  endDate?: moment.Moment | Date;
   focusedInput: 'startDate' | 'endDate';
   onDatesChange: (date: {
     date?: moment.Moment;
@@ -118,6 +118,13 @@ export const Week = (props: WeekType) => {
   const days = [];
   const endOfWeek = startOfWeek.clone().endOf('isoweek');
   const getDayRange = moment.range(startOfWeek, endOfWeek);
+  const handleOnDatesChange = (start:any,end:any,isPeriodBlocked:boolean)=>{
+    if(isPeriodBlocked){
+      onDatesChange(dates(start, null, 'startDate'))
+    }else{
+      onDatesChange(dates(start, end, focusedInput))
+    }
+  }
   Array.from(getDayRange.by('days')).map((day: moment.Moment) => {
     const onPress = () => {
       if (isDateBlocked(day)) {
@@ -131,11 +138,7 @@ export const Week = (props: WeekType) => {
             if (isDateBlocked(dayPeriod)) isPeriodBlocked = true;
           });
         }
-        onDatesChange(
-          isPeriodBlocked
-            ? dates(end, null, 'startDate')
-            : dates(start, end, focusedInput),
-        );
+        handleOnDatesChange(start,end, isPeriodBlocked);
       } else {
         onDatesChange({date: day});
       }
