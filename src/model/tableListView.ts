@@ -3,11 +3,11 @@ import {theme} from '../theme/theme';
 const tableListModel = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'HTTP Blocked Locations',
+    name: 'A HTTP Blocked Locations',
     timeStamp: '2021-11-24T17:51:21.921Z',
     eventAppId: 'DOMAIN',
     destination: {
-      ip: '120.76.228.153',
+      ip: '125.76.228.153',
       url: 'http://localhost:8080/theme',
       port: 80,
       cityName: 'TayNinh',
@@ -38,7 +38,7 @@ const tableListModel = [
     timeStamp: '2021-11-24T17:51:21.921Z',
     eventAppId: 'DOMAIN',
     destination: {
-      ip: '120.76.228.153',
+      ip: '121.76.228.153',
       url: 'http://localhost:8080/theme',
       port: 80,
       cityName: 'TayNinh',
@@ -46,7 +46,7 @@ const tableListModel = [
       lat: '106.09',
     },
     source: {
-      ip: '10.2.32.65',
+      ip: '11.2.32.65',
       port: 8080,
       application: 'pravall',
       lon: '11.29',
@@ -68,7 +68,7 @@ const tableListModel = [
     timeStamp: '2021-11-24T17:51:21.921Z',
     eventAppId: 'MS-SQL-S',
     destination: {
-      ip: '120.76.228.153',
+      ip: '122.76.228.153',
       url: 'http://localhost:8080/theme',
       port: 80,
       cityName: 'TayNinh',
@@ -76,7 +76,7 @@ const tableListModel = [
       lat: '106.09',
     },
     source: {
-      ip: '10.2.32.65',
+      ip: '12.2.32.65',
       port: 8080,
       application: 'pravall',
       lon: '11.29',
@@ -95,11 +95,11 @@ const tableListModel = [
   },
   {
     id: '68694a0f-3da1-431f-bd56-142371e29d72',
-    name: 'HTTP Blocked Locations Locations Locations Locations Locations',
+    name: 'CTTP Blocked Locations Locations Locations Locations Locations',
     timeStamp: '2021-11-24T17:51:21.921Z',
     eventAppId: 'DOMAIN',
     destination: {
-      ip: '120.76.228.153',
+      ip: '123.76.228.153',
       url: 'http://localhost:8080/theme',
       port: 80,
       cityName: 'TayNinh',
@@ -107,7 +107,7 @@ const tableListModel = [
       lat: '106.09',
     },
     source: {
-      ip: '10.2.32.65',
+      ip: '13.2.32.65',
       port: 8080,
       application: 'pravall',
       lon: '11.29',
@@ -125,11 +125,11 @@ const tableListModel = [
   },
   {
     id: '28694a0f-3da1-471f-bd96-142456e29d72',
-    name: 'HTTP Blocked Locations',
+    name: 'DTTP Blocked Locations',
     timeStamp: '2021-11-24T17:51:21.921Z',
     eventAppId: 'DOMAIN',
     destination: {
-      ip: '120.76.228.153',
+      ip: '124.76.228.153',
       url: 'http://localhost:8080/theme',
       port: 80,
       cityName: 'TayNinh',
@@ -137,7 +137,7 @@ const tableListModel = [
       lat: '106.09',
     },
     source: {
-      ip: '10.2.32.65',
+      ip: '14.2.32.65',
       port: 8080,
       application: 'pravall',
       lon: '11.29',
@@ -156,11 +156,11 @@ const tableListModel = [
   },
   {
     id: '28694a0f-3da1-471f-bd96-142456e29111',
-    name: 'HTTP Blocked Locations',
+    name: 'HETTP Blocked Locations',
     timeStamp: '2021-11-24T17:51:21.921Z',
     eventAppId: 'DOMAIN',
     destination: {
-      ip: '120.76.228.153',
+      ip: '125.76.228.153',
       url: 'http://localhost:8080/theme',
       port: 80,
       cityName: 'TayNinh',
@@ -168,7 +168,7 @@ const tableListModel = [
       lat: '106.09',
     },
     source: {
-      ip: '10.2.32.65',
+      ip: '15.2.32.65',
       port: 8080,
       application: 'pravall',
       lon: '11.29',
@@ -187,11 +187,11 @@ const tableListModel = [
   },
   {
     id: '28694a0f-3da1-471f-bd96-142456e123',
-    name: 'HTTP Blocked Locations',
+    name: 'FTTP Blocked Locations',
     timeStamp: '2021-11-24T17:51:21.921Z',
     eventAppId: 'DOMAIN',
     destination: {
-      ip: '120.76.228.153',
+      ip: '126.76.228.153',
       url: 'http://localhost:8080/theme',
       port: 80,
       cityName: 'TayNinh',
@@ -199,7 +199,7 @@ const tableListModel = [
       lat: '106.09',
     },
     source: {
-      ip: '10.2.32.65',
+      ip: '16.2.32.65',
       port: 8080,
       application: 'pravall',
       lon: '11.29',

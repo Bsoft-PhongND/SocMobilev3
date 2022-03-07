@@ -20,15 +20,16 @@ interface PropsTypes {
   isOpen?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
+  onFilter?: () => void;
   children?: React.ReactNode;
 }
 export default function ModalSheetComponent(props: PropsTypes) {
-  const {isOpen, onOpen, onClose, children} = props;
+  const {isOpen, onOpen, onClose, onFilter, children} = props;
   return (
     <Actionsheet isOpen={isOpen} onClose={onClose}>
       <KeyboardAvoidingView behavior="padding">
         <Actionsheet.Content>
-          <Pressable onPress={onClose}>
+          <Pressable onPress={onFilter}>
             <Text
               pr={5}
               style={{

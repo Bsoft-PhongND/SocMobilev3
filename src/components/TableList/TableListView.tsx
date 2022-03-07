@@ -20,52 +20,21 @@ import {tableListModel, tableListStatus} from '../../model/tableListView';
 import {theme} from '../../theme/theme';
 import wordApp from '../../utils/word';
 import Dates from '../datepicker/dateRangePicker';
-const RenderItemText = ({label, content, content2}: any) => {
-  return (
-    <View style={styles.row}>
-      <Text
-        color={theme.colors.text}
-        numberOfLines={2}
-        _dark={{
-          color: 'warmGray.50',
-        }}
-        bold>
-        {label || '--'} :
-      </Text>
-      <HStack>
-        <Text
-          color={theme.colors.text}
-          numberOfLines={2}
-          _dark={{
-            color: 'warmGray.50',
-          }}
-          bold>
-          {content || '--'}
-        </Text>
-        {content2 && (
-          <HStack>
-            <Icon
-              as={<AntDesign name="arrowright" />}
-              size={5}
-              ml="2"
-              color="muted.100"
-            />
-            <Text
-              color={theme.colors.text}
-              numberOfLines={2}
-              ml={2}
-              _dark={{
-                color: 'warmGray.50',
-              }}
-              bold>
-              {content2 || '--'}
-            </Text>
-          </HStack>
-        )}
-      </HStack>
-    </View>
-  );
-};
+interface PropsHeader {
+  onOpen: () => void;
+  date: {
+    startDate: Date;
+    endDate: Date;
+  };
+}
+interface PropsContentTable {
+  listData: Array<any>;
+}
+type searchType = {
+  name: string | undefined;
+  sourceIp: string | undefined;
+  destinationIp: string | undefined;
+}
 function TableListView() {
   const {isOpen, onOpen, onClose} = useDisclose();
   const [listData, setListData] = useState(tableListModel);
@@ -79,35 +48,43 @@ function TableListView() {
     startDate: new Date(),
     endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
   });
-
+  const [search,setSearch] = useState<searchType>({
+    name: '',
+    sourceIp: '', 
+    destinationIp: ''
+  })
+  const handleInputName = (name: string) =>{
+    setSearch({...search,name});
+  }
+  const handleInputSource = (sourceIp: string) =>{
+    setSearch({...search,sourceIp});
+  }
+  const handleInputDestination = (destinationIp: string) =>{
+    setSearch({...search,destinationIp});
+  }
   const handleFilter = () => {
-    // const newList = listData.filter(data => data.name === 'HTTP Blocked Locations');
-    setListData(listData);
+    console.log(search);
+    const newList = tableListModel.filter(data =>{
+      if(search.name && search.name !== "" && !data.name.toLowerCase().includes(search.name.toLowerCase())) return false;
+      if(search.sourceIp && search.sourceIp !== "" && !data.source.ip.toLowerCase().includes(search.sourceIp.toLowerCase())) return false;
+      if(search.destinationIp && search.destinationIp !== "" && !data.destination.ip.toLowerCase().includes(search.destinationIp.toLowerCase())) return false;
+      else return true;
+     
+    });
+    console.log(newList);
+    
+    setListData(newList);
     onClose();
   };
   return (
     <View flex={1}>
-      <HStack
-        justifyContent={'space-between'}
-        style={{marginHorizontal: 10}}
-        alignItems="center">
-        <Text style={{color: theme.colors.text, ...theme.fontSize.h3}}>
-          {wordApp.list}
-        </Text>
-        <Pressable padding={2} paddingRight={7} onPress={onOpen}>
-          <Icon
-            as={<MaterialCommunityIcons name="filter-menu" />}
-            size={6}
-            color={theme.colors.blue}
-          />
-        </Pressable>
-      </HStack>
-
+      <HeaderTableList onOpen={onOpen} date={state} />
       <ContentTableListView listData={listData} />
       <ModalSheetComponent
         isOpen={isOpen}
         onOpen={onOpen}
-        onClose={handleFilter}>
+        onClose={onClose}
+        onFilter={handleFilter}>
         <View>
           <HStack style={styles.rowInput}>
             <Text style={styles.lable}>{wordApp.name}:</Text>
@@ -116,6 +93,8 @@ function TableListView() {
               placeholder={wordApp.enterName}
               flex={1}
               marginLeft={5}
+              onChangeText={handleInputName}
+              value={search.name}
             />
           </HStack>
           <HStack style={styles.rowInput}>
@@ -125,6 +104,8 @@ function TableListView() {
               placeholder={wordApp.enterSource}
               flex={1}
               marginLeft={5}
+              onChangeText={handleInputSource}
+              value={search.sourceIp}
             />
           </HStack>
           <HStack style={styles.rowInput}>
@@ -134,13 +115,20 @@ function TableListView() {
               placeholder={wordApp.enterDestination}
               flex={1}
               marginLeft={5}
+              onChangeText={handleInputDestination}
+              value={search.destinationIp}
             />
           </HStack>
           <HStack style={styles.rowInput}>
             <Text style={styles.lable}>{wordApp.date}:</Text>
             <Pressable onPress={() => setShowDate(!showDate)}>
               <Text flex={1}>
-                {`${new Date(state.startDate).toLocaleDateString()} - ${new Date(state.endDate || state.startDate).toLocaleDateString()}`}</Text>
+                {`${new Date(
+                  state.startDate,
+                ).toLocaleDateString()} - ${new Date(
+                  state.endDate || state.startDate,
+                ).toLocaleDateString()}`}
+              </Text>
             </Pressable>
           </HStack>
           {showDate && (
@@ -158,17 +146,44 @@ function TableListView() {
     </View>
   );
 }
+
+const HeaderTableList = (props: PropsHeader) => {
+  const {date} = props;
+  return (
+    <HStack
+      justifyContent={'space-between'}
+      style={{marginHorizontal: 10}}
+      alignItems="center">
+      <Text style={styles.text}>{wordApp.list}</Text>
+      <Pressable onPress={props.onOpen}>
+        <Text style={styles.text}>
+          {`${new Date(date.startDate).toLocaleDateString()} - ${new Date(
+            date.endDate || date.startDate,
+          ).toLocaleDateString()}`}
+        </Text>
+      </Pressable>
+      <Pressable padding={2} paddingRight={7} onPress={props.onOpen}>
+        <Icon
+          as={<MaterialCommunityIcons name="filter-menu" />}
+          size={6}
+          color={theme.colors.blue}
+        />
+      </Pressable>
+    </HStack>
+  );
+};
+
+
 const ContentTableListView = React.memo(function ({
   listData,
-}: {
-  listData: Array<any>;
-}) {
+}: PropsContentTable) {
   console.log('render ListItem');
   const RenderItem = ({item, index}: any) => {
     const [more, setMore] = useState(false);
     return (
       <Animated.View entering={SlideInLeft.delay(index * 8)} key={index}>
         <Box
+          key={index}
           borderBottomWidth={1}
           borderColor={theme.colors.border}
           pl="4"
@@ -200,7 +215,6 @@ const ContentTableListView = React.memo(function ({
                         <MaterialCommunityIcons name="access-point-network" />
                       }
                       size={5}
-                      mr="2"
                       color="lime.300"
                     />
                     <Box style={styles.ipAdress}>
@@ -221,12 +235,11 @@ const ContentTableListView = React.memo(function ({
                         <MaterialCommunityIcons name="access-point-network" />
                       }
                       size={5}
-                      mr="2"
                       color="lime.300"
                     />
                     <Box style={styles.ipAdress}>
                       <Text color={theme.colors.text} numberOfLines={2} bold>
-                        {item?.source?.ip || '--'}
+                        {item?.destination?.ip || '--'}
                       </Text>
                     </Box>
                   </HStack>
@@ -282,6 +295,52 @@ const ContentTableListView = React.memo(function ({
     </View>
   );
 });
+const RenderItemText = ({label, content, content2}: any) => {
+  return (
+    <View style={styles.row}>
+      <Text
+        color={theme.colors.text}
+        numberOfLines={2}
+        _dark={{
+          color: 'warmGray.50',
+        }}
+        bold>
+        {label || '--'} :
+      </Text>
+      <HStack>
+        <Text
+          color={theme.colors.text}
+          numberOfLines={2}
+          _dark={{
+            color: 'warmGray.50',
+          }}
+          bold>
+          {content || '--'}
+        </Text>
+        {content2 && (
+          <HStack>
+            <Icon
+              as={<AntDesign name="arrowright" />}
+              size={5}
+              ml="2"
+              color="muted.100"
+            />
+            <Text
+              color={theme.colors.text}
+              numberOfLines={2}
+              ml={2}
+              _dark={{
+                color: 'warmGray.50',
+              }}
+              bold>
+              {content2 || '--'}
+            </Text>
+          </HStack>
+        )}
+      </HStack>
+    </View>
+  );
+};
 export default React.memo(TableListView);
 
 const styles = StyleSheet.create({
@@ -303,4 +362,5 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     justifyContent: 'space-between',
   },
+  text: {color: theme.colors.text, ...theme.fontSize.h3},
 });
