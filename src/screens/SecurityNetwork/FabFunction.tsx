@@ -4,9 +4,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Feather from 'react-native-vector-icons/Feather';
 import {MaterialIcons,FontAwesome5} from '../../assets/icons';
 import StaggerComponent from '../../components/stagger';
+import { NameScreen } from '../../config';
+import { useNavigation } from '@react-navigation/native';
 function FabFunction() {
   const {isOpen, onToggle} = useDisclose();
-
+  const navigation = useNavigation();
+  const handleNavigate = (name: any)=>{
+    navigation.navigate(name);
+  }
   return (
     <Box
       alignItems="center"
@@ -35,11 +40,11 @@ function FabFunction() {
           bg="red.500"
           colorScheme="red"
           borderRadius="full"
+          onPress={()=>handleNavigate(NameScreen.ImportVPNScreen)}
           icon={
             <Icon
               as={<FontAwesome5 name="file-import"/>}
               size="6"
-              name="photo-library"
               _dark={{
                 color: 'warmGray.50',
               }}

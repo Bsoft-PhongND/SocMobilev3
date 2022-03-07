@@ -2,6 +2,7 @@ const NameScreen:any = {
     LoginScreen:"LoginScreen",
     OnboardingScreen:"OnboardingScreen",
     SecurityNetWorkScreen:"SecurityNetWorkScreen",
+    ImportVPNScreen:"ImportVPNScreen",
     StacksScreen:{
         TabBarBottom:"TabBarBottom",
         NewsStack:"NewsStack",

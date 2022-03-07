@@ -4,6 +4,7 @@ import { NameScreen } from '../config';
 import LoginScreen from '../screens/Login/LoginScreen';
 import OnboardingScreen from '../screens/OnBoarding/OnboardingScreen';
 import SecurityNetWorkScreen from '../screens/SecurityNetwork';
+import ImportVPNScreen from '../screens/SecurityNetwork/import';
 import AppStack from './AppStack';
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,10 @@ const AuthStack = () => {
       <Stack.Screen
         name={NameScreen.SecurityNetWorkScreen}
         component={SecurityNetWorkScreen}
+      />
+      <Stack.Screen
+        name={NameScreen.ImportVPNScreen}
+        component={ImportVPNScreen}
       />
       <Stack.Screen
         name={NameScreen.StacksScreen.AppStack}
