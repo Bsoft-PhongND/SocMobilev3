@@ -271,7 +271,9 @@ PODS:
     - React-jsi (= 0.65.1)
     - React-perflogger (= 0.65.1)
   - React-jsinspector (0.65.1)
-  - react-native-pager-view (5.4.9):
+  - react-native-document-picker (8.0.0):
+    - React-Core
+  - react-native-pager-view (5.4.11):
     - React-Core
   - react-native-safe-area-context (3.3.2):
     - React-Core
@@ -341,7 +343,7 @@ PODS:
     - React-perflogger (= 0.65.1)
   - RNGestureHandler (2.2.0):
     - React-Core
-  - RNReanimated (2.3.1):
+  - RNReanimated (2.4.1):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -369,12 +371,14 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.10.2):
+  - RNScreens (3.11.1):
     - React-Core
     - React-RCTImage
+  - RNSharedElement (0.8.4):
+    - React-Core
   - RNSVG (12.1.1):
     - React
-  - RNVectorIcons (9.0.0):
+  - RNVectorIcons (9.1.0):
     - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -420,6 +424,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -437,6 +442,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSharedElement (from `../node_modules/react-native-shared-element`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -492,6 +498,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-document-picker:
+    :path: "../node_modules/react-native-document-picker"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
@@ -526,6 +534,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSharedElement:
+    :path: "../node_modules/react-native-shared-element"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
@@ -564,7 +574,8 @@ SPEC CHECKSUMS:
   React-jsi: 12913c841713a15f64eabf5c9ad98592c0ec5940
   React-jsiexecutor: 43f2542aed3c26e42175b339f8d37fe3dd683765
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
-  react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
+  react-native-document-picker: 429972f7ece4463aa5bcdd789622b3a674a3c5d1
+  react-native-pager-view: 7f00d63688f7df9fad86dfb0154814419cc5eb8d
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
   React-RCTActionSheet: 7f3fa0855c346aa5d7c60f9ced16e067db6d29fa
@@ -579,10 +590,11 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 85187f19dd9c47a7c102f9994f9d14e4dc2110de
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
   RNGestureHandler: bf572f552ea324acd5b5464b8d30755b2d8c1de6
-  RNReanimated: 629fedd82e9f6b9138421caa342f0a5ebd711cbe
-  RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
+  RNReanimated: f1b73ebfdd510dc56b8970bf19444cb0d5acd35a
+  RNScreens: 4d83613b50b74ed277026375dc0810893b0c347f
+  RNSharedElement: eb7d506733952d58634f34c82ec17e82f557e377
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
-  RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
+  RNVectorIcons: 7923e585eaeb139b9f4531d25a125a1500162a0b
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
