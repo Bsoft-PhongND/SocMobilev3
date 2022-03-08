@@ -4,7 +4,7 @@ import {AppSettings} from '../config';
 export const AuthContext = createContext<any>(null);
 const AuthContextProvider = ({children}: any) => {
   const [state, setState] = useState<any>({
-    currentUser: AppSettings.defaultUser,
+    currentUser: AppSettings.getDefaultUser(),
     token: null,
   });
   const handleSaveToken = (token: string) => {
