@@ -32,6 +32,7 @@ const TextInputComponent = (props: PropsTypes) => {
         InputLeftElement={props.LeftElement ? props.LeftElement : undefined}
         placeholder={placeholder}
         placeholderTextColor={theme.colors.text}
+        onChangeText={props.onChangeText}
       />
     </>
   );
@@ -44,5 +45,6 @@ interface PropsTypes {
   width?: number | string;
   height?: number | string;
   type?: string;
+  onChangeText?:(text:string)=>void;
 }
 export default TextInputComponent;

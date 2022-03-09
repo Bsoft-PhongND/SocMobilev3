@@ -21,17 +21,21 @@ import ViewBackGround from '../../components/viewbackground';
 import {theme} from '../../theme/theme';
 import wordApp from '../../utils/word';
 import styles from './style';
-import {NameScreen} from '../../config';
+import {AppSettings, NameScreen} from '../../config';
 import {AuthContext} from '../../context/AuthContext';
 import {LoadingContext} from '../../context/LoadingContext';
 import helpers from '../../helpers/helpers';
 import { Platform } from 'react-native';
+import Validate from '../../utils/validate';
 const LoginScreen = () => {
   const navigation = useNavigation();
   const {handleSaveToken, token} = useContext(AuthContext);
-  const {loading, setLoading} = useContext(LoadingContext);
+  const {setLoading} = useContext(LoadingContext);
   const [state, setSate] = React.useState({
     showPassword: false,
+    username: '',
+    password: '',
+    remember: AppSettings.remember
   });
   const handleTogglePassword = (value: boolean) => {
     setSate({
@@ -39,21 +43,36 @@ const LoginScreen = () => {
       showPassword: value,
     });
   };
+  const handleInputUsername = (username: string) => {
+    setSate({
+      ...state,
+      username,
+    });
+  };
+  const handleInputPassword = (password: string) => {
+    setSate({
+      ...state,
+      password,
+    });
+  }
   const handleGoSetting = () => {
     navigation.navigate(NameScreen.SecurityNetWorkScreen);
   };
   const handleLogin = async () => {
-    setLoading(true);
-    helpers.waited(2000).then(d => {
-      handleSaveToken('avb');
-      navigation.reset({
-        index: 0,
-        routes: [{name: NameScreen.StacksScreen.AppStack}],
-      });
-    });
-    helpers.waited(3000).then(d => {
-      setLoading(false);
-    });
+    console.log(state);
+    
+    // setLoading(true);
+    // Validate.validateLogin();
+    // helpers.waited(2000).then(d => {
+    //   handleSaveToken('avb');
+    //   navigation.reset({
+    //     index: 0,
+    //     routes: [{name: NameScreen.StacksScreen.AppStack}],
+    //   });
+    // });
+    // helpers.waited(3000).then(d => {
+    //   setLoading(false);
+    // });
   };
   return (
     <ViewBackGround>
@@ -84,6 +103,7 @@ const LoginScreen = () => {
                   />
                 }
                 placeholder={wordApp.username}
+                onChangeText={handleInputUsername}
               />
               <TextInputComponent
                 label={wordApp.password}
@@ -104,10 +124,11 @@ const LoginScreen = () => {
                 }
                 placeholder={wordApp.password}
                 type={state.showPassword ? 'password' : 'text'}
+                onChangeText={handleInputUsername}
               />
               <CheckBoxComponent
                 label={wordApp.remember}
-                defaultIsChecked={true}
+                defaultIsChecked={state.remember}
               />
               <Button height={'1/5'} onPress={handleLogin} style={styles.button}>
                 {wordApp.login}

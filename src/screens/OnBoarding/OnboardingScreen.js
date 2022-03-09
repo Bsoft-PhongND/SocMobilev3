@@ -1,13 +1,26 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {svgs} from '../../assets';
-import { NameScreen } from '../../config';
+import { AppSettings, NameScreen } from '../../config';
 import { theme } from '../../theme/theme';
 
 const OnboardingScreen = ({navigation}) => {
+  const handleNavigate =()=>{
+    navigation.navigate(NameScreen.LoginScreen);
+    AppSettings.setSplash(false);
+  }
+  React.useEffect(()=>{
+    (async () => {
+      const app = await AppSettings.getSplash();
+      if(!app || app !== "true"){
+        handleNavigate();
+      }
+    })()
+    },[]);
   return (
     <SafeAreaView
       style={{
@@ -45,7 +58,7 @@ const OnboardingScreen = ({navigation}) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}
-        onPress={() => navigation.navigate(NameScreen.LoginScreen)}>
+        onPress={handleNavigate}>
         <Text
           style={{
             color: 'white',

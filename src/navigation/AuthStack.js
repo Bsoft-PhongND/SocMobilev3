@@ -1,6 +1,7 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
-import { NameScreen } from '../config';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React, { useContext } from 'react';
+import {AppSettings, NameScreen} from '../config';
+import { LoadingContext } from '../context/LoadingContext';
 import LoginScreen from '../screens/Login/LoginScreen';
 import OnboardingScreen from '../screens/OnBoarding/OnboardingScreen';
 import SecurityNetWorkScreen from '../screens/SecurityNetwork';
@@ -9,9 +10,14 @@ import AppStack from './AppStack';
 const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
+
   return (
     <Stack.Navigator
-     initialRouteName={NameScreen.OnboardingScreen}
+      initialRouteName={
+        AppSettings.splash
+          ? NameScreen.OnboardingScreen
+          : NameScreen.LoginScreen
+      }
       screenOptions={{
         headerShown: false,
         animationEnabled: true,

@@ -9,6 +9,7 @@ import customTheme from './src/theme/customTheme';
 import LoadingContextProvider from './src/context/LoadingContext';
 import NotFoundError from './src/screens/NotFound';
 import store from './src/redux/store';
+import { AppSettings } from './src/config';
 const Authenticate = () => {
   const {token} = React.useContext(AuthContext);
   if (token) return <AppStack />;
@@ -20,6 +21,12 @@ const config = {
   },
 };
 function App() {
+  React.useEffect(() => {
+    async function All (){
+      await AppSettings.getAllItemsAsyncStorage();
+    };
+    All();
+  },[]);
   try {
     const theme = extendTheme({customTheme});
     return (
