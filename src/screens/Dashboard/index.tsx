@@ -1,23 +1,40 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { Box, FlatList, HStack, Image, Pressable, Text, View } from 'native-base';
-import React, { useContext, useState } from 'react';
-import { ImageBackground, StyleSheet } from 'react-native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {
+  Box,
+  FlatList,
+  HStack,
+  Image,
+  Pressable,
+  Text,
+  useToast,
+  View,
+} from 'native-base';
+import React, {useContext, useState} from 'react';
+import {ImageBackground, StyleSheet} from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
-  withTiming
+  withTiming,
 } from 'react-native-reanimated';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  CardGroupPieChart,
+  CardLineChart,
+  CardPieChart,
+} from '../../components/cards';
 import Carousel from '../../components/carousel';
+import {setDataSourceCarolsel} from '../../components/carousel/data';
 import HeaderMenu from '../../components/headermenu';
 import ViewBackGround from '../../components/viewbackground';
-import { NameScreen } from '../../config';
-import { LoadingContext } from '../../context/LoadingContext';
+import {NameScreen} from '../../config';
+import {LoadingContext} from '../../context/LoadingContext';
 import helpers from '../../helpers/helpers';
-import { theme } from '../../theme/theme';
-import { windowWidth } from '../../utils/Dimensions';
+import AlertService from '../../redux/services/alertService';
+import {theme} from '../../theme/theme';
+import {windowWidth} from '../../utils/Dimensions';
 import wordApp from '../../utils/word';
-import { dataFunctions } from './data';
+import {dataFunctions} from './data';
 
 export default function Container() {
   return <HomeScreen />;
@@ -25,6 +42,10 @@ export default function Container() {
 function HomeScreen() {
   const [autoPlay, setAutoPlay] = useState(false);
   const [isFull, setIsFull] = useState(false);
+  const dispatch = useDispatch();
+  const store = useSelector((state: any) => state);
+  const toast = useToast();
+  const {loading, setLoading} = useContext(LoadingContext);
   const navigation = useNavigation();
   const visibleCarousel = useSharedValue(220);
   const heightCarousel = useAnimatedStyle(() => {
@@ -41,8 +62,6 @@ function HomeScreen() {
       setAutoPlay(false);
     };
   });
-  const {loading, setLoading} = useContext(LoadingContext);
-
   const handleNavigate = async (navigate: any, item: any) => {
     if (navigate) {
       setLoading(true);
@@ -58,6 +77,24 @@ function HomeScreen() {
     visibleCarousel.value = isFull ? 220 : 0;
     setIsFull(!isFull);
   };
+  React.useEffect(() => {
+    // setLoading(true);
+    AlertService.ruleSeverity(dispatch).catch(err => {
+      toast.show({
+        title: err.message || err,
+      });
+    })
+    .finally(()=>{
+      // setLoading(false);
+    })
+  }, []);
+
+  const dataSources = setDataSourceCarolsel([
+    store.Alert.ruleSeverity,
+    null,
+    null,
+  ]);
+
   return (
     <ViewBackGround>
       <View style={{flex: 1}}>
@@ -72,7 +109,7 @@ function HomeScreen() {
                 style={{width: '100%', height: '100%'}}
                 resizeMode="cover"
                 imageStyle={{opacity: 0.7, borderRadius: 10}}>
-                <Carousel autoPlay={autoPlay} />
+                <Carousel autoPlay={autoPlay} dataSources={dataSources} />
               </ImageBackground>
             )}
           </Animated.View>

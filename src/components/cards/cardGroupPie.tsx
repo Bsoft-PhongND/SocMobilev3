@@ -4,7 +4,7 @@ import { groupPieChartModel } from '../../model/groupPieChart';
 import { theme } from '../../theme/theme';
 import CircularProgressBarComponent from '../circleprogress';
 
-interface ItemProps {
+export interface ItemProps {
   title: string;
   value: string | number;
   color: string;

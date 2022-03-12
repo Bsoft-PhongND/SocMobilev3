@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import {theme} from '../../theme/theme';
-import data from './data';
+import dataMock from './data';
 import {PropsCarosel} from './props';
 import {useNavigation} from '@react-navigation/native';
 import {NameScreen} from '../../config';
@@ -21,7 +21,7 @@ const DOT_SIZE = 20;
 const TICKER_HEIGHT = 18;
 const CIRCLE_SIZE = 210;
 
-const Circle = ({scrollX}: any) => {
+const Circle = ({scrollX, data}: any) => {
   return (
     <View style={[styles.circleContainer]}>
       {data.map(({color}, index) => {
@@ -57,7 +57,7 @@ const Circle = ({scrollX}: any) => {
   );
 };
 
-const Ticker = ({scrollX}: any) => {
+const Ticker = ({scrollX, data}: any) => {
   const inputRange = [-width, 0, width];
   const translateY = scrollX.interpolate({
     inputRange,
@@ -122,7 +122,7 @@ const Item = (props: any) => {
   );
 };
 
-const Pagination = ({scrollX}: any) => {
+const Pagination = ({scrollX, data}: any) => {
   const inputRange = [-width, 0, width];
   const translateX = scrollX.interpolate({
     inputRange,
@@ -154,6 +154,7 @@ const Pagination = ({scrollX}: any) => {
 
 export default function Carousel(props: PropsCarosel) {
   const scrollX = React.useRef(new Animated.Value(0)).current;
+  const dataSources = props.dataSources || dataMock;
   const flastList = React.useRef<FlatList>(null);
   const {autoPlay} = props;
   const offset = React.useRef(0);
@@ -162,7 +163,7 @@ export default function Carousel(props: PropsCarosel) {
   useEffect(() => {
     if (autoPlay) {
       refTimer.current = setInterval(() => {
-        if (offset.current >= data.length - 1) {
+        if (offset.current >= dataSources.length - 1) {
           offset.current = 0;
         } else {
           offset.current++;
@@ -182,11 +183,11 @@ export default function Carousel(props: PropsCarosel) {
   }, [autoPlay]);
   return (
     <View style={styles.container}>
-      <Circle scrollX={scrollX} />
+      <Circle scrollX={scrollX} data={dataSources} />
       <Animated.FlatList
         ref={flastList}
         keyExtractor={item => item.id + ''}
-        data={data}
+        data={dataSources}
         renderItem={({item, index}) => (
           <Item {...item} index={index} scrollX={scrollX} />
         )}
@@ -202,8 +203,8 @@ export default function Carousel(props: PropsCarosel) {
         )}
         scrollEventThrottle={16}
       />
-      <Pagination scrollX={scrollX} />
-      <Ticker scrollX={scrollX} />
+      <Pagination scrollX={scrollX} data={dataSources} />
+      <Ticker scrollX={scrollX} data={dataSources} />
     </View>
   );
 }

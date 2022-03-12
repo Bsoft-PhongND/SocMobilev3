@@ -20,11 +20,25 @@ import FabFunction from './FabFunction';
 import wordApp from '../../utils/word';
 import {theme} from '../../theme/theme';
 import {listVPNModel} from '../../model/vpn';
+import { AppSettings } from '../../config';
+import { LoadingContext } from '../../context/LoadingContext';
+import helpers from '../../helpers/helpers';
 
 function SecurityNetWorkScreen() {
   return <SecurityNetWork />;
 }
 function SecurityNetWork() {
+  const [domain,setDomain] = React.useState(AppSettings.domainServer);
+  const {setLoading} = React.useContext(LoadingContext);
+  const onInputDomain = (domain: string) =>{
+    setDomain(domain);
+  }
+  const save = () => {
+      setLoading(true);
+      helpers.waited(2000).then(d => {
+      AppSettings.setDomain(domain).finally(()=>  setLoading(false))
+    });
+  }
   const RenderItem = ({item, index}: any) => {
     return (
       <HStack key={index} alignItems="center" space={3} marginBottom={3}>
@@ -49,8 +63,9 @@ function SecurityNetWork() {
     );
   };
   const RightElement = () => {
+    
     return (
-      <Pressable>
+      <Pressable onPress={save}>
         <Icon
           as={<Entypo name={'check'} />}
           zIndex={200}
@@ -77,6 +92,8 @@ function SecurityNetWork() {
               fontSize={14}
               color={theme.colors.text}
               placeholder={'Enter domain'}
+              onChangeText={onInputDomain}
+              value={domain}
             />
           </HStack>
           <HStack alignItems={'center'}>

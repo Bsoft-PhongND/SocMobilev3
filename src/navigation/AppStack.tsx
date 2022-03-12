@@ -15,6 +15,8 @@ import ResponseScreen from '../screens/Response/detail';
 import NotFoundScreen from '../screens/NotFound';
 import {DashboardStack, WarningStack} from './routers';
 import TabNavigator from './TabNavigator';
+import alertService from '../redux/services/alertService';
+import { useDispatch } from 'react-redux';
 
 const Drawer = createDrawerNavigator();
 
@@ -92,6 +94,16 @@ const Drawer = createDrawerNavigator();
 //   );
 // };
 const AppStack = () => {
+  const dispatch = useDispatch();
+  React.useEffect(() =>{
+    // const timer = setInterval(() =>{
+    //   console.log("reload")
+    //   Promise.all([
+    //     alertService.ruleSeverity(dispatch)
+    //   ])
+    // },10000)
+    // return () => clearInterval(timer);
+  },[]);
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}

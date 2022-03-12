@@ -7,6 +7,7 @@ import {
 } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 import ModalSheetComponent from '../../../components/actionsheet';
 import {
   CardContainer,
@@ -26,6 +27,7 @@ type searchType = {
 }
 function StatisticScreen() {
   const {isOpen, onOpen, onClose} = useDisclose();
+  const store = useSelector((state:any)=> state);
   const [state, setState] = React.useState({
     refreshing: false,
     date: undefined,
@@ -62,7 +64,7 @@ function StatisticScreen() {
           <CardContainer
             title={wordApp.warningLevel}
             styleContainer={styles.cardSpace}>
-            <CardGroupPieChart />
+            <CardGroupPieChart dataSource={store.Alert.ruleSeverity}/>
           </CardContainer>
           <CardContainer
             title={wordApp.correctationLevel}

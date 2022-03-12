@@ -2,4 +2,7 @@ const actionTypesUser = {
     login :'login',
     logout :'logout',
 }
-export {actionTypesUser};
+const actionTypesAlert = {
+    ruleSeverity :'ruleSeverity',
+}
+export {actionTypesUser,actionTypesAlert};
