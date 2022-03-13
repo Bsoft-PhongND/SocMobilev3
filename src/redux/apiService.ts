@@ -24,6 +24,7 @@ export default request;
 export const api = {
   alert:{
     ruleSeverity:'/data-sharing/alerts/ruleseverity',
-    alertOverTime:'/data-sharing/alerts/alertsovertime'
+    alertOverTime:'/data-sharing/alerts/alertsovertime',
+    ruleNameQuality:'/data-sharing/alerts/rulename',
   }
 }

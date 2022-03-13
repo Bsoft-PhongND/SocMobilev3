@@ -10,15 +10,18 @@ import {
   PresenceTransition,
   Pressable,
   Text,
+  useToast,
   View,
 } from 'native-base';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useDispatch, useSelector } from 'react-redux';
 import {ToolBar} from '../../../components/tools/ToolBar';
 import ViewBackGround from '../../../components/viewbackground';
 import { NameScreen } from '../../../config';
 import Helpers from '../../../helpers/helpers';
 import {listWarnings, TypesWarning} from '../../../model/data';
+import alertService from '../../../redux/services/alertService';
 import {theme} from '../../../theme/theme';
 import wordApp from '../../../utils/word';
 const config = {
@@ -37,6 +40,9 @@ function DetailScreen() {
   const [state, setState] = React.useState({
     refreshing: false,
   });
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const store = useSelector((state:any)=> state);
   const waited = async () => {
     setState({...state, refreshing: true});
     const myPromise = new Promise((resolve, reject) => {
@@ -47,13 +53,24 @@ function DetailScreen() {
       setState({...state, refreshing: false});
     });
   };
-
+  React.useEffect(()=>{
+      Promise.all([
+        alertService.ruleNameQuality(dispatch)
+      ]).catch(err => {
+        toast.show({
+          title: err.message || err,
+        });
+      })
+      .finally(()=>{
+        // setLoading(false);
+      })
+  },[]);
   return (
     <ViewBackGround safeArea={false}>
       <View style={{flex: 1}}>
         <View style={{flex: 1, paddingHorizontal: 10}}>
           <ToolBar loading={state.refreshing} onRefresh={waited} />
-          <FlatView listWarnings={listWarnings} />
+          <FlatView listWarnings={store.Alert.ruleNameQuality?.slice(0,30) || listWarnings} />
         </View>
       </View>
     </ViewBackGround>
@@ -114,22 +131,23 @@ const RenderItem = React.memo(({item, index}: {item:TypesWarning,index:number}) 
             borderColor: theme.colors.border,
             flex: 1,
           }}>
-          <Flex flexDirection="row" style={{justifyContent: 'space-between'}}>
+          <HStack flexDirection="row" style={{justifyContent: 'space-between'}}>
             <Text
               style={{
                 ...theme.fontSize.h3,
                 color: color,
                 fontWeight: 'bold',
+                maxWidth: '90%'
               }}>
               {item.alert}
             </Text>
-            <Icon
+            <Icon 
               as={<AntDesign name={state.priority ? 'star' : 'staro'} />}
               size={6}
               color={state.priority ? 'amber.400' : 'muted.400'}
               onPress={() => setState({...state, priority: !state.priority})}
             />
-          </Flex>
+          </HStack>
           <Text
             style={{
               ...theme.fontSize.h4,

@@ -94,7 +94,7 @@ function HomeScreen() {
 
   const dataSources = setDataSourceCarolsel([
     store.Alert.ruleSeverity,
-    store.Alert.alertOverTime.slice(0,6),
+    store.Alert.alertOverTime && store.Alert.alertOverTime.slice(0,12),
     null,
   ]);
 

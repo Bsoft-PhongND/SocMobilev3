@@ -4,8 +4,8 @@ class Helpers{
    log = logger.createLogger();
  
     divideLevelWarning = (number: number) =>{
-        if(number >0&& number <30) return  theme.colors.low;
-        if(number >30&& number <70) return theme.colors.medium;
+        if(number >0&& number <10000) return  theme.colors.low;
+        if(number >1000&& number <15000) return theme.colors.medium;
         return theme.colors.hight;
         
      }

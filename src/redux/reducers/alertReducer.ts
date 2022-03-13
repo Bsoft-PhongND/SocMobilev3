@@ -2,14 +2,16 @@ import {actionTypesAlert} from '../constants';
 type PropsTypes = {
   ruleSeverity: Array<any> | null;
   alertOverTime: Array<any> | null;
+  ruleNameQuality: Array<any> | null;
 };
 type PropsAction = {
-    type: string | null,
-    payload: Array<any> | string | null,
-}
+  type: string | null;
+  payload: Array<any> | string | null;
+};
 const initialState: PropsTypes = {
-  ruleSeverity: null, 
-  alertOverTime: null
+  ruleSeverity: null,
+  alertOverTime: null,
+  ruleNameQuality: null,
 };
 const alertReducer = (state = initialState, action: PropsAction) => {
   switch (action.type) {
@@ -19,10 +21,15 @@ const alertReducer = (state = initialState, action: PropsAction) => {
         ruleSeverity: action.payload,
       };
     case actionTypesAlert.alertOverTime:
-        return {
-          ...state,
-          alertOverTime: action.payload,
-        };
+      return {
+        ...state,
+        alertOverTime: action.payload,
+      };
+    case actionTypesAlert.ruleName:
+      return {
+        ...state,
+        ruleNameQuality: action.payload,
+      };
     default:
       return {...state};
   }

@@ -13,5 +13,11 @@ class AlertActions {
             payload: dataAlertOverTime
         }
     }
+    getRuleNameQuality(rulenames: Array<any>){
+        return {
+            type: actionTypesAlert.ruleName,
+            payload: rulenames
+        }
+    }
 }
 export default new AlertActions;

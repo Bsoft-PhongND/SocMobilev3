@@ -35,5 +35,21 @@ class AlertService {
             throw error;
         }
     }
+    async ruleNameQuality(dispatch:any){
+        try {
+            const response = await request(api.alert.ruleNameQuality);
+            console.log(response.status);
+            if(response.status === 200 && response.data) {
+                const dataConverted = converter.getRuleNameQuality(response.data?.aggregations['2']?.buckets || []);
+                const action = alertActions.getRuleNameQuality(dataConverted);
+                dispatch(action);
+                return response.data;
+            }
+        } catch (error) {
+            const action = alertActions.getRuleNameQuality(null);
+            dispatch(action);
+            throw error;
+        }
+    }
 }
 export default new AlertService;

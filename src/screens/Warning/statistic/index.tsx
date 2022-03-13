@@ -70,7 +70,7 @@ function StatisticScreen() {
           <CardContainer
             title={wordApp.violateByTime}
             styleContainer={styles.cardSpace}>
-            <CardLine dataSource={store.Alert.alertOverTime.slice(0,12)}/>
+            <CardLine dataSource={store.Alert.alertOverTime?.slice(0,12)}/>
           </CardContainer>
           <CardContainer
             title={wordApp.correctationLevel}
