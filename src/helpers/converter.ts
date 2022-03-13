@@ -16,5 +16,17 @@ class Converter {
             return rt;
         })
     }
+    alertOverTime(data:Array<any>):Array<any> {
+        const startTime = new Date(new Date().setHours(0)).getTime();
+        const filter = data.filter(item => item.key >= startTime);
+        return filter.map(item => {
+            const time = new Date(item.key || new Date().getTime());
+        return {
+            // x: `${time.getHours()}/${time.getDate()}/${time.getMonth()}`,
+            x: `${time.toLocaleTimeString().split(":")[0]}-${time.toLocaleDateString().split("/")[0]}`,
+            y: item.value || item.doc_count
+        }
+        })
+    }
 }
 export default new Converter;

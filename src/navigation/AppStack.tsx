@@ -99,7 +99,8 @@ const AppStack = () => {
     // const timer = setInterval(() =>{
     //   console.log("reload")
     //   Promise.all([
-    //     alertService.ruleSeverity(dispatch)
+    //     alertService.ruleSeverity(dispatch),
+    //     alertService.alertOverTime(dispatch)
     //   ])
     // },10000)
     // return () => clearInterval(timer);

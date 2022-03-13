@@ -4,5 +4,6 @@ const actionTypesUser = {
 }
 const actionTypesAlert = {
     ruleSeverity :'ruleSeverity',
+    alertOverTime :'alertOverTime',
 }
 export {actionTypesUser,actionTypesAlert};

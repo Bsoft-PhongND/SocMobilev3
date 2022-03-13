@@ -79,7 +79,10 @@ function HomeScreen() {
   };
   React.useEffect(() => {
     // setLoading(true);
-    AlertService.ruleSeverity(dispatch).catch(err => {
+    Promise.all([
+      AlertService.ruleSeverity(dispatch),
+      AlertService.alertOverTime(dispatch),
+    ]).catch(err => {
       toast.show({
         title: err.message || err,
       });
@@ -91,7 +94,7 @@ function HomeScreen() {
 
   const dataSources = setDataSourceCarolsel([
     store.Alert.ruleSeverity,
-    null,
+    store.Alert.alertOverTime.slice(0,6),
     null,
   ]);
 

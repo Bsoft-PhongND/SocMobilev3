@@ -15,6 +15,7 @@ import {
   CardGroupPieChart
 } from '../../../components/cards';
 import CardBar from '../../../components/cards/cardBar';
+import CardLine from '../../../components/cards/cardLine';
 import Dates from '../../../components/datepicker/dateRangePicker';
 import { ToolBar } from '../../../components/tools/ToolBar';
 import ViewBackTabview from '../../../components/viewbackground/viewbackTabview';
@@ -65,6 +66,11 @@ function StatisticScreen() {
             title={wordApp.warningLevel}
             styleContainer={styles.cardSpace}>
             <CardGroupPieChart dataSource={store.Alert.ruleSeverity}/>
+          </CardContainer>
+          <CardContainer
+            title={wordApp.violateByTime}
+            styleContainer={styles.cardSpace}>
+            <CardLine dataSource={store.Alert.alertOverTime.slice(0,12)}/>
           </CardContainer>
           <CardContainer
             title={wordApp.correctationLevel}

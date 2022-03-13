@@ -7,5 +7,11 @@ class AlertActions {
             payload: dataSeverity
         }
     }
+    getAlertOverTime(dataAlertOverTime: Array<any>){
+        return {
+            type: actionTypesAlert.alertOverTime,
+            payload: dataAlertOverTime
+        }
+    }
 }
 export default new AlertActions;

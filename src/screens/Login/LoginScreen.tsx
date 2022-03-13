@@ -131,7 +131,7 @@ const LoginScreen = () => {
                     />
                   }
                   placeholder={wordApp.password}
-                  type={state.showPassword ? 'password' : 'text'}
+                  type={state.showPassword ? 'text' : 'password'}
                   onChangeText={handleInputPassword}
                 />
                 <CheckBoxComponent
