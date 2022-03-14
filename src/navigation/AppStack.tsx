@@ -17,6 +17,8 @@ import {DashboardStack, WarningStack} from './routers';
 import TabNavigator from './TabNavigator';
 import alertService from '../redux/services/alertService';
 import { useDispatch } from 'react-redux';
+import { AuthContext } from '../context/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
 
@@ -95,16 +97,24 @@ const Drawer = createDrawerNavigator();
 // };
 const AppStack = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const {setInvalidToken, invalidToken} = React.useContext(AuthContext);
   React.useEffect(() =>{
-    // const timer = setInterval(() =>{
-    //   console.log("reload")
-    //   Promise.all([
-    //     alertService.ruleSeverity(dispatch),
-    //     alertService.alertOverTime(dispatch)
-    //   ])
-    // },10000)
-    // return () => clearInterval(timer);
+    const timer = setInterval(() =>{
+      console.log("reload")
+      Promise.all([
+        alertService.ruleSeverity(dispatch,setInvalidToken,timer),
+        alertService.alertOverTime(dispatch)
+      ])
+    },10000)
+    return () => clearInterval(timer);
   },[]);
+  React.useEffect(() => {
+    invalidToken && navigation.reset({
+      index: 0,
+      routes: [{name: NameScreen.LoginScreen}],
+    });
+  },[invalidToken]);
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}

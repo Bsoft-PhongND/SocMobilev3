@@ -3,13 +3,14 @@ import {Provider} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import AuthStack from './src/navigation/AuthStack';
 import AppStack from './src/navigation/AppStack';
-import {extendTheme, NativeBaseProvider} from 'native-base';
+import {Box, extendTheme, NativeBaseProvider, Spinner, View} from 'native-base';
 import AuthContextProvider, {AuthContext} from './src/context/AuthContext';
 import customTheme from './src/theme/customTheme';
 import LoadingContextProvider from './src/context/LoadingContext';
 import NotFoundError from './src/screens/NotFound';
 import store from './src/redux/store';
-import { AppSettings } from './src/config';
+import {AppSettings} from './src/config';
+import {windowHeight, windowWidth} from './src/utils/Dimensions';
 const Authenticate = () => {
   const {token} = React.useContext(AuthContext);
   if (token) return <AppStack />;
@@ -22,11 +23,11 @@ const config = {
 };
 function App() {
   React.useEffect(() => {
-    async function All (){
+    async function All() {
       await AppSettings.getAllItemsAsyncStorage();
-    };
+    }
     All();
-  },[]);
+  }, []);
   try {
     const theme = extendTheme({customTheme});
     return (

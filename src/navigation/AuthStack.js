@@ -1,4 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { View } from 'native-base';
 import React, { useContext } from 'react';
 import {AppSettings, NameScreen} from '../config';
 import { LoadingContext } from '../context/LoadingContext';
@@ -12,7 +13,7 @@ const Stack = createNativeStackNavigator();
 const AuthStack = () => {
 
   return (
-    <Stack.Navigator
+       <Stack.Navigator
       initialRouteName={
         AppSettings.splash
           ? NameScreen.OnboardingScreen

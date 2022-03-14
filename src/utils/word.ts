@@ -52,5 +52,7 @@ const wordApp = {
     enterDestination:"Enter Destination IP",
     disconnected:"Disconnected",
     connected:"Connected",
+    invalidToken:"Phiên hết hạn!",
+    loginAgaint:'Vui lòng đăng nhập lại!'
 }
 export default wordApp;

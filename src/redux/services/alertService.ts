@@ -3,7 +3,7 @@ import alertActions from "../actions/alertActions";
 import request, { api } from "../apiService";
 
 class AlertService {
-    async ruleSeverity(dispatch:any){
+    async ruleSeverity(dispatch:any, setInvalidToken?:any, timer?:any){
         try {
             const response = await request(api.alert.ruleSeverity);
             console.log(response.status);
@@ -12,6 +12,9 @@ class AlertService {
                 const action = alertActions.getRuleSeverity(dataConverted);
                 dispatch(action);
                 return response.data;
+            }else if(response.status === 401 && setInvalidToken) {  
+                setInvalidToken(true);
+                clearInterval(timer);
             }
         } catch (error) {
             const action = alertActions.getRuleSeverity(null);

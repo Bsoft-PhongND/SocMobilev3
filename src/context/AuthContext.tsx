@@ -10,7 +10,8 @@ const AuthContextProvider = ({children}: any) => {
       username: null,
       password: null,
       remember: false,
-    }
+    },
+    invalidToken: false,
   });
   const handleSaveToken = (token: string) => {
     setState({
@@ -22,10 +23,14 @@ const AuthContextProvider = ({children}: any) => {
     const account = await AppSettings.getAccount();
     setState({...state,account});
   }
+  const setInvalidToken = (status:boolean) => {
+    setState({...state,invalidToken:status});
+  }
   const dataContext = {
     ...state,
     handleSaveToken,
-    handleGetAccount
+    handleGetAccount,
+    setInvalidToken
   };
 
   return (
