@@ -6,6 +6,11 @@ const AuthContextProvider = ({children}: any) => {
   const [state, setState] = useState<any>({
     currentUser: AppSettings.getDefaultUser(),
     token: null,
+    account: {
+      username: null,
+      password: null,
+      remember: false,
+    }
   });
   const handleSaveToken = (token: string) => {
     setState({
@@ -13,9 +18,14 @@ const AuthContextProvider = ({children}: any) => {
       token,
     });
   };
+  const handleGetAccount = async () => {
+    const account = await AppSettings.getAccount();
+    setState({...state,account});
+  }
   const dataContext = {
     ...state,
-    handleSaveToken
+    handleSaveToken,
+    handleGetAccount
   };
 
   return (

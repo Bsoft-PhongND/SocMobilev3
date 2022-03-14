@@ -57,7 +57,7 @@ function HomeScreen() {
     };
   });
   useFocusEffect(() => {
-    setAutoPlay(true);
+    setAutoPlay(false);
     return () => {
       setAutoPlay(false);
     };
@@ -78,7 +78,7 @@ function HomeScreen() {
     setIsFull(!isFull);
   };
   React.useEffect(() => {
-    // setLoading(true);
+    setLoading(true);
     Promise.all([
       AlertService.ruleSeverity(dispatch),
       AlertService.alertOverTime(dispatch),
@@ -88,7 +88,7 @@ function HomeScreen() {
       });
     })
     .finally(()=>{
-      // setLoading(false);
+      setLoading(false);
     })
   }, []);
 

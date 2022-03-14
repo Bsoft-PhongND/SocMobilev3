@@ -7,4 +7,5 @@ const actionTypesAlert = {
     alertOverTime :'alertOverTime',
     ruleName:'ruleName'
 }
+
 export {actionTypesUser,actionTypesAlert};

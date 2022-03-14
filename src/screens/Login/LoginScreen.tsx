@@ -28,17 +28,20 @@ import {LoadingContext} from '../../context/LoadingContext';
 import helpers from '../../helpers/helpers';
 import {Platform} from 'react-native';
 import Validate from '../../utils/validate';
+import userService from '../../redux/services/userService';
+import {useDispatch} from 'react-redux';
 const LoginScreen = () => {
   const navigation = useNavigation();
   const toast = useToast();
-  const {handleSaveToken, token} = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const {handleSaveToken, handleGetAccount, account} = useContext(AuthContext);
   const {setLoading} = useContext(LoadingContext);
-  const [state, setSate] = React.useState({
+  const [state, setSate] = React.useState(() => ({
     showPassword: false,
-    username: '',
-    password: '',
-    remember: AppSettings.remember,
-  });
+    username: account?.username,
+    password: account?.password,
+  }));
+  const [remember, setRemember] = React.useState(account.remember);
   const handleTogglePassword = (value: boolean) => {
     setSate({
       ...state,
@@ -57,23 +60,29 @@ const LoginScreen = () => {
       password,
     });
   };
+  const handleCheckBox = () => {
+    setRemember(!remember);
+  };
   const handleGoSetting = () => {
     navigation.navigate(NameScreen.SecurityNetWorkScreen);
   };
   const handleLogin = async () => {
+    console.log(state.username, state.password, remember);
     try {
       setLoading(true);
       Validate.validateLogin(state.username, state.password);
-      helpers.waited(2000).then(d => {
-        handleSaveToken('avb');
-        navigation.reset({
-          index: 0,
-          routes: [{name: NameScreen.StacksScreen.AppStack}],
-        });
-      });
-      helpers.waited(3000).then(d => {
-        setLoading(false);
-      });
+      await userService
+        .login(dispatch, {username: state.username, password: state.password})
+        .then(token => {
+          handleSaveToken(token);
+          AppSettings.token = token;
+          AppSettings.setAccount(state.username, state.password, remember);
+          navigation.reset({
+            index: 0,
+            routes: [{name: NameScreen.StacksScreen.AppStack}],
+          });
+        })
+        .finally(() => setLoading(false));
     } catch (error: any) {
       setLoading(false);
       toast.show({
@@ -81,6 +90,13 @@ const LoginScreen = () => {
       });
     }
   };
+  React.useEffect(() => {
+    handleGetAccount();
+  }, []);
+  React.useEffect(() => {
+    setSate({...state, username: account.username, password: account.password});
+    setRemember(account.remember);
+  }, [account]);
   return (
     <ViewBackGround>
       <KeyboardAvoidingView
@@ -108,11 +124,13 @@ const LoginScreen = () => {
                       color="muted.400"
                     />
                   }
+                  value={state.username}
                   placeholder={wordApp.username}
                   onChangeText={handleInputUsername}
                 />
                 <TextInputComponent
                   label={wordApp.password}
+                  value={state.password}
                   RightElement={
                     <Icon
                       as={
@@ -136,7 +154,8 @@ const LoginScreen = () => {
                 />
                 <CheckBoxComponent
                   label={wordApp.remember}
-                  defaultIsChecked={state.remember}
+                  defaultIsChecked={remember}
+                  onChangeChecked={handleCheckBox}
                 />
                 <Button
                   height={'1/5'}
