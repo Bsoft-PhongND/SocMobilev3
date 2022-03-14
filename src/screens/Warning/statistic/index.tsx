@@ -2,33 +2,39 @@ import {
   HStack,
   Input,
   Pressable,
-  ScrollView, Text, useDisclose,
-  View
+  ScrollView,
+  Text,
+  useDisclose,
+  View,
 } from 'native-base';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import {StyleSheet} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import ModalSheetComponent from '../../../components/actionsheet';
 import {
   CardContainer,
   CardGroupBar,
-  CardGroupPieChart
+  CardGroupPieChart,
 } from '../../../components/cards';
 import CardBar from '../../../components/cards/cardBar';
 import CardLine from '../../../components/cards/cardLine';
+import CardPie from '../../../components/cards/cardPie';
 import Dates from '../../../components/datepicker/dateRangePicker';
-import { ToolBar } from '../../../components/tools/ToolBar';
+import {ToolBar} from '../../../components/tools/ToolBar';
 import ViewBackTabview from '../../../components/viewbackground/viewbackTabview';
-import { theme } from '../../../theme/theme';
+import alertService from '../../../redux/services/alertService';
+import {theme} from '../../../theme/theme';
 import wordApp from '../../../utils/word';
 type searchType = {
   name: string | undefined;
   sourceIp: string | undefined;
   destinationIp: string | undefined;
-}
+};
 function StatisticScreen() {
   const {isOpen, onOpen, onClose} = useDisclose();
-  const store = useSelector((state:any)=> state);
+  const dispatch = useDispatch();
+  const store = useSelector((state: any) => state);
+  console.log(store.Alert.logsBySensor);
   const [state, setState] = React.useState({
     refreshing: false,
     date: undefined,
@@ -52,6 +58,9 @@ function StatisticScreen() {
   const handleFilter = () => {
     onClose();
   };
+  React.useEffect(()=>{
+    alertService.logsBySensor(dispatch)
+  },[]);
   return (
     <ViewBackTabview safeArea={false}>
       <View style={{flex: 1, paddingHorizontal: 10}}>
@@ -65,12 +74,17 @@ function StatisticScreen() {
           <CardContainer
             title={wordApp.warningLevel}
             styleContainer={styles.cardSpace}>
-            <CardGroupPieChart dataSource={store.Alert.ruleSeverity}/>
+            <CardGroupPieChart dataSource={store.Alert.ruleSeverity} />
           </CardContainer>
           <CardContainer
             title={wordApp.violateByTime}
             styleContainer={styles.cardSpace}>
-            <CardLine dataSource={store.Alert.alertOverTime?.slice(0,12)}/>
+            <CardLine dataSource={store.Alert.alertOverTime?.slice(0, 12)} />
+          </CardContainer>
+          <CardContainer
+            title={wordApp.logBySensor}
+            styleContainer={styles.cardSpace}>
+            <CardBar dataSource={store.Alert.logsBySensor?.slice(0, 12)}/>
           </CardContainer>
           <CardContainer
             title={wordApp.correctationLevel}
@@ -90,14 +104,14 @@ function StatisticScreen() {
         onClose={onClose}
         onFilter={handleFilter}>
         <View>
-        <Dates
-              range={true}
-              onDatesChange={onDatesChange}
-              isDateBlocked={() => false}
-              startDate={state.startDate}
-              endDate={state.endDate}
-              focusedInput={state.focus}
-            />
+          <Dates
+            range={true}
+            onDatesChange={onDatesChange}
+            isDateBlocked={() => false}
+            startDate={state.startDate}
+            endDate={state.endDate}
+            focusedInput={state.focus}
+          />
         </View>
       </ModalSheetComponent>
     </ViewBackTabview>

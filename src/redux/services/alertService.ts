@@ -54,5 +54,21 @@ class AlertService {
             throw error;
         }
     }
+    async logsBySensor(dispatch:any){
+        try {
+            const response = await request(api.alert.logsBySensor);
+            console.log(response.status);
+            if(response.status === 200 && response.data) {
+                const dataConverted = converter.logsBySensor(response.data?.aggregations['2']?.buckets || []);
+                const action = alertActions.getLogsBySensor(dataConverted);
+                dispatch(action);
+                return response.data;
+            }
+        } catch (error) {
+            const action = alertActions.getLogsBySensor(null);
+            dispatch(action);
+            throw error;
+        }
+    }
 }
 export default new AlertService;

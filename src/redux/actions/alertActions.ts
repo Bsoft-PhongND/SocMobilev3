@@ -19,5 +19,11 @@ class AlertActions {
             payload: rulenames
         }
     }
+    getLogsBySensor(logs: Array<any>){
+        return {
+            type: actionTypesAlert.logsBySensor,
+            payload: logs
+        }
+    }
 }
 export default new AlertActions;

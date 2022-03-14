@@ -106,7 +106,7 @@ const AppStack = () => {
         alertService.ruleSeverity(dispatch,setInvalidToken,timer),
         alertService.alertOverTime(dispatch)
       ])
-    },10000)
+    },30000)
     return () => clearInterval(timer);
   },[]);
   React.useEffect(() => {

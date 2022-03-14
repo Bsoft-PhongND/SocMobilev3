@@ -53,6 +53,7 @@ const wordApp = {
     disconnected:"Disconnected",
     connected:"Connected",
     invalidToken:"Phiên hết hạn!",
-    loginAgaint:'Vui lòng đăng nhập lại!'
+    loginAgaint:'Vui lòng đăng nhập lại!',
+    logBySensor:"Logs theo Sensor"
 }
 export default wordApp;
