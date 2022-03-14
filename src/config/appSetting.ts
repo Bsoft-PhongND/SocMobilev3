@@ -2,8 +2,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 class AppSettings {
   defaultUser = {
-    name: 'Nguyễn Anh Phan',
-    subName: 'Trưởng Phòng',
+    fullName: 'Nguyễn Anh Phan',
+    description: 'Trưởng Phòng',
     token: null,
   };
   remember: boolean = false;
@@ -14,6 +14,13 @@ class AppSettings {
   domainServer: string = 'http://localhost:3101';
   getDefaultUser() {
     return this.defaultUser;
+  }
+  setDefaultUser(user:any) {
+    this.defaultUser = {
+      fullName: user.fullName || '--',
+      description: user.description || "--",
+      token: user.token
+    };
   }
 
   async setRemember(remember: boolean) {

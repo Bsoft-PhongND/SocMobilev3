@@ -57,7 +57,7 @@ function HomeScreen() {
     };
   });
   useFocusEffect(() => {
-    setAutoPlay(false);
+    setAutoPlay(true);
     return () => {
       setAutoPlay(false);
     };

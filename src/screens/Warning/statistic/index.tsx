@@ -34,7 +34,6 @@ function StatisticScreen() {
   const {isOpen, onOpen, onClose} = useDisclose();
   const dispatch = useDispatch();
   const store = useSelector((state: any) => state);
-  console.log(store.Alert.logsBySensor);
   const [state, setState] = React.useState({
     refreshing: false,
     date: undefined,

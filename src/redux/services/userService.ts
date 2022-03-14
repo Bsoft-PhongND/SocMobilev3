@@ -1,3 +1,4 @@
+import { AppSettings } from '../../config';
 import converter from '../../helpers/converter';
 import userActions from '../actions/userActions';
 import request, {api} from '../apiService';
@@ -11,6 +12,7 @@ class UserService {
         const dataConverted = response.data;
         const action = userActions.login(dataConverted);
         dispatch(action);
+        AppSettings.setDefaultUser(response.data);
         return response.data.token;
       } else {
         throw new Error(response.data.message);

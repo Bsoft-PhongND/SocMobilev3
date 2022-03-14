@@ -65,12 +65,13 @@ function DetailScreen() {
         // setLoading(false);
       })
   },[]);
+  const memorizedList = React.useMemo(()=> store.Alert.ruleNameQuality?.slice(0,30),[store.Alert.ruleNameQuality]);
   return (
     <ViewBackGround safeArea={false}>
       <View style={{flex: 1}}>
         <View style={{flex: 1, paddingHorizontal: 10}}>
           <ToolBar loading={state.refreshing} onRefresh={waited} />
-          <FlatView listWarnings={store.Alert.ruleNameQuality?.slice(0,30) || listWarnings} />
+          <FlatView listWarnings={ memorizedList || listWarnings} />
         </View>
       </View>
     </ViewBackGround>

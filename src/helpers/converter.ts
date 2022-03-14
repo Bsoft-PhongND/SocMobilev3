@@ -7,7 +7,7 @@ class Converter {
   alertSeverity(data: Array<any>): Array<any> {
     return data.map(item => {
       const rt = {
-        title: item.key || 'key',
+        title: item.key? item.key.charAt(0).toUpperCase()+ item.key.slice(1) : 'key',
         value: item.value || item.doc_count,
         color: theme.colors.blue,
       };
