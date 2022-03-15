@@ -111,7 +111,7 @@ const AppStack = () => {
       .catch(error => {
         toast.show(error.message);
       })
-    },60000)
+    },10000)
     return () => clearInterval(timer);
   },[]);
   React.useEffect(() => {

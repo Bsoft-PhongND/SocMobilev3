@@ -44,9 +44,16 @@ class AppSettings {
       Promise.all([
         await AsyncStorage.setItem(configAsync.username, username),
         await AsyncStorage.setItem(configAsync.password, password),
+        await AsyncStorage.setItem(configAsync.remember, remember+""),
       ]);
-      return this.getAllItemsAsyncStorage();
+    }else{
+      Promise.all([
+        await AsyncStorage.removeItem(configAsync.username),
+        await AsyncStorage.removeItem(configAsync.password),
+        await AsyncStorage.removeItem(configAsync.remember),
+      ]);
     }
+    return this.getAllItemsAsyncStorage();
   }
   async getAccount() {
     const result = await Promise.all([

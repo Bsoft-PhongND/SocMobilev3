@@ -30,8 +30,6 @@ class Converter {
         y: helpers.numFormatter(item.value || item.doc_count),
       };
     });
-    console.log(JSON.stringify(result, null, 2));
-    
     return result;
   }
   getAggregations2Buckets(data: Array<any>): Array<any> {
