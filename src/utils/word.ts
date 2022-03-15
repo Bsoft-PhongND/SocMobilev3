@@ -54,6 +54,7 @@ const wordApp = {
     connected:"Connected",
     invalidToken:"Phiên hết hạn!",
     loginAgaint:'Vui lòng đăng nhập lại!',
-    logBySensor:"Logs theo Sensor"
+    logBySensor:"Logs theo Sensor",
+    RuleCategory:"Nhóm luật vi phạm"
 }
 export default wordApp;

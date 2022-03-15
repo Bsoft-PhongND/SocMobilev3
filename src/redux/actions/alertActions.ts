@@ -25,5 +25,11 @@ class AlertActions {
             payload: logs
         }
     }
+    getRuleCategory(rules: Array<any>){
+        return {
+            type: actionTypesAlert.ruleCategory,
+            payload: rules
+        }
+    }
 }
 export default new AlertActions;

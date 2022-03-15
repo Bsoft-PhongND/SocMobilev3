@@ -30,7 +30,8 @@ export const api = {
     ruleSeverity:'/data-sharing/alerts/ruleseverity',
     alertOverTime:'/data-sharing/alerts/alertsovertime',
     ruleNameQuality:'/data-sharing/alerts/rulename',
-    logsBySensor:'/data-sharing/alerts/logsbysensor'
+    logsBySensor:'/data-sharing/alerts/logsbysensor',
+    ruleCategory:'/data-sharing/alerts/rulecategory'
   },
   user:{
     login:'/data-sharing/users/login'

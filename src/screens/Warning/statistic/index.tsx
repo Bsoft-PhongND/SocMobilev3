@@ -20,6 +20,7 @@ import CardBar from '../../../components/cards/cardBar';
 import CardLine from '../../../components/cards/cardLine';
 import CardPie from '../../../components/cards/cardPie';
 import Dates from '../../../components/datepicker/dateRangePicker';
+import TableListItem from '../../../components/table';
 import {ToolBar} from '../../../components/tools/ToolBar';
 import ViewBackTabview from '../../../components/viewbackground/viewbackTabview';
 import alertService from '../../../redux/services/alertService';
@@ -58,7 +59,10 @@ function StatisticScreen() {
     onClose();
   };
   React.useEffect(()=>{
-    alertService.logsBySensor(dispatch)
+    Promise.all([
+      alertService.logsBySensor(dispatch),
+      alertService.ruleCategory(dispatch),
+    ])
   },[]);
   return (
     <ViewBackTabview safeArea={false}>
@@ -84,6 +88,11 @@ function StatisticScreen() {
             title={wordApp.logBySensor}
             styleContainer={styles.cardSpace}>
             <CardBar dataSource={store.Alert.logsBySensor?.slice(0, 12)}/>
+          </CardContainer>
+          <CardContainer
+            title={wordApp.RuleCategory}
+            styleContainer={styles.cardSpace}>
+            <TableListItem dataSource={store.Alert.ruleCategory} labels={["Category", "Doc_count"]}/>
           </CardContainer>
           <CardContainer
             title={wordApp.correctationLevel}

@@ -19,6 +19,7 @@ import alertService from '../redux/services/alertService';
 import { useDispatch } from 'react-redux';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
+import { useToast } from 'native-base';
 
 const Drawer = createDrawerNavigator();
 
@@ -98,15 +99,19 @@ const Drawer = createDrawerNavigator();
 const AppStack = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const toast = useToast();
   const {setInvalidToken, invalidToken} = React.useContext(AuthContext);
   React.useEffect(() =>{
-    const timer = setInterval(() =>{
+    const timer = setInterval(async () =>{
       console.log("reload")
-      Promise.all([
+      await Promise.all([
         alertService.ruleSeverity(dispatch,setInvalidToken,timer),
         alertService.alertOverTime(dispatch)
       ])
-    },30000)
+      .catch(error => {
+        toast.show(error.message);
+      })
+    },60000)
     return () => clearInterval(timer);
   },[]);
   React.useEffect(() => {
@@ -130,6 +135,7 @@ const AppStack = () => {
         },
         drawerType: 'slide',
       }}
+      
       defaultScreenOptions={{
         sceneContainerStyle: {backgroundColor: 'transparent'},
         drawerActiveBackgroundColor: 'transparent',

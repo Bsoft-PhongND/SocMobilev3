@@ -70,5 +70,21 @@ class AlertService {
             throw error;
         }
     }
+    async ruleCategory(dispatch:any){
+        try {
+            const response = await request(api.alert.ruleCategory);
+            console.log(response.status);
+            if(response.status === 200 && response.data) {
+                const dataConverted = converter.getRuleCategory(response.data?.aggregations['2']?.buckets || []);
+                const action = alertActions.getRuleCategory(dataConverted);
+                dispatch(action);
+                return response.data;
+            }
+        } catch (error) {
+            const action = alertActions.getRuleCategory(null);
+            dispatch(action);
+            throw error;
+        }
+    }
 }
 export default new AlertService;

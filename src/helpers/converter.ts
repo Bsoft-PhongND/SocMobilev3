@@ -1,5 +1,5 @@
 import {ItemProps} from '../components/cards/cardGroupPie';
-import {theme} from '../theme/theme';
+import {colorArray, theme} from '../theme/theme';
 import wordApp from '../utils/word';
 import helpers from './helpers';
 
@@ -8,7 +8,7 @@ class Converter {
     return data.map(item => {
       const rt = {
         title: item.key? item.key.charAt(0).toUpperCase()+ item.key.slice(1) : 'key',
-        value: item.value || item.doc_count,
+        value: helpers.numFormatter(item.value || item.doc_count),
         color: theme.colors.blue,
       };
       if (item.key === 'medium') rt.color = theme.colors.medium;
@@ -20,16 +20,19 @@ class Converter {
   alertOverTime(data: Array<any>): Array<any> {
     const startTime = new Date(new Date().setHours(0)).getTime();
     const filter = data.filter(item => item.key >= startTime);
-    return filter.map(item => {
+    const result =  filter.map(item => {
       const time = new Date(item.key || new Date().getTime());
       return {
-        // x: `${time.getHours()}/${time.getDate()}/${time.getMonth()}`,
-        x: `${time.toLocaleTimeString().split(':')[0]}-${
-          time.toLocaleDateString().split('/')[0]
-        }`,
-        y: item.value || item.doc_count,
+        x: `${time.getHours()}:${time.getMinutes()}`,
+        // x: `${time.toLocaleTimeString().split(':')[0]}:${time.toLocaleTimeString().split(':')[1]}-${
+        //   time.toLocaleDateString().split('/')[0]
+        // }`,
+        y: helpers.numFormatter(item.value || item.doc_count),
       };
     });
+    console.log(JSON.stringify(result, null, 2));
+    
+    return result;
   }
   getAggregations2Buckets(data: Array<any>): Array<any> {
     return data.map((item, index) => {
@@ -68,7 +71,17 @@ class Converter {
       return {
         x: item.key || item.title,
         y: helpers.numFormatter(item.value || item.doc_count),
-        colorScale: '#'+ Math.floor(Math.random() * 19777215).toString(16),
+        colorScale: colorArray[index],
+      };
+    });
+  }
+  getRuleCategory(data: Array<any>): Array<any> {
+    // const colorsRandom = helpers.randomColorNotDuplicate(data.length);
+    return data.map((item,index) => {
+      return {
+        id: index,
+        title: item.key || item.title,
+        value: helpers.numFormatter(item.value || item.doc_count),
       };
     });
   }
