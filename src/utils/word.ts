@@ -55,6 +55,7 @@ const wordApp = {
     invalidToken:"Phiên hết hạn!",
     loginAgaint:'Vui lòng đăng nhập lại!',
     logBySensor:"Logs theo Sensor",
-    RuleCategory:"Nhóm luật vi phạm"
+    RuleCategory:"Nhóm luật vi phạm",
+    alertsOverTime:"Lượng cảnh báo theo thời gian"
 }
 export default wordApp;

@@ -13,6 +13,7 @@ interface PropsTypes {
   dataSource?: [ItemProps, ItemProps, ItemProps];
 }
 function CardGroupPieChart(props: PropsTypes) {
+  console.log('render group pie');
   const dataSource = props.dataSource || groupPieChartModel;
   const renderGroups = () => {
     return dataSource.map((group: any, index: number) => {

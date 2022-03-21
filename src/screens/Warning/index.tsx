@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native';
 import React from 'react';
 import {View, Text} from 'react-native';
 import {TabBar, TabView} from 'react-native-tab-view';
@@ -48,7 +49,6 @@ const WarningScreen = () => {
   const onChangetab = (index: number) => {
     setIndex(index);
   };
- 
   return (
     <ViewBackGround>
       <View style={{flex: 1}}>
@@ -60,6 +60,7 @@ const WarningScreen = () => {
           onIndexChange={onChangetab}
           initialLayout={{width:windowWidth}}
           style={{padding: 0}}
+          lazy={true}
         />
       </View>
     </ViewBackGround>

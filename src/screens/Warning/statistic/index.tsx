@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native';
 import {
   HStack,
   Input,
@@ -64,6 +65,7 @@ function StatisticScreen() {
       alertService.ruleCategory(dispatch),
     ])
   },[]);
+  const memorizedGroupPie = React.useMemo(()=>store.Alert.ruleSeverity,[store])
   return (
     <ViewBackTabview safeArea={false}>
       <View style={{flex: 1, paddingHorizontal: 10}}>
@@ -77,17 +79,12 @@ function StatisticScreen() {
           <CardContainer
             title={wordApp.warningLevel}
             styleContainer={styles.cardSpace}>
-            <CardGroupPieChart dataSource={store.Alert.ruleSeverity} />
+            <CardGroupPieChart dataSource={memorizedGroupPie} />
           </CardContainer>
           <CardContainer
             title={wordApp.violateByTime}
             styleContainer={styles.cardSpace}>
             <CardLine dataSource={store.Alert.alertOverTime?.slice(0, 12)} />
-          </CardContainer>
-          <CardContainer
-            title={wordApp.logBySensor}
-            styleContainer={styles.cardSpace}>
-            <CardBar dataSource={store.Alert.logsBySensor?.slice(0, 12)}/>
           </CardContainer>
           <CardContainer
             title={wordApp.RuleCategory}

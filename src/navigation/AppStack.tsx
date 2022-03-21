@@ -102,17 +102,17 @@ const AppStack = () => {
   const toast = useToast();
   const {setInvalidToken, invalidToken} = React.useContext(AuthContext);
   React.useEffect(() =>{
-    const timer = setInterval(async () =>{
-      console.log("reload")
-      await Promise.all([
-        alertService.ruleSeverity(dispatch,setInvalidToken,timer),
-        alertService.alertOverTime(dispatch)
-      ])
-      .catch(error => {
-        toast.show(error.message);
-      })
-    },10000)
-    return () => clearInterval(timer);
+    // const timer = setInterval(async () =>{
+    //   console.log("reload")
+    //   await Promise.all([
+    //     alertService.ruleSeverity(dispatch,setInvalidToken,timer),
+    //     alertService.alertOverTime(dispatch)
+    //   ])
+    //   .catch(error => {
+    //     toast.show(error.message);
+    //   })
+    // },10000)
+    // return () => clearInterval(timer);
   },[]);
   React.useEffect(() => {
     invalidToken && navigation.reset({

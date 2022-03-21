@@ -57,10 +57,10 @@ function HomeScreen() {
     };
   });
   useFocusEffect(() => {
-    setAutoPlay(true);
-    return () => {
-      setAutoPlay(false);
-    };
+    // setAutoPlay(true);
+    // return () => {
+    //   setAutoPlay(false);
+    // };
   });
   const handleNavigate = async (navigate: any, item: any) => {
     if (navigate) {
@@ -95,7 +95,7 @@ function HomeScreen() {
   const dataSources = setDataSourceCarolsel([
     store.Alert.ruleSeverity,
     store.Alert.alertOverTime && store.Alert.alertOverTime.slice(0,12),
-    null,
+    store.Alert.logsBySensor?.slice(0, 12),
   ]);
 
   return (

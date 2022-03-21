@@ -91,4 +91,4 @@ function CardGroupBar(props: PropsTypes) {
     </Animated.View>
   );
 }
-export default CardGroupBar;
+export default React.memo(CardGroupBar);

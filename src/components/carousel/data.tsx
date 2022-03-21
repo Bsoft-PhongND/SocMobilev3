@@ -1,5 +1,7 @@
 import React from 'react';
 import {NameScreen} from '../../config';
+import wordApp from '../../utils/word';
+import CardBar from '../cards/cardBar';
 import CardGroupPieChart, { ItemProps } from '../cards/cardGroupPie';
 import CardLineChart from '../cards/cardLine';
 import CardPieChart from '../cards/cardPie';
@@ -37,17 +39,17 @@ export function setDataSourceCarolsel(dataSources:[[ItemProps,ItemProps,ItemProp
     },
     {
       id: 2,
-      type: 'Lượng cảnh báo theo thời gian',
+      type: wordApp.alertsOverTime,
       component: <CardLineChart dataSource={dataSources[1]}/>,
       color: '#db9efa',
       navigation: NameScreen.StacksScreen.WarningStack,
     },
     {
       id: 3,
-      type: 'Tiến trình phản ứng',
-      component: <CardPieChart flex={1} dataSource={dataSources[2]}/>,
+      type: wordApp.logBySensor,
+      component: <CardBar dataSource={dataSources[2]} height={220} lablesOptions={{x:0,y:30}}/>,
       color: '#999',
-      navigation: NameScreen.ResponseScreen,
+      navigation: NameScreen.StacksScreen.WarningStack,
     },
   ];
 }

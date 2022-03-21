@@ -11,18 +11,30 @@ import barChartModel, {labelBarChartModel} from '../../model/barChart';
 import {theme} from '../../theme/theme';
 interface PropsTypes {
   dataSource?: {x: string; y: string | number; colorScale?: string}[];
+  height?: number;
+  lablesOptions?: {
+    x?: number;
+    y?: number;
+  };
 }
 function CardBar(props: PropsTypes) {
-  const dataSource = props.dataSource || barChartModel;
-  const lables = dataSource.map((type,index) => {
+  const {
+    dataSource = barChartModel,
+    height = 350,
+    lablesOptions = {x: 0, y: 10},
+  } = props;
+  const lables = dataSource.map((type, index) => {
     return {
       name: type.x || type?.lable,
       symbol: {fill: type.colorScale, type: 'star'},
       labels: {fill: theme.colors.text},
-    }
-  })
+    };
+  });
   return (
-    <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
+    <VictoryChart
+      theme={VictoryTheme.material}
+      domainPadding={20}
+      height={height}>
       <VictoryAxis
         theme={VictoryTheme.material}
         standalone={false}
@@ -41,8 +53,8 @@ function CardBar(props: PropsTypes) {
         labelComponent={<VictoryLabel textAnchor="start" />}
       />
       <VictoryLegend
-        x={0}
-        y={10}
+        x={lablesOptions.x || 0}
+        y={lablesOptions.y || 10}
         centerTitle
         orientation="horizontal"
         style={{title: {fontSize: 20, color: theme.colors.text}}}
