@@ -55,7 +55,7 @@ function DetailScreen() {
   };
   React.useEffect(()=>{
       Promise.all([
-        alertService.ruleNameQuality(dispatch)
+        alertService.alertSent(dispatch)
       ]).catch(err => {
         toast.show({
           title: err.message || err,
@@ -65,7 +65,7 @@ function DetailScreen() {
         // setLoading(false);
       })
   },[]);
-  const memorizedList = React.useMemo(()=> store.Alert.ruleNameQuality?.slice(0,30),[store.Alert.ruleNameQuality]);
+  const memorizedList = React.useMemo(()=> store.Alert.alertsSent?.slice(0,30),[store.Alert.alertsSent]);
   return (
     <ViewBackGround safeArea={false}>
       <View style={{flex: 1}}>
@@ -79,7 +79,8 @@ function DetailScreen() {
 }
 const FlatView = React.memo(({listWarnings}: any) => {
   console.log('reRender');
-
+  console.log(listWarnings[0]);
+  
   const memorized = React.useCallback(
     ({item, index}) => <RenderItem item={item} index={index} />,
     [],
@@ -215,8 +216,8 @@ const RenderItem = React.memo(({item, index}: {item:TypesWarning,index:number}) 
               </Button>
               <Button variant={'subtle'}>{wordApp.verified}</Button>
             </HStack>
-          </PresenceTransition> */}
-        </Box>
+          </PresenceTransition>*/}
+          </Box>
       </Flex>
     </Pressable>
   );

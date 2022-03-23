@@ -83,5 +83,46 @@ class Converter {
       };
     });
   }
+  alertsSent(data:Array<any>):Array<any> {
+    const filterNotNull = data.filter(item => item);
+    // id: 0,
+    // alert: 'Ket nối máy chủ mã độc',
+    // number: 45,
+    // status: 'Chờ xử lý',
+    // description:'info Installing /Users/dinhphong/Library/Developer/Xcode/DerivedData/ReactNativeApp-gdvslehrovxazuaijsllqvmgzaql/Build/Products/Debug-iphonesimulator/ReactNativeApp.app',
+    // time: new Date().getTime(),
+    // priority: true,
+    // info: {
+    //   detail: {
+    //     Icon: 'A',
+    //     Status: 'string',
+    //     Date: 1,
+    //     Action: 'string',
+    //     Type: 'string',
+    //     Asset: 'string',
+    //   },
+    // },
+    return filterNotNull.map((item, index) => {
+      const data = item?.data;
+        return {
+          id: item?.id || index,
+          alert: data?.rule?.name || "---",
+          number:1,
+          status: 'medium',
+          description: data?.message || "--",
+          time: item?.timestamp || new Date().getTime(),
+          priority: index % 2 === 0,
+          info:{
+            detail: {
+              observer: data?.observer || "--",
+              ecs: data?.ecs || "--",
+              tags: data?.tags || "--",
+              source: data?.source?.ip || "--",
+              destination: data?.destination?.ip || "--",
+            }
+          }
+        }
+    })
+  }
 }
 export default new Converter();

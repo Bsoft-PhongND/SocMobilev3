@@ -6,6 +6,7 @@ import {
   ScrollView,
   Text,
   useDisclose,
+  useToast,
   View,
 } from 'native-base';
 import React from 'react';
@@ -34,6 +35,7 @@ type searchType = {
 };
 function StatisticScreen() {
   const {isOpen, onOpen, onClose} = useDisclose();
+  const toast = useToast();
   const dispatch = useDispatch();
   const store = useSelector((state: any) => state);
   const [state, setState] = React.useState({
@@ -63,7 +65,9 @@ function StatisticScreen() {
     Promise.all([
       alertService.logsBySensor(dispatch),
       alertService.ruleCategory(dispatch),
-    ])
+    ]).catch(error => {
+      toast.show(error.message || error);
+    })
   },[]);
   const memorizedGroupPie = React.useMemo(()=>store.Alert.ruleSeverity,[store])
   return (
@@ -91,7 +95,7 @@ function StatisticScreen() {
             styleContainer={styles.cardSpace}>
             <TableListItem dataSource={store.Alert.ruleCategory} labels={["Category", "Doc_count"]}/>
           </CardContainer>
-          <CardContainer
+          {/* <CardContainer
             title={wordApp.correctationLevel}
             styleContainer={styles.cardSpace}>
             <CardGroupBar />
@@ -100,7 +104,7 @@ function StatisticScreen() {
             title={wordApp.warningStatus}
             styleContainer={styles.cardSpace}>
             <CardBar />
-          </CardContainer>
+          </CardContainer> */}
         </ScrollView>
       </View>
       <ModalSheetComponent

@@ -86,5 +86,21 @@ class AlertService {
             throw error;
         }
     }
+    async alertSent(dispatch:any){
+        try {
+            const response = await request(api.alert.alertSent);
+            console.log(response.status);
+            if(response.status === 200 && response.data) {
+                const dataConverted = converter.alertsSent(response.data || []);
+                const action = alertActions.alertsSent(dataConverted);
+                dispatch(action);
+                return response.data;
+            }
+        } catch (error) {
+            const action = alertActions.alertsSent(null);
+            dispatch(action);
+            throw error;
+        }
+    }
 }
 export default new AlertService;

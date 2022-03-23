@@ -5,6 +5,7 @@ type PropsTypes = {
   ruleNameQuality: Array<any> | null;
   logsBySensor: Array<any> | null;
   ruleCategory: Array<any> | null;
+  alertsSent: Array<any> | null;
 };
 type PropsAction = {
   type: string | null;
@@ -16,6 +17,7 @@ const initialState: PropsTypes = {
   ruleNameQuality: null,
   logsBySensor: null,
   ruleCategory: null,
+  alertsSent: null,
 };
 const alertReducer = (state = initialState, action: PropsAction) => {
   switch (action.type) {
@@ -43,6 +45,11 @@ const alertReducer = (state = initialState, action: PropsAction) => {
       return {
         ...state,
         ruleCategory: action.payload,
+      };
+    case actionTypesAlert.alertsSent:
+      return {
+        ...state,
+        alertsSent: action.payload,
       };
     default:
       return {...state};

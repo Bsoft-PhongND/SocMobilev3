@@ -31,7 +31,8 @@ export const api = {
     alertOverTime:'/data-sharing/alerts/alertsovertime',
     ruleNameQuality:'/data-sharing/alerts/rulename',
     logsBySensor:'/data-sharing/alerts/logsbysensor',
-    ruleCategory:'/data-sharing/alerts/rulecategory'
+    ruleCategory:'/data-sharing/alerts/rulecategory',
+    alertSent:'/data-sharing/alerts/queryAll'
   },
   user:{
     login:'/data-sharing/users/login'

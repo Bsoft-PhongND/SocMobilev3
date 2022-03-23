@@ -92,9 +92,9 @@ function InfoWarningScreen({route}: any) {
               {wordApp.number}: {item.number || '---'}
             </Text>
             <Text style={{...theme.fontSize.h3, color: theme.colors.text}}>
-              {wordApp.status}: {item.status || '---'}
+              {wordApp.severity}: {item.status || '---'}
             </Text>
-            <Text style={{...theme.fontSize.h3, color: theme.colors.text}}>
+            <Text style={{...theme.fontSize.h3, color: theme.colors.text}} numberOfLines={4}>
               {wordApp.description}: {item.description || '  ---  '}
             </Text>
           </View>

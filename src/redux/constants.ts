@@ -8,6 +8,7 @@ const actionTypesAlert = {
     ruleName:'ruleName',
     logsBySensor:'logsBySensor',
     ruleCategory: 'ruleCategory',
+    alertsSent: 'alertsSent',
 }
 
 export {actionTypesUser,actionTypesAlert};

@@ -56,6 +56,7 @@ const wordApp = {
     loginAgaint:'Vui lòng đăng nhập lại!',
     logBySensor:"Logs theo Sensor",
     RuleCategory:"Nhóm luật vi phạm",
-    alertsOverTime:"Lượng cảnh báo theo thời gian"
+    alertsOverTime:"Lượng cảnh báo theo thời gian",
+    severity:"Mức độ"
 }
 export default wordApp;

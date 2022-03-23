@@ -31,5 +31,11 @@ class AlertActions {
             payload: rules
         }
     }
+    alertsSent(alerts: Array<any>){
+        return {
+            type: actionTypesAlert.alertsSent,
+            payload: alerts
+        }
+    }
 }
 export default new AlertActions;
