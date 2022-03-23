@@ -22,6 +22,7 @@ function Container(props: any) {
 }
 function InfoWarningScreen({route}: any) {
   const {item} = route.params;
+  const {detail} = item?.info;
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: NameScreen.WarningTabs.InForDetailTab, title: 'Chi tiết'},
@@ -31,7 +32,7 @@ function InfoWarningScreen({route}: any) {
   const renderScene = ({route, focused}: any) => {
     switch (route.key) {
       case NameScreen.WarningTabs.InForDetailTab:
-        return <TabDetailWarning />;
+        return <TabDetailWarning detail={detail}/>;
       case NameScreen.WarningTabs.InForPolicyTab:
         return <TabPolicyWarning />;
       case NameScreen.WarningTabs.InfoProcessTab:
@@ -79,14 +80,14 @@ function InfoWarningScreen({route}: any) {
       <View style={{flex: 1}}>
         <HeaderBack title={NameScreen.DrawerScreen.WarningScreen} />
         <View style={{flex: 1}}>
-          <View pl={2} pr={2}>
+          <ScrollView pl={2} pr={2} maxHeight={150}>
             <Text
               style={{
                 ...theme.fontSize.h3,
                 color: theme.colors.text,
                 fontWeight: 'bold',
               }}>
-              {item.alert || '---'}
+               {wordApp.alertName}: {item.alert || '---'}
             </Text>
             <Text style={{...theme.fontSize.h3, color: theme.colors.text}}>
               {wordApp.number}: {item.number || '---'}
@@ -94,10 +95,10 @@ function InfoWarningScreen({route}: any) {
             <Text style={{...theme.fontSize.h3, color: theme.colors.text}}>
               {wordApp.severity}: {item.status || '---'}
             </Text>
-            <Text style={{...theme.fontSize.h3, color: theme.colors.text}} numberOfLines={4}>
+            <Text style={{...theme.fontSize.h3, color: theme.colors.text}}>
               {wordApp.description}: {item.description || '  ---  '}
             </Text>
-          </View>
+          </ScrollView>
 
           <TabView
             renderTabBar={renderTabBar}

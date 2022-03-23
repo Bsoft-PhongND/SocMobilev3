@@ -57,6 +57,8 @@ const wordApp = {
     logBySensor:"Logs theo Sensor",
     RuleCategory:"Nhóm luật vi phạm",
     alertsOverTime:"Lượng cảnh báo theo thời gian",
-    severity:"Mức độ"
+    severity:"Mức độ",
+    ipAddress: "Địa chỉ",
+    alertName: "Tên cảnh báo"
 }
 export default wordApp;

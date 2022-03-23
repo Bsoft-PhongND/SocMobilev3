@@ -82,6 +82,7 @@ function HomeScreen() {
     Promise.all([
       AlertService.ruleSeverity(dispatch),
       AlertService.alertOverTime(dispatch),
+      AlertService.logsBySensor(dispatch),
     ]).catch(err => {
       toast.show({
         title: err.message || err,

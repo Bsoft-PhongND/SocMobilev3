@@ -97,7 +97,7 @@ const FlatView = React.memo(({listWarnings}: any) => {
   );
 });
 const RenderItem = React.memo(({item, index}: {item:TypesWarning,index:number}) => {
-  const color = Helpers.divideLevelWarning(item.number);
+  const color = Helpers.recognizeColorFromSeverity(item.status);
   const navigation = useNavigation();
   const [state, setState] = React.useState({
     priority: item.priority,
@@ -156,14 +156,14 @@ const RenderItem = React.memo(({item, index}: {item:TypesWarning,index:number}) 
               color: theme.colors.text,
               paddingVertical: 3,
             }}>
-            {wordApp.number}:{item.number}
+            {wordApp.ipAddress} :{item?.info?.detail?.source?.ip}
           </Text>
           <Flex flexDirection="row" style={{justifyContent: 'space-between'}}>
             <Text style={{...theme.fontSize.h4, color: theme.colors.text}}>
               {wordApp.status}:{item.status}
             </Text>
             <Text style={{...theme.fontSize.h4, color: theme.colors.text}}>
-              {new Date(item.time).toLocaleDateString()}
+              {item.time}
             </Text>
           </Flex>
           {state.otherF ? (

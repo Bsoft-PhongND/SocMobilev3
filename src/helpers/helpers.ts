@@ -35,6 +35,12 @@ class Helpers{
       }
       return result;
     }
+    recognizeColorFromSeverity(severity: number | string){
+        if(severity === 'medium' || severity === 2) return theme.colors.medium;
+        if(severity === 'high' || severity === 3) return theme.colors.hight;
+        return theme.colors.low;
+
+    }
 }
 
 export default new Helpers;

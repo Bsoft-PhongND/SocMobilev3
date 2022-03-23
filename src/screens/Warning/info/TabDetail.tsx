@@ -1,7 +1,8 @@
-import {HStack, Icon, Text, View, VStack} from 'native-base';
+import {HStack, Icon, ScrollView, Text, View, VStack} from 'native-base';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {AntDesign} from "../../../assets/icons";
 import {theme} from '../../../theme/theme';
 
 const inforData = [
@@ -31,38 +32,39 @@ const inforData = [
     content: 'Malware',
   },
 ];
-function Container() {
-  return <TabDetailWarning />;
+function Container(props: any) {
+  return <TabDetailWarning {...props}/>;
 }
-function TabDetailWarning() {
+function TabDetailWarning(props: any) {
+  const {detail} = props;
   return (
-    <View>
-      {inforData.map((item, index) => {
-        return (
-          <HStack alignItems="center" mt={3} key={index}>
-            <Icon
-              as={item.icon || <Ionicons name="ios-person-circle-outline" />}
-              size={7}
-              ml="2"
-              color="muted.600"
-            />
-            <VStack paddingLeft={5}>
-              <Text
-                style={{
-                  ...theme.fontSize.h3,
-                  color: theme.colors.medium,
-                  fontWeight: 'bold',
-                }}>
-                {item.title || '---'}
-              </Text>
-              <Text style={{...theme.fontSize.h4, color: theme.colors.medium}}>
-              {item.content || '---'}
-              </Text>
-            </VStack>
-          </HStack>
-        );
-      })}
-    </View>
+    <ScrollView>
+       {detail && typeof detail === 'object' && Object.keys(detail).map(key =>{
+         return (
+          <HStack alignItems="center" mt={3} >
+          <Icon
+            as={<AntDesign name="tags" />}
+            size={7}
+            ml="2"
+            color="muted.600"
+          />
+          <VStack paddingLeft={5}>
+            <Text
+              style={{
+                ...theme.fontSize.h3,
+                color: theme.colors.medium,
+                fontWeight: 'bold',
+              }}>
+              {key || '---'}
+            </Text>
+            <Text style={{...theme.fontSize.h4, color: theme.colors.medium}} pr={2}>
+            {detail[`${key}`]?JSON.stringify(detail[`${key}`]):'---'}
+            </Text>
+          </VStack>
+        </HStack>
+         )
+       })}
+    </ScrollView>
   );
 }
 export default Container;

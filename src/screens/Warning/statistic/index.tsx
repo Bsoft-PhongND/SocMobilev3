@@ -63,7 +63,6 @@ function StatisticScreen() {
   };
   React.useEffect(()=>{
     Promise.all([
-      alertService.logsBySensor(dispatch),
       alertService.ruleCategory(dispatch),
     ]).catch(error => {
       toast.show(error.message || error);
