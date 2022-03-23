@@ -11,7 +11,7 @@ import {
 import CustomDrawer from '../components/CustomDrawer';
 import {NameScreen} from '../config';
 import ContactScreen from '../screens/Contact';
-import ResponseScreen from '../screens/Response/detail';
+import ResponseScreen from '../screens/Response';
 import NotFoundScreen from '../screens/NotFound';
 import {DashboardStack, WarningStack} from './routers';
 import TabNavigator from './TabNavigator';

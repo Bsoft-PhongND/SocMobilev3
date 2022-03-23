@@ -15,10 +15,12 @@ import {
 } from 'native-base';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {MaterialCommunityIcons} from "../../../assets/icons";
 import { useDispatch, useSelector } from 'react-redux';
 import {ToolBar} from '../../../components/tools/ToolBar';
 import ViewBackGround from '../../../components/viewbackground';
 import { NameScreen } from '../../../config';
+import { LoadingContext } from '../../../context/LoadingContext';
 import Helpers from '../../../helpers/helpers';
 import {listWarnings, TypesWarning} from '../../../model/data';
 import alertService from '../../../redux/services/alertService';
@@ -42,6 +44,7 @@ function DetailScreen() {
   });
   const dispatch = useDispatch();
   const toast = useToast();
+  const {setLoading} = React.useContext(LoadingContext);
   const store = useSelector((state:any)=> state);
   const waited = async () => {
     setState({...state, refreshing: true});
@@ -54,6 +57,7 @@ function DetailScreen() {
     });
   };
   React.useEffect(()=>{
+    setLoading(true);
       Promise.all([
         alertService.alertSent(dispatch)
       ]).catch(err => {
@@ -62,25 +66,21 @@ function DetailScreen() {
         });
       })
       .finally(()=>{
-        // setLoading(false);
+        setLoading(false);
       })
   },[]);
   const memorizedList = React.useMemo(()=> store.Alert.alertsSent?.slice(0,30),[store.Alert.alertsSent]);
   return (
-    <ViewBackGround safeArea={false}>
       <View style={{flex: 1}}>
         <View style={{flex: 1, paddingHorizontal: 10}}>
           <ToolBar loading={state.refreshing} onRefresh={waited} />
           <FlatView listWarnings={ memorizedList || listWarnings} />
         </View>
       </View>
-    </ViewBackGround>
   );
 }
 const FlatView = React.memo(({listWarnings}: any) => {
   console.log('reRender');
-  console.log(listWarnings[0]);
-  
   const memorized = React.useCallback(
     ({item, index}) => <RenderItem item={item} index={index} />,
     [],
@@ -143,8 +143,8 @@ const RenderItem = React.memo(({item, index}: {item:TypesWarning,index:number}) 
               }}>
               {item.alert}
             </Text>
-            <Icon 
-              as={<AntDesign name={state.priority ? 'star' : 'staro'} />}
+            <Icon      
+              as={<MaterialCommunityIcons name={'shield-alert'} />}
               size={6}
               color={state.priority ? 'amber.400' : 'muted.400'}
               onPress={() => setState({...state, priority: !state.priority})}

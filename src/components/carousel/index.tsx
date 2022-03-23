@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   imageStyle: {
     flex: 1,
     justifyContent: 'center',
-    maxWidth: 400,
+    maxWidth: width-20,
     overflow: 'hidden',
   },
   pagination: {

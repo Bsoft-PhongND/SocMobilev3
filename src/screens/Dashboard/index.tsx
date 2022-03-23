@@ -93,11 +93,11 @@ function HomeScreen() {
     })
   }, []);
 
-  const dataSources = setDataSourceCarolsel([
+  const dataSources = React.useMemo(()=>setDataSourceCarolsel([
     store.Alert.ruleSeverity,
     store.Alert.alertOverTime && store.Alert.alertOverTime.slice(0,12),
     store.Alert.logsBySensor?.slice(0, 12),
-  ]);
+  ]),[store.Alert]);
 
   return (
     <ViewBackGround>

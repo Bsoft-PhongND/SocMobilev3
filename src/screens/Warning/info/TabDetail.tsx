@@ -1,37 +1,35 @@
-import {HStack, Icon, ScrollView, Text, View, VStack} from 'native-base';
+import { HStack, Icon, ScrollView, Text, VStack } from 'native-base';
 import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {AntDesign} from "../../../assets/icons";
-import {theme} from '../../../theme/theme';
+import { AntDesign } from "../../../assets/icons";
+import { theme } from '../../../theme/theme';
 
-const inforData = [
-  {
-    icon: <MaterialCommunityIcons name="id-card" />,
-    title: 'Organization',
-    content: 'Demo inc',
-  },
-  {
-    icon: <MaterialCommunityIcons name="hammer-screwdriver" />,
-    title: 'Status',
-    content: 'Pending Client',
-  },
-  {
-    icon: <MaterialCommunityIcons name="calendar-clock" />,
-    title: 'Date Created',
-    content: new Date().toLocaleDateString(),
-  },
-  {
-    icon: <Ionicons name="ios-person-circle-outline" />,
-    title: 'Actor',
-    content: 'Desktop-ggmv2',
-  },
-  {
-    icon: <MaterialCommunityIcons name="bug" />,
-    title: 'Action',
-    content: 'Malware',
-  },
-];
+// const inforData = [
+//   {
+//     icon: <MaterialCommunityIcons name="id-card" />,
+//     title: 'Organization',
+//     content: 'Demo inc',
+//   },
+//   {
+//     icon: <MaterialCommunityIcons name="hammer-screwdriver" />,
+//     title: 'Status',
+//     content: 'Pending Client',
+//   },
+//   {
+//     icon: <MaterialCommunityIcons name="calendar-clock" />,
+//     title: 'Date Created',
+//     content: new Date().toLocaleDateString(),
+//   },
+//   {
+//     icon: <Ionicons name="ios-person-circle-outline" />,
+//     title: 'Actor',
+//     content: 'Desktop-ggmv2',
+//   },
+//   {
+//     icon: <MaterialCommunityIcons name="bug" />,
+//     title: 'Action',
+//     content: 'Malware',
+//   },
+// ];
 function Container(props: any) {
   return <TabDetailWarning {...props}/>;
 }
@@ -39,9 +37,9 @@ function TabDetailWarning(props: any) {
   const {detail} = props;
   return (
     <ScrollView>
-       {detail && typeof detail === 'object' && Object.keys(detail).map(key =>{
+       {detail && typeof detail === 'object' && Object.keys(detail).map((key,index) =>{
          return (
-          <HStack alignItems="center" mt={3} >
+          <HStack alignItems="center" mt={3} key={index}>
           <Icon
             as={<AntDesign name="tags" />}
             size={7}

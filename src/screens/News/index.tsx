@@ -19,6 +19,9 @@ import CustomSwitch from '../../components/CustomSwitch';
 import ListItem from '../../components/ListItem';
 import {NameScreen} from '../../config';
 import ViewBackGround from '../../components/viewbackground';
+import HeaderBack from '../../components/headerback';
+import Commingsoon from '../../components/commingsoon';
+import HeaderMenu from '../../components/headermenu';
 
 export default function NewsScreen({navigation}) {
   const [gamesTab, setGamesTab] = useState(1);
@@ -33,7 +36,9 @@ export default function NewsScreen({navigation}) {
 
   return (
     <ViewBackGround>
-      <ScrollView style={{padding: 20}}>
+      <HeaderMenu title="Tin tức"/>
+      <Commingsoon/>
+      {/* <ScrollView style={{padding: 20}}>
         <View
           style={{
             flexDirection: 'row',
@@ -137,7 +142,7 @@ export default function NewsScreen({navigation}) {
               }
             />
           ))}
-      </ScrollView>
+      </ScrollView> */}
     </ViewBackGround>
   );
 }
