@@ -57,10 +57,10 @@ function HomeScreen() {
     };
   });
   useFocusEffect(() => {
-    // setAutoPlay(true);
-    // return () => {
-    //   setAutoPlay(false);
-    // };
+    setAutoPlay(true);
+    return () => {
+      setAutoPlay(false);
+    };
   });
   const handleNavigate = async (navigate: any, item: any) => {
     if (navigate) {
