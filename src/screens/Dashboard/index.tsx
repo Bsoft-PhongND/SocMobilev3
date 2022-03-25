@@ -3,6 +3,7 @@ import {
   Box,
   FlatList,
   HStack,
+  Icon,
   Image,
   Pressable,
   Text,
@@ -160,12 +161,17 @@ function HomeScreen() {
                   <Pressable
                     style={styles.itemF}
                     onPress={() => handleNavigate(item.navigation, item)}>
-                    <Box style={styles.icon}>
-                      <Image
+                    <Box style={styles.icon} justifyContent="center" alignItems="center">
+                      {/* <Image
                         resizeMode="contain"
                         style={{width: '100%', height: '100%'}}
                         source={item.icon}
                         alt={item.title}
+                      /> */}
+                      <Icon
+                        as={item.icon}
+                        color="amber.50"
+                        size={'12'}
                       />
                     </Box>
                     <Text style={styles.titleF}>{item.title}</Text>
