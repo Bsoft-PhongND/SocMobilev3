@@ -16,12 +16,14 @@ interface PropsTypes {
     x?: number;
     y?: number;
   };
+  horizontal?: boolean;
 }
 function CardBar(props: PropsTypes) {
   const {
     dataSource = barChartModel,
     height = 350,
     lablesOptions = {x: 0, y: 10},
+    horizontal=false
   } = props;
   const lables = dataSource.map((type, index) => {
     return {
@@ -48,6 +50,7 @@ function CardBar(props: PropsTypes) {
         style={{tickLabels: {fill: theme.colors.text}}}
       />
       <VictoryBar
+        horizontal={horizontal}
         style={{data: {fill: d => d.datum.colorScale}}}
         data={dataSource}
         labelComponent={<VictoryLabel textAnchor="start" />}

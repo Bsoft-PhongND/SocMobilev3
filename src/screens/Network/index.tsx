@@ -6,6 +6,12 @@ import {CardContainer, CardGroupBar} from '../../components/cards';
 import CardBar from '../../components/cards/cardBar';
 import CardLineChart from '../../components/cards/cardLine';
 import CardPieChart from '../../components/cards/cardPie';
+import BoxPlotChart from '../../components/charts/boxPlotChart';
+import DomainChart from '../../components/charts/domainChart';
+import MultiLineChart from '../../components/charts/multiLineChart';
+import PolarAxisChart from '../../components/charts/polarAxisChart';
+import PolarChart from '../../components/charts/polarChart';
+import RadarChart from '../../components/charts/radarChart';
 import HeaderBack from '../../components/headerback';
 import {TableListStatus, TableListView} from '../../components/TableList';
 import ViewBackGround from '../../components/viewbackground';
@@ -23,7 +29,7 @@ const groupsNetwork: Array<PropsHightScreen> = [
   },
   {
     title: wordApp.unauthorizedAccess,
-    component: <CardBar dataSource={unauthorizedAccess} />,
+    component: <CardBar dataSource={unauthorizedAccess} horizontal={true}/>,
     tableList: <TableListView />,
   },
   {
@@ -36,6 +42,37 @@ const groupsNetwork: Array<PropsHightScreen> = [
     component: <CardLineChart dataSource={violateByTime} />,
     tableList: <TableListView />,
   },
+  {
+    title: "PolarChart",
+    component: <PolarChart />,
+    tableList: <TableListView />,
+  },
+  {
+    title: "AreaChart",
+    component: <DomainChart />,
+    tableList: <TableListView />,
+  },
+  {
+    title: "MultiLine",
+    component: <MultiLineChart />,
+    tableList: <TableListView />,
+  },
+  {
+    title: "boxPlotChart",
+    component: <BoxPlotChart />,
+    tableList: <TableListView />,
+  },
+  {
+    title: "polarAxisChart",
+    component: <PolarAxisChart />,
+    tableList: <TableListView />,
+  },
+  {
+    title: "RadarChart",
+    component: <RadarChart />,
+    tableList: <TableListView />,
+  },
+  
 ];
 const Container= (props:any)=>{
   const {loading, setLoading} = useContext(LoadingContext);

@@ -35,8 +35,7 @@ type searchType = {
 };
 function StatisticScreen() {
   const {isOpen, onOpen, onClose} = useDisclose();
-  const toast = useToast();
-  const dispatch = useDispatch();
+
   const store = useSelector((state: any) => state);
   const [state, setState] = React.useState({
     refreshing: false,
@@ -61,13 +60,7 @@ function StatisticScreen() {
   const handleFilter = () => {
     onClose();
   };
-  React.useEffect(()=>{
-    Promise.all([
-      alertService.ruleCategory(dispatch),
-    ]).catch(error => {
-      toast.show(error.message || error);
-    })
-  },[]);
+ 
   const memorizedGroupPie = React.useMemo(()=>store.Alert.ruleSeverity,[store])
   return (
     <ViewBackTabview safeArea={false}>

@@ -1,6 +1,6 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   MaterialIcons,
   Ionicons,
@@ -9,17 +9,19 @@ import {
   AntDesign,
 } from '../assets/icons';
 import CustomDrawer from '../components/CustomDrawer';
-import {NameScreen} from '../config';
+import { AppSettings, NameScreen } from '../config';
 import ContactScreen from '../screens/Contact';
 import ResponseScreen from '../screens/Response';
 import NotFoundScreen from '../screens/NotFound';
-import {DashboardStack, WarningStack} from './routers';
+import NewsScreen from '../screens/News';
+import { DashboardStack, WarningStack } from './routers';
 import TabNavigator from './TabNavigator';
 import alertService from '../redux/services/alertService';
 import { useDispatch } from 'react-redux';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import { useToast } from 'native-base';
+import App from '../config/appSetting';
 
 const Drawer = createDrawerNavigator();
 
@@ -100,26 +102,29 @@ const AppStack = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const toast = useToast();
-  const {setInvalidToken, invalidToken} = React.useContext(AuthContext);
-  React.useEffect(() =>{
-    // const timer = setInterval(async () =>{
-    //   console.log("reload")
-    //   await Promise.all([
-    //     alertService.ruleSeverity(dispatch,setInvalidToken,timer),
-    //     alertService.alertOverTime(dispatch)
-    //   ])
-    //   .catch(error => {
-    //     toast.show(error.message);
-    //   })
-    // },10000)
-    // return () => clearInterval(timer);
-  },[]);
+  const { setInvalidToken, invalidToken } = React.useContext(AuthContext);
+  React.useEffect(() => {
+    let timer: any = null;
+    if (AppSettings.autoUpdate) {
+      timer = setInterval(async () => {
+        console.log("reload")
+        await Promise.all([
+          alertService.ruleSeverity(dispatch, setInvalidToken, timer),
+          alertService.alertOverTime(dispatch)
+        ])
+          .catch(error => {
+            toast.show(error.message);
+          })
+      }, AppSettings.timeUpdate*1000)
+    }
+    return () => clearInterval(timer);
+  }, []);
   React.useEffect(() => {
     invalidToken && navigation.reset({
       index: 0,
-      routes: [{name: NameScreen.LoginScreen}],
+      routes: [{ name: NameScreen.LoginScreen }],
     });
-  },[invalidToken]);
+  }, [invalidToken]);
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}
@@ -135,9 +140,9 @@ const AppStack = () => {
         },
         drawerType: 'slide',
       }}
-      
+
       defaultScreenOptions={{
-        sceneContainerStyle: {backgroundColor: 'transparent'},
+        sceneContainerStyle: { backgroundColor: 'transparent' },
         drawerActiveBackgroundColor: 'transparent',
         drawerInactiveBackgroundColor: 'transparent',
         drawerActiveTintColor: 'green',
@@ -148,7 +153,7 @@ const AppStack = () => {
         name={NameScreen.StacksScreen.DashboardStack}
         component={DashboardStack}
         options={{
-          drawerIcon: ({color}) => (
+          drawerIcon: ({ color }) => (
             <AntDesign name="dashboard" size={22} color={color} />
           ),
           title: NameScreen.DrawerScreen.DashboardScreen,
@@ -158,7 +163,7 @@ const AppStack = () => {
         name={NameScreen.StacksScreen.WarningStack}
         component={WarningStack}
         options={{
-          drawerIcon: ({color}) => (
+          drawerIcon: ({ color }) => (
             <Feather name="alert-triangle" size={22} color={color} />
           ),
           title: NameScreen.DrawerScreen.WarningScreen,
@@ -168,7 +173,7 @@ const AppStack = () => {
         name={NameScreen.ResponseScreen}
         component={ResponseScreen}
         options={{
-          drawerIcon: ({color}) => (
+          drawerIcon: ({ color }) => (
             <FontAwesome name="gears" size={22} color={color} />
           ),
           title: NameScreen.DrawerScreen.ResponseScreen,
@@ -176,9 +181,9 @@ const AppStack = () => {
       />
       <Drawer.Screen
         name={NameScreen.StacksScreen.TabBarBottom}
-        component={TabNavigator}
+        component={NewsScreen}
         options={{
-          drawerIcon: ({color}) => (
+          drawerIcon: ({ color }) => (
             <Ionicons name="newspaper-outline" size={22} color={color} />
           ),
           title: NameScreen.DrawerScreen.NewsScreen,
@@ -188,7 +193,7 @@ const AppStack = () => {
         name={NameScreen.ContactScreen}
         component={ContactScreen}
         options={{
-          drawerIcon: ({color}) => (
+          drawerIcon: ({ color }) => (
             <AntDesign name="contacts" size={22} color={color} />
           ),
           title: NameScreen.DrawerScreen.ContactScreen,
@@ -198,7 +203,7 @@ const AppStack = () => {
         name={NameScreen.NotFoundScreen}
         component={NotFoundScreen}
         options={{
-          drawerIcon: ({color}) => (
+          drawerIcon: ({ color }) => (
             <MaterialIcons name="error-outline" size={22} color={color} />
           ),
           title: 'Not Found',

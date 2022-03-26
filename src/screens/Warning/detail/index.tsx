@@ -42,9 +42,6 @@ function DetailScreen() {
   const [state, setState] = React.useState({
     refreshing: false,
   });
-  const dispatch = useDispatch();
-  const toast = useToast();
-  const {setLoading} = React.useContext(LoadingContext);
   const store = useSelector((state:any)=> state);
   const waited = async () => {
     setState({...state, refreshing: true});
@@ -56,19 +53,7 @@ function DetailScreen() {
       setState({...state, refreshing: false});
     });
   };
-  React.useEffect(()=>{
-    setLoading(true);
-      Promise.all([
-        alertService.alertSent(dispatch)
-      ]).catch(err => {
-        toast.show({
-          title: err.message || err,
-        });
-      })
-      .finally(()=>{
-        setLoading(false);
-      })
-  },[]);
+
   const memorizedList = React.useMemo(()=> store.Alert.alertsSent?.slice(0,30),[store.Alert.alertsSent]);
   return (
       <View style={{flex: 1}}>

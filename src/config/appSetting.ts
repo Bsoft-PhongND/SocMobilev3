@@ -11,11 +11,13 @@ class AppSettings {
   password: string = '';
   splash: boolean = true;
   token: string = '';
-  domainServer: string = 'http://localhost:3101';
+  domainServer: string = 'http://10.3.10.236:3102';
+  autoUpdate:boolean= true;
+  timeUpdate: number = 1000;
   getDefaultUser() {
     return this.defaultUser;
   }
-  setDefaultUser(user:any) {
+  setDefaultUser(user: any) {
     this.defaultUser = {
       fullName: user.fullName || '--',
       description: user.description || "--",
@@ -39,14 +41,22 @@ class AppSettings {
     await AsyncStorage.setItem(configAsync.domain, domain);
     return this.getAllItemsAsyncStorage();
   }
-  async setAccount(username: string, password: string,remember:boolean) {
-    if(remember){
+  async setUpdateData(status: boolean, time?: number) {
+    await Promise.all([
+      AsyncStorage.setItem(configAsync.autoUpdate, status + ""),
+      time ? AsyncStorage.setItem(configAsync.timeUpdate, time + "") : null,
+
+    ])
+    return this.getAllItemsAsyncStorage();
+  }
+  async setAccount(username: string, password: string, remember: boolean) {
+    if (remember) {
       Promise.all([
         await AsyncStorage.setItem(configAsync.username, username),
         await AsyncStorage.setItem(configAsync.password, password),
-        await AsyncStorage.setItem(configAsync.remember, remember+""),
+        await AsyncStorage.setItem(configAsync.remember, remember + ""),
       ]);
-    }else{
+    } else {
       Promise.all([
         await AsyncStorage.removeItem(configAsync.username),
         await AsyncStorage.removeItem(configAsync.password),
@@ -74,6 +84,9 @@ class AppSettings {
       AsyncStorage.getItem(configAsync.domain),
       AsyncStorage.getItem(configAsync.username),
       AsyncStorage.getItem(configAsync.password),
+      AsyncStorage.getItem(configAsync.autoUpdate),
+      AsyncStorage.getItem(configAsync.timeUpdate),
+
     ]);
     console.log(`result`, result);
     if (result[0]) {
@@ -85,9 +98,15 @@ class AppSettings {
     if (result[2]) this.domainServer = result[2];
     if (result[3]) this.username = result[3];
     if (result[4]) this.password = result[4];
+    if (result[5]) {
+      this.autoUpdate = result[5] == 'true' ? true : false;
+    }
+    if (result[6]) {
+      this.timeUpdate = Number(result[6]);
+    }
   }
 }
-const App =  new AppSettings;
+const App = new AppSettings;
 export default App;
 export const configAsync = {
   remember: 'remember',
@@ -95,4 +114,6 @@ export const configAsync = {
   domain: 'domain',
   username: 'username',
   password: 'password',
+  autoUpdate: 'autoUpdate',
+  timeUpdate: 'timeUpdate',
 };

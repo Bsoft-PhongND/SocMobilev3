@@ -10,36 +10,56 @@ import {
   View,
   VStack,
 } from 'native-base';
-import React, {useEffect} from 'react';
-import {LogBox, StyleSheet} from 'react-native';
+import React, { useEffect } from 'react';
+import { LogBox, StyleSheet } from 'react-native';
 import HeaderBack from '../../components/headerback';
 import ViewBackGround from '../../components/viewbackground';
 import ListFunction from './ListFunction';
-import {MaterialIcons, AntDesign, Ionicons, Entypo} from '../../assets/icons';
+import { MaterialIcons, AntDesign, Ionicons, Entypo } from '../../assets/icons';
 import FabFunction from './FabFunction';
 import wordApp from '../../utils/word';
-import {theme} from '../../theme/theme';
-import {listVPNModel} from '../../model/vpn';
+import { theme } from '../../theme/theme';
+import { listVPNModel } from '../../model/vpn';
 import { AppSettings } from '../../config';
 import { LoadingContext } from '../../context/LoadingContext';
 import helpers from '../../helpers/helpers';
+import { useNavigation } from '@react-navigation/native';
 
 function SecurityNetWorkScreen() {
   return <SecurityNetWork />;
 }
 function SecurityNetWork() {
-  const [domain,setDomain] = React.useState(AppSettings.domainServer);
-  const {setLoading} = React.useContext(LoadingContext);
-  const onInputDomain = (domain: string) =>{
+  const [domain, setDomain] = React.useState(AppSettings.domainServer);
+  const { setLoading } = React.useContext(LoadingContext);
+  const navigation = useNavigation();
+  const [state, setState] = React.useState({
+    autoUpdate: AppSettings.autoUpdate,
+    time: AppSettings.timeUpdate || 1000
+  });
+  const onInputDomain = (domain: string) => {
     setDomain(domain);
   }
   const save = () => {
-      setLoading(true);
-      helpers.waited(2000).then(d => {
-      AppSettings.setDomain(domain).finally(()=>  setLoading(false))
+    setLoading(true);
+    helpers.waited(2000).then(d => {
+      Promise.all([
+        AppSettings.setDomain(domain),
+        AppSettings.setUpdateData(state.autoUpdate, state.time),
+      ]).finally(() => {
+        setLoading(false)
+        navigation.goBack();
+      })
     });
+
   }
-  const RenderItem = ({item, index}: any) => {
+  const toggleSwitch = () => {
+
+    setState({ ...state, autoUpdate: !state.autoUpdate })
+  }
+  const onChangeTime = (time: string | number) => {
+    setState({ ...state, time: Number(time) })
+  }
+  const RenderItem = ({ item, index }: any) => {
     return (
       <HStack key={index} alignItems="center" space={3} marginBottom={3}>
         <Switch />
@@ -49,7 +69,7 @@ function SecurityNetWork() {
             {item.domain} {item.name} - [{item.type}]
           </Text>
         </VStack>
-        <Pressable alignSelf={'flex-end'} padding={2} _pressed={{opacity: 0.7}}>
+        <Pressable alignSelf={'flex-end'} padding={2} _pressed={{ opacity: 0.7 }}>
           <Icon
             as={<AntDesign name="edit" />}
             size={7}
@@ -63,7 +83,7 @@ function SecurityNetWork() {
     );
   };
   const RightElement = () => {
-    
+
     return (
       <Pressable onPress={save}>
         <Icon
@@ -76,6 +96,7 @@ function SecurityNetWork() {
       </Pressable>
     );
   };
+
   return (
     <ViewBackGround>
       <HeaderBack RightElement={<RightElement />} />
@@ -85,11 +106,12 @@ function SecurityNetWork() {
         </Text>
         <VStack space={4}>
           <HStack alignItems={'center'}>
-            <Text style={[styles.name, {width: 80}]}>Domain:</Text>
+            <Text style={[styles.name, { width: 80 }]}>Domain:</Text>
             <Input
               variant={'underlined'}
               flex={1}
-              fontSize={14}
+              fontSize={18}
+              fontWeight="bold"
               color={theme.colors.text}
               placeholder={'Enter domain'}
               onChangeText={onInputDomain}
@@ -97,15 +119,27 @@ function SecurityNetWork() {
             />
           </HStack>
           <HStack alignItems={'center'}>
-            <Text style={[styles.name, {width: 80}]}>Port:</Text>
+            <Text style={[styles.name, { width: 80 }]}>Auto Update:</Text>
+            <Switch value={state.autoUpdate} onToggle={toggleSwitch} />
             <Input
+              key="autoUpdate"
               variant={'underlined'}
+              fontSize={18}
+              fontWeight="bold"
               flex={1}
-              placeholder={'Enter port'}
-              fontSize={14}
+              value={state.time + ""}
+              // isReadOnly={!state.autoUpdate}
+              isDisabled={!state.autoUpdate}
+              _disabled={{
+                backgroundColor: "transparent",
+                opacity: .4
+              }}
               color={theme.colors.text}
               keyboardType={'number-pad'}
+              onChangeText={onChangeTime}
             />
+            <Text style={[styles.name]}>Second</Text>
+
           </HStack>
         </VStack>
         <Text style={styles.name} mt={5}>

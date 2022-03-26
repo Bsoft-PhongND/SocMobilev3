@@ -202,6 +202,17 @@ export default function Carousel(props: PropsCarosel) {
           {useNativeDriver: true},
         )}
         scrollEventThrottle={16}
+        onScrollToIndexFailed={({
+          index,
+          averageItemLength,
+        }) => {
+          // Layout doesn't know the exact location of the requested element.
+          // Falling back to calculating the destination manually
+          flastList.current?.scrollToOffset({
+            offset: index * averageItemLength,
+            animated: true,
+          });
+        }}
       />
       <Pagination scrollX={scrollX} data={dataSources} />
       <Ticker scrollX={scrollX} data={dataSources} />

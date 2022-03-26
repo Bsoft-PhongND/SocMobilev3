@@ -3,6 +3,7 @@ import {
   Box,
   FlatList,
   HStack,
+  Icon,
   Image,
   Pressable,
   Text,
@@ -57,10 +58,10 @@ function HomeScreen() {
     };
   });
   useFocusEffect(() => {
-    // setAutoPlay(true);
-    // return () => {
-    //   setAutoPlay(false);
-    // };
+    setAutoPlay(true);
+    return () => {
+      setAutoPlay(false);
+    };
   });
   const handleNavigate = async (navigate: any, item: any) => {
     if (navigate) {
@@ -108,8 +109,8 @@ function HomeScreen() {
             style={[heightCarousel, {overflow: 'hidden', paddingVertical: 5}]}>
             {!isFull && (
               <ImageBackground
-                // source={require('../../assets/images/world.png')}
-                source={require('../../assets/giff/electric2.gif')}
+                source={require('../../assets/images/world.png')}
+                // source={require('../../assets/giff/electric2.gif')}
                 style={{width: '100%', height: '100%'}}
                 resizeMode="cover"
                 imageStyle={{opacity: 0.7, borderRadius: 10}}>
@@ -128,15 +129,17 @@ function HomeScreen() {
               flexDirection: 'column',
               flex: 1,
             }}>
-            <ImageBackground
-              source={require('../../assets/giff/radar2.gif')}
+            <View
+              // source={require('../../assets/giff/radar2.gif')}
+              // source={require('../../assets/images/world.png')}
+           
               style={{
                 position: 'absolute',
                 width: '100%',
                 height: '100%',
                 opacity: 0.4,
               }}
-              resizeMode="cover"
+              // resizeMode="cover"
             />
             <HStack space="2" justifyContent="space-between">
               <Text style={styles.title}>{wordApp.function}</Text>
@@ -160,12 +163,17 @@ function HomeScreen() {
                   <Pressable
                     style={styles.itemF}
                     onPress={() => handleNavigate(item.navigation, item)}>
-                    <Box style={styles.icon}>
-                      <Image
+                    <Box style={styles.icon} justifyContent="center" alignItems="center">
+                      {/* <Image
                         resizeMode="contain"
                         style={{width: '100%', height: '100%'}}
                         source={item.icon}
                         alt={item.title}
+                      /> */}
+                      <Icon
+                        as={item.icon}
+                        color="amber.50"
+                        size={'12'}
                       />
                     </Box>
                     <Text style={styles.titleF}>{item.title}</Text>
