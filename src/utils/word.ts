@@ -59,6 +59,7 @@ const wordApp = {
     alertsOverTime:"Lượng cảnh báo theo thời gian",
     severity:"Mức độ",
     ipAddress: "Địa chỉ",
-    alertName: "Tên cảnh báo"
+    alertName: "Tên cảnh báo",
+    logout:"Đăng xuất"
 }
 export default wordApp;

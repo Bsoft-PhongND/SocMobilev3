@@ -11,6 +11,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AppSettings, NameScreen } from '../config';
 import { AuthContext } from '../context/AuthContext';
+import wordApp from '../utils/word';
 const CustomDrawer = props => {
   const {handleSaveToken} = useContext(AuthContext);
   const navigation = useNavigation();
@@ -61,19 +62,6 @@ const CustomDrawer = props => {
         </View>
       </DrawerContentScrollView>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
-        <TouchableOpacity onPress={() => {}} style={{paddingVertical: 15}}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Ionicons name="share-social-outline" size={22} />
-            <Text
-              style={{
-                fontSize: 15,
-                fontFamily: 'Roboto-Medium',
-                marginLeft: 5,
-              }}>
-              Tell a Friend
-            </Text>
-          </View>
-        </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout} style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Ionicons name="exit-outline" size={22} />
@@ -83,7 +71,7 @@ const CustomDrawer = props => {
                 fontFamily: 'Roboto-Medium',
                 marginLeft: 5,
               }}>
-              Sign Out
+              {wordApp.logout}
             </Text>
           </View>
         </TouchableOpacity>

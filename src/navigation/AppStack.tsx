@@ -199,7 +199,7 @@ const AppStack = () => {
           title: NameScreen.DrawerScreen.ContactScreen,
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name={NameScreen.NotFoundScreen}
         component={NotFoundScreen}
         options={{
@@ -208,7 +208,7 @@ const AppStack = () => {
           ),
           title: 'Not Found',
         }}
-      />
+      /> */}
     </Drawer.Navigator>
   );
 };

@@ -67,11 +67,11 @@ const groupsNetwork: Array<PropsHightScreen> = [
     component: <PolarAxisChart />,
     tableList: <TableListView />,
   },
-  {
-    title: "RadarChart",
-    component: <RadarChart />,
-    tableList: <TableListView />,
-  },
+  // {
+  //   title: "RadarChart",
+  //   component: <RadarChart />,
+  //   tableList: <TableListView />,
+  // },
   
 ];
 const Container= (props:any)=>{
