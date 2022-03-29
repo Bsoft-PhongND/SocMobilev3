@@ -35,9 +35,9 @@ export const theme = {
     error: '#f13a59',
     background: '#19173e',
     blue1: '#99cfef',
-    hight: '#9f1239',
-    medium: '#c026d3',
-    low: '#fb923c',
+    hight: '#f13a59',
+    medium: '#fdca57',
+    low: '#17cded',
     black: '#000',
     card: 'rgba(20,20,60,.7)',
     purple: 'rgba(15,23,42,.8)',
@@ -48,6 +48,8 @@ export const theme = {
     green:'#fed7aa',
     coolGray:'#d1d5db',
     purplebackground: 'rgba(15,17,25,1)',
+    grayLine:'#1bd1a1',
+    hidden:"rgba(1,1,1,0)"
   },
   fontSize: {
     h1: {fontFamily: 'Roboto-Bold', fontSize: SIZES.h1, lineHeight: 36},

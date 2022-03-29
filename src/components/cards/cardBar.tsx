@@ -28,7 +28,7 @@ function CardBar(props: PropsTypes) {
   const lables = dataSource.map((type, index) => {
     return {
       name: type.x || type?.lable,
-      symbol: {fill: type.colorScale, type: 'star'},
+      symbol: {fill: type.colorScale},
       labels: {fill: theme.colors.text},
     };
   });
@@ -38,22 +38,26 @@ function CardBar(props: PropsTypes) {
       domainPadding={20}
       height={height}>
       <VictoryAxis
-        theme={VictoryTheme.material}
+        // theme={VictoryTheme.material}
         standalone={false}
-        style={{tickLabels: {fill: theme.colors.text}}}
+        style={{tickLabels: {fill: theme.colors.text}, grid:{
+          stroke: theme.colors.hidden
+        }}}
       />
       <VictoryAxis
         dependentAxis
         crossAxis
-        theme={VictoryTheme.material}
+        // theme={VictoryTheme.material}
         standalone={false}
-        style={{tickLabels: {fill: theme.colors.text}}}
+        style={{tickLabels: {fill: theme.colors.text}, grid:{
+          stroke: theme.colors.hidden
+        }}}
       />
       <VictoryBar
         horizontal={horizontal}
         style={{data: {fill: d => d.datum.colorScale}}}
         data={dataSource}
-        labelComponent={<VictoryLabel textAnchor="start" />}
+        labelComponent={<VictoryLabel/>}
       />
       <VictoryLegend
         x={lablesOptions.x || 0}

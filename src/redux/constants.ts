@@ -9,6 +9,7 @@ const actionTypesAlert = {
     logsBySensor:'logsBySensor',
     ruleCategory: 'ruleCategory',
     alertsSent: 'alertsSent',
+    loadMore: 'loadMore',
 }
 
 export {actionTypesUser,actionTypesAlert};

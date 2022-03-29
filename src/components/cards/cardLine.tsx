@@ -19,7 +19,7 @@ function CardLineChart(props: PropsTypes) {
       <VictoryLine
         style={{
           data: {
-            stroke: theme.colors.border,
+            stroke: theme.colors.grayLine
           },
         }}
         data={dataSource}
@@ -29,7 +29,7 @@ function CardLineChart(props: PropsTypes) {
         size={7}
         style={{
           data: {
-            fill: theme.colors.border,
+            fill: theme.colors.grayLine,
           },
         }}
       />

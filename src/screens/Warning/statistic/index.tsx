@@ -85,7 +85,7 @@ function StatisticScreen() {
           <CardContainer
             title={wordApp.RuleCategory}
             styleContainer={styles.cardSpace}>
-            <TableListItem dataSource={store.Alert.ruleCategory} labels={["Category", "Doc_count"]}/>
+            <TableListItem dataSource={store.Alert.ruleCategory} labels={["Category", "Value"]}/>
           </CardContainer>
           {/* <CardContainer
             title={wordApp.correctationLevel}

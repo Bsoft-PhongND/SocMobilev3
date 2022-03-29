@@ -51,6 +51,13 @@ const alertReducer = (state = initialState, action: PropsAction) => {
         ...state,
         alertsSent: action.payload,
       };
+      case actionTypesAlert.loadMore:
+        console.log(action.payload);
+        
+      return {
+        ...state,
+        alertsSent: action.payload?state.alertsSent?.push(...action.payload):state.alertsSent,
+      };
     default:
       return {...state};
   }

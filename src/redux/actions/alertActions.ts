@@ -37,5 +37,11 @@ class AlertActions {
             payload: alerts
         }
     }
+    loadMore(alerts: Array<any>){
+        return {
+            type: actionTypesAlert.loadMore,
+            payload: alerts
+        }
+    }
 }
 export default new AlertActions;

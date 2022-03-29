@@ -110,7 +110,8 @@ const AppStack = () => {
         console.log("reload")
         await Promise.all([
           alertService.ruleSeverity(dispatch, setInvalidToken, timer),
-          alertService.alertOverTime(dispatch)
+          alertService.alertOverTime(dispatch),
+          alertService.alertSent(dispatch),
         ])
           .catch(error => {
             toast.show(error.message);
